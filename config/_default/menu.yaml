@@ -1,0 +1,28 @@
+# main:
+#   - identifier: "about"
+#     name: "About"
+#     url: "/about"
+#     weight: -1
+#     params:
+#       icon: "user"
+#       newtab: true
+
+social:
+  - identifier: "github"
+    name: "GitHub"
+    weight: 10
+    url: "https://github.com/shivangjhalani"
+    params:
+      icon: "brand-github"
+
+  - identifier: "twitter"
+    name: "Twitter"
+    url: "https://x.com/jhalani_shivang"
+    params:
+      icon: "brand-twitter"
+
+  - identifier: "linkedin"
+    name: "Linkedin"
+    url: "https://x.com/jhalani_shivang"
+    params:
+      icon: "brand-linkedin"

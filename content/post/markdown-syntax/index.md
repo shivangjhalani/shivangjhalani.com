@@ -1,6 +1,6 @@
 ---
 title: Markdown Syntax Guide
-date: 2023-09-07
+date: 2024-12-01
 description: Sample article showcasing basic Markdown syntax and formatting for HTML elements.
 tags: 
     - markdown
@@ -8,7 +8,6 @@ tags:
     - html
     - themes
 categories:
-    - themes
     - syntax
 ---
 
