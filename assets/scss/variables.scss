@@ -1,3 +1,59 @@
+/* Catppuccin Latte */
+$latte-rosewater: #e4b0ab;
+$latte-flamingo: #e4a0a0;
+$latte-pink: #dd90c5;
+$latte-mauve: #9d86db;
+$latte-red: #d85e6a;
+$latte-maroon: #e07178;
+$latte-peach: #e89f70;
+$latte-yellow: #e5c07b;
+$latte-green: #7eba88;
+$latte-teal: #70b7b7;
+$latte-sky: #7bc5e4;
+$latte-sapphire: #75b1c5;
+$latte-blue: #7aa2f7;
+$latte-lavender: #9d7cd8;
+$latte-text: #4b5563;
+$latte-subtext1: #575d6b;
+$latte-subtext0: #646b7a;
+$latte-overlay2: #727988;
+$latte-overlay1: #838ba1;
+$latte-overlay0: #949cb1;
+$latte-surface2: #acb2c0;
+$latte-surface1: #bcc0cc;
+$latte-surface0: #d4d8e3;
+$latte-base: #f5f7fa;
+$latte-mantle: #ebeef2;
+$latte-crust: #e2e5eb;
+
+/* Catppuccin Frappe */
+$frappe-rosewater: #f2d5cf;
+$frappe-flamingo: #eebebe;
+$frappe-pink: #f4b8e4;
+$frappe-mauve: #ca9ee6;
+$frappe-red: #e78284;
+$frappe-maroon: #ea999c;
+$frappe-peach: #ef9f76;
+$frappe-yellow: #e5c890;
+$frappe-green: #a6d189;
+$frappe-teal: #81c8be;
+$frappe-sky: #99d1db;
+$frappe-sapphire: #85c1dc;
+$frappe-blue: #8caaee;
+$frappe-lavender: #babbf1;
+$frappe-text: #c6d0f5;
+$frappe-subtext1: #b5bfe2;
+$frappe-subtext0: #a5adce;
+$frappe-overlay2: #949cbb;
+$frappe-overlay1: #838ba7;
+$frappe-overlay0: #737994;
+$frappe-surface2: #626880;
+$frappe-surface1: #51576d;
+$frappe-surface0: #414559;
+$frappe-base: #303446;
+$frappe-mantle: #292c3c;
+$frappe-crust: #232634;
+
 $defaultTagBackgrounds: #8ea885, #df7988, #0177b8, #ffb900, #6b69d6;
 $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 
@@ -11,12 +67,12 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
         --main-top-padding: 50px;
     }
 
-    --body-background: #f5f5fa;
+    --body-background: #{$latte-base};
+    --body-text-color: #{$latte-text};
 
-    --accent-color: #34495e;
-    --accent-color-darker: #2c3e50;
-    --accent-color-text: #fff;
-    --body-text-color: #707070;
+    --accent-color: #{$latte-blue};
+    --accent-color-darker: #{$latte-lavender};
+    --accent-color-text: #{$latte-base};
 
     --tag-border-radius: 4px;
 
@@ -26,11 +82,13 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --scrollbar-track: var(--body-background);
 
     &[data-scheme="dark"] {
-        --body-background: #303030;
-        --accent-color: #ecf0f1;
-        --accent-color-darker: #bdc3c7;
-        --accent-color-text: #000;
-        --body-text-color: rgba(255, 255, 255, 0.7);
+        --body-background: #{$frappe-base};
+        --body-text-color: #{$frappe-text};
+
+        --accent-color: #{$frappe-blue};
+        --accent-color-darker: #{$frappe-lavender};
+        --accent-color-text: #{$frappe-base};
+
         --scrollbar-thumb: hsl(0, 0%, 40%);
         --scrollbar-track: var(--body-background);
     }
@@ -51,12 +109,12 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 *   Card style
 */
 :root {
-    --card-background: #fff;
-    --card-background-selected: #eaeaea;
+    --card-background: #{$latte-mantle};
+    --card-background-selected: #{$latte-surface0};
 
-    --card-text-color-main: #000;
-    --card-text-color-secondary: #747474;
-    --card-text-color-tertiary: #767676;
+    --card-text-color-main: #{$latte-text};
+    --card-text-color-secondary: #{$latte-subtext1};
+    --card-text-color-tertiary: #{$latte-subtext0};
     --card-separator-color: rgba(218, 218, 218, 0.5);
 
     --card-border-radius: 10px;
@@ -78,11 +136,11 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     }
 
     &[data-scheme="dark"] {
-        --card-background: #424242;
-        --card-background-selected: rgba(255, 255, 255, 0.16);
-        --card-text-color-main: rgba(255, 255, 255, 0.9);
-        --card-text-color-secondary: rgba(255, 255, 255, 0.7);
-        --card-text-color-tertiary: rgba(255, 255, 255, 0.5);
+        --card-background: #{$frappe-mantle};
+        --card-background-selected: #{$frappe-surface0};
+        --card-text-color-main: #{$frappe-text};
+        --card-text-color-secondary: #{$frappe-subtext1};
+        --card-text-color-tertiary: #{$frappe-subtext0};
         --card-separator-color: rgba(255, 255, 255, 0.12);
     }
 }
@@ -94,7 +152,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --article-font-family: var(--base-font-family);
     --article-font-size: 1.6rem;
 
-    @include respond(md) {
+   @include respond(md) {
         --article-font-size: 1.7rem;
     }
 
@@ -106,7 +164,14 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 */
 :root {
     --blockquote-border-size: 4px;
-    --blockquote-background-color: rgb(248 248 248);
+    --blockquote-background-color: #{$latte-surface0};
+    --blockquote-text-color: #{$latte-text};
+    
+    --pre-background-color: #{$latte-crust};
+    --pre-text-color: #{$latte-text};
+    
+    --code-background-color: #{$latte-crust};
+    --code-text-color: #{$latte-text};
 
     --heading-border-size: 4px;
 
@@ -114,25 +179,25 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --link-background-opacity: 0.5;
     --link-background-opacity-hover: 0.7;
 
-    --pre-background-color: #272822;
-    --pre-text-color: #f8f8f2;
-
-    --code-background-color: rgba(0, 0, 0, 0.12);
-    --code-text-color: #808080;
-
-    --table-border-color: #dadada;
-    --tr-even-background-color: #efefee;
+    --table-border-color: #{$latte-surface1};
+    --tr-even-background-color: #{$latte-surface0};
 
     --kbd-border-color: #dadada;
 
     &[data-scheme="dark"] {
-        --code-background-color: #272822;
-        --code-text-color: rgba(255, 255, 255, 0.9);
+        --blockquote-background-color: #{$frappe-surface0};
+        --blockquote-text-color: #{$frappe-text};
+        
+        --pre-background-color: #{$frappe-crust};
+        --pre-text-color: #{$frappe-text};
+        
+        --code-background-color: #{$frappe-crust};
+        --code-text-color: #{$frappe-text};
 
-        --table-border-color: #717171;
-        --tr-even-background-color: #545454;
+        --table-border-color: #{$frappe-surface1};
+        --tr-even-background-color: #{$frappe-surface0};
 
-        --blockquote-background-color: rgb(75 75 75);
+        --heading-border-size: 4px;
     }
 }
 

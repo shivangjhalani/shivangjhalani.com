@@ -15,7 +15,7 @@ dateFormat:
 
 sidebar:
   emoji: ""
-  subtitle: "Studying CS || Linux enthusiast (NixOS btw) || Reinventing the wheel || Web Dev || Learning AI"
+  subtitle: "hehe hoho haha lala popo bobo boo boo boobs <3"
   compact: false
   avatar:
     enabled: true
@@ -33,7 +33,7 @@ article:
 
 widgets:
   homepage:
-    - type: "search"
+    # - type: "search"
     - type: "archives"
       params:
         limit: 5

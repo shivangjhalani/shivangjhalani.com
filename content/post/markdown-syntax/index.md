@@ -4,8 +4,6 @@ date: 2024-12-01
 description: Sample article showcasing basic Markdown syntax and formatting for HTML elements.
 tags: 
     - markdown
-    - css
-    - html
     - themes
 categories:
     - syntax

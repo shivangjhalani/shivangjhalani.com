@@ -5,6 +5,7 @@ menu:
         weight: 1
         params:
             icon: home
+layout: home
 ---
 
 # __Hello, I am Shivang__
@@ -15,4 +16,11 @@ I am proficient in C and Linux (I daily drive NixOS btw), I've dabbled in web de
 
 Right now, I'm getting my hands dirty with Golang and nerding out over the book 'Computer Systems: A Programmer's Perspective' to strengthen my understanding of what my code does under the hood.
 
----
+```
+Studying CS
+Linux enthusiast (NixOS btw)
+Low level coding
+Web Dev
+Learning AI (in near future)
+Reinventing the wheel
+```

@@ -1,1 +1,43 @@
 /* Place your custom SCSS in HUGO_SITE_FOLDER/assets/scss/custom.scss */
+// Have done just for Home page to show content of content/_index.md
+.index-content {
+  font-family: var(--article-font-family);
+  font-size: var(--article-font-size);
+  line-height: 1.6;
+  color: var(--card-text-color-main);
+  background: var(--card-background);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--shadow-l1);
+  padding: var(--card-padding);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-l2);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-align: left;
+    color: var(--card-text-color-main);
+    margin-bottom: 0.8em;
+    // margin-inline-start: 0;
+    // padding-inline-start: calc(var(--card-padding) - var(--heading-border-size));
+    // border-inline-start: var(--heading-border-size) solid var(--accent-color);
+  }
+
+  p {
+    margin: 1.2em 0;
+  }
+
+  a {
+    color: var(--accent-color);
+
+    &:hover {
+      color: var(--accent-color-darker);
+    }
+  }
+}
