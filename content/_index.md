@@ -1,4 +1,9 @@
 ---
+links:
+  - title: GitHub
+    description: Check out my github profile!
+    website: https://github.com/shivangjhalani
+    image: https://upload.wikimedia.org/wikipedia/commons/archive/9/91/20180806170714%21Octicons-mark-github.svg
 menu:
     main:
         name: Home
@@ -24,3 +29,7 @@ Web Dev
 Learning AI (in near future)
 Reinventing the wheel
 ```
+
+<p align="center">
+  <img src="./reinvent.png" width="280" height="auto" alt="reinvent">
+</p>

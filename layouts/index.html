@@ -4,4 +4,14 @@
   {{.Content}}
 </section>
 
+<section>
+{{ if .Params.links }}
+  {{ partial "article/components/links" . }}
+{{ end }}
+</section>
+
+{{ partialCached "footer/footer" . }}
+
+{{ partialCached "article/components/photoswipe" . }}
+
 {{ end }}
