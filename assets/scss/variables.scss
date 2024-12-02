@@ -67,7 +67,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
         --main-top-padding: 50px;
     }
 
-    --body-background: #{$latte-base};
+    --body-background: #{$latte-mantle};
     --body-text-color: #{$latte-text};
 
     --accent-color: #{$latte-blue};
@@ -109,7 +109,7 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 *   Card style
 */
 :root {
-    --card-background: #{$latte-mantle};
+    --card-background: #{$latte-base};
     --card-background-selected: #{$latte-surface0};
 
     --card-text-color-main: #{$latte-text};
