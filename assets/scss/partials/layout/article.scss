@@ -316,6 +316,10 @@
         line-height: 1.428571429;
         word-break: break-all;
         padding: var(--card-padding);
+        margin: 1.5em calc((var(--card-padding)) * -1);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+
         //  keep Codeblocks LTR
         [dir="rtl"] & {
             direction: ltr;
@@ -332,6 +336,9 @@
         background-color: var(--pre-background-color);
         padding: var(--card-padding);
         position: relative;
+        margin: 1.5em calc((var(--card-padding)) * -1);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
 
         &:hover {
             .copyCodeButton {
@@ -432,8 +439,6 @@
     /// Negative margins
     blockquote,
     figure,
-    .highlight,
-    pre,
     .gallery,
     .video-wrapper,
     .table-wrapper,

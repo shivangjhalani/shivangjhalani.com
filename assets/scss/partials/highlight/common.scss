@@ -47,7 +47,8 @@
 .chroma .hl {
     display: block;
     width: 100%;
-    background-color: #ffffcc;
+    background-color: var(--highlight-color);
+    color: var(--highlight-text-color);
 }
 
 /* LineNumbersTable */

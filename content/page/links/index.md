@@ -17,6 +17,10 @@ links:
     description: Send me an email
     website: mailto:shivang2004jhalani@gmail.com
     image: https://upload.wikimedia.org/wikipedia/commons/archive/7/7e/20221017173629%21Gmail_icon_%282020%29.svg
+  - title: RSS
+    description: Subscribe to my RSS feed
+    website: /index.xml
+    image: https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/128px-Feed-icon.svg.png
 menu:
     main: 
         weight: 5

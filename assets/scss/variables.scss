@@ -81,6 +81,9 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
     --scrollbar-thumb: hsl(0, 0%, 85%);
     --scrollbar-track: var(--body-background);
 
+    --highlight-color: #{$latte-surface0};
+    --highlight-text-color: #{$latte-text};
+
     &[data-scheme="dark"] {
         --body-background: #{$frappe-base};
         --body-text-color: #{$frappe-text};
@@ -91,6 +94,9 @@ $defaultTagColors: #fff, #fff, #fff, #fff, #fff;
 
         --scrollbar-thumb: hsl(0, 0%, 40%);
         --scrollbar-track: var(--body-background);
+
+        --highlight-color: #{$frappe-surface0};
+        --highlight-text-color: #{$frappe-text};
     }
 }
 
