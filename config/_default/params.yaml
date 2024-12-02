@@ -7,7 +7,7 @@ featuredImageField: "image"
 
 footer:
   since: 2024
-  customText: "<3"
+  customText: ""
 
 dateFormat:
   published: "Jan 02, 2006"
@@ -15,7 +15,7 @@ dateFormat:
 
 sidebar:
   emoji: ""
-  subtitle: "hehe hoho haha lala popo bobo boo boo boobs <3"
+  subtitle: "Loves poha"
   compact: false
   avatar:
     enabled: true
@@ -115,7 +115,7 @@ comments:
     serverName: "cactus.chat"
     siteName: ""
   giscus:
-    repo: "shivangjhalani/giscus-discussions"
+    repo: "shivangjhalani/shivangjhalani.com"
     repoID: "R_kgDONXOiXg"
     category: "Announcements"
     categoryID: "DIC_kwDONXOiXs4Ckxir"
