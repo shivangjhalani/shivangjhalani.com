@@ -1,4 +1,12 @@
 .article-page {
+    &:not(.menu-item-page) .left-sidebar {
+        display: none;
+
+        @include respond(md) {
+            display: none;
+        }
+    }
+
     &.hide-sidebar-sm .left-sidebar {
         display: none;
 

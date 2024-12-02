@@ -5,6 +5,11 @@
             - Widget different from 'TOC' is enabled
             - TOC is enabled and not empty
     */}}
+    {{- if .Site.Menus.main }}
+        {{- range .Site.Menus.main -}}
+            {{- if eq $.RelPermalink .URL }} menu-item-page{{ end -}}
+        {{- end -}}
+    {{- end }}
     {{- $HasWidgetNotTOC := false -}}
     {{- $TOCWidgetEnabled := false -}}
     {{- range .Site.Params.widgets.page -}}
