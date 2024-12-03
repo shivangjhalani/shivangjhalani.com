@@ -5,10 +5,12 @@
         {{- $terms := $taxonomy.Pages -}}
         {{ if $terms }}
         <h2 class="section-title">{{ $taxonomy.Title }}</h2>
-        <div class="subsection-list">
-            <div class="article-list--tile">
+        <div class="tagCloud">
+            <div class="tagCloud-tags">
                 {{ range $terms }}
-                    {{ partial "article-list/tile" (dict "context" . "size" "250x150" "Type" "taxonomy") }}
+                    <a href="{{ .RelPermalink }}">
+                        {{ .LinkTitle }}
+                    </a>
                 {{ end }}
             </div>
         </div>

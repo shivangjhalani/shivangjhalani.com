@@ -68,7 +68,7 @@ imageProcessing:
     enabled: true
 
 comments:
-  enabled: false
+  enabled: true
   provider: "giscus"
   disqusjs:
     shortname: ""

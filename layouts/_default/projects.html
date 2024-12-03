@@ -1,0 +1,16 @@
+{{ define "main" }}
+    {{ $pages := where .Site.RegularPages "Type" "projects" }}
+    {{ $notHidden := where $pages "Params.hidden" "!=" true }}
+
+    <section class="article-list">
+        {{ range $notHidden }}
+            {{ partial "article-list/project" . }}
+        {{ end }}
+    </section>
+
+    {{- partial "footer/footer" . -}}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ partial "sidebar/right.html" (dict "Context" . "Scope" "homepage") }}
+{{ end }}
