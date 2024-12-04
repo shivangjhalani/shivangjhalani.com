@@ -121,9 +121,10 @@ comments:
     categoryID: "DIC_kwDONXOiXs4Ckxir"
     mapping: "pathname"
     inputPosition: "top"
-    dataTheme: "https://shivangjhalani.com/giscus-theme.css"
+    lightTheme: "light"
+    darkTheme: "transparent_dark"
     reactionsEnabled: 1
-    lang: en
+    lang: "en"
     emitMetadata: 0
   gitalk:
     owner: ""
