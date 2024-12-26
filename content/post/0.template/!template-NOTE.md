@@ -1,0 +1,1 @@
+All template names must have the word template in them because in config.toml, all files that contain the word template are ignored

@@ -8,13 +8,3 @@ tags:
     - yap
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
-
-### 1. Learn
-
-
-### 2. Document
-
-
-### 3. Showcase
-
-Repeat...

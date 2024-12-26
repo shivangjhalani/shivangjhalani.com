@@ -1,0 +1,164 @@
+{
+  "main": {
+    "id": "c132f482b2634ff5",
+    "type": "split",
+    "children": [
+      {
+        "id": "b23ea06547b54051",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bd249a1610f4d2bd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2.ode5/1.Reintroduction-to-programming/index.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a118c536946e9a58",
+    "type": "split",
+    "children": [
+      {
+        "id": "281535c4b2319939",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5c06e4dae47acfdc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "a9e3d25a72885a81",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:tag-this",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "227dd924827ccb4f",
+    "type": "split",
+    "children": [
+      {
+        "id": "5c078f83091900c6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "97d4e4013600758f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "0.template/meta.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from meta"
+            }
+          },
+          {
+            "id": "eb301fa621a63e9f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "0.template/meta.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of meta"
+            }
+          },
+          {
+            "id": "7391343606839990",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "zk-prefixer:Create new unique note": false
+    }
+  },
+  "active": "bd249a1610f4d2bd",
+  "lastOpenFiles": [
+    "shortcodes/index.md",
+    "2.ode5/1.Reintroduction-to-programming/index.md",
+    "2.ode5/1.Reintroduction-to-programming/welcomeprogram.webm",
+    "Untitled.md",
+    "2.ode5/1.Reintroduction-to-programming/cover.png",
+    "1.General",
+    "0.template/0-template-meta.md",
+    "markdown-syntax/index.md",
+    "2.ode5/1.Reintroduction-to-programming",
+    "2.ode5/index.md",
+    "0.template/!template-NOTE.md",
+    "2.ode5/cover.png",
+    "1.General/1.hello-world/index.md",
+    "2.ode5/hmm.md",
+    "0.template/meta.txt.md",
+    "0.template/meta.txt",
+    "0.template",
+    "math-typesetting/index.md",
+    "0.template/{{date}}-index.md",
+    "2.ode5/date.md",
+    "2.ode5",
+    "0.template",
+    "202412262245.md",
+    "!Date",
+    "1.General/1.hello-world/cover.jpg"
+  ]
+}
