@@ -133,11 +133,16 @@
       "zk-prefixer:Create new unique note": false
     }
   },
-  "active": "5c06e4dae47acfdc",
+  "active": "bd249a1610f4d2bd",
   "lastOpenFiles": [
+    "2.ode5/ODE5 1. Reintroduction To Programming/comparision.png",
+    "2.ode5/ODE5 1. Reintroduction To Programming/disassembly.png",
+    "2.ode5/ODE5 1. Reintroduction To Programming/disassembly.png",
+    "2.ode5/ODE5 1. Reintroduction To Programming/assignment.png",
+    "2.ode5/ODE5 1. Reintroduction To Programming/index.md",
+    "2.ode5/ODE5 1. Reintroduction To Programming/attachments",
     "2.ode5/1.Reintroduction-to-programming/compare.png",
     "2.ode5/1.Reintroduction-to-programming/Pasted image 20241227031416.png",
-    "2.ode5/ODE5 1. Reintroduction To Programming/index.md",
     "compare.png.md",
     "2.ode5/1.Reintroduction-to-programming/instructions.png",
     "2.ode5/ODE5 1. Reintroduction To Programming/r2v.png",
@@ -157,7 +162,6 @@
     "2.ode5/ODE5 1. Reintroduction To Programming",
     "2.ode5/index.md",
     "0.template/!template-NOTE.md",
-    "2.ode5/cover.png",
     "2.ode5/hmm.md",
     "0.template/meta.txt.md",
     "0.template/meta.txt",
@@ -168,7 +172,6 @@
     "2.ode5",
     "0.template",
     "202412262245.md",
-    "!Date",
-    "1.General/1.hello-world/cover.jpg"
+    "!Date"
   ]
 }

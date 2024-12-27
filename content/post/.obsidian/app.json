@@ -2,5 +2,6 @@
   "showUnsupportedFiles": true,
   "alwaysUpdateLinks": true,
   "attachmentFolderPath": "./",
-  "promptDelete": false
+  "promptDelete": false,
+  "useMarkdownLinks": true
 }
