@@ -9,6 +9,9 @@ tags:
 categories:
   - category-this
 weight: 0
+toc: true
+readingTime: true
+comments: true
 math: false
 hidden: true
 ---

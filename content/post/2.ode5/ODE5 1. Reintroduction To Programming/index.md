@@ -2,16 +2,20 @@
 title: ODE5 1. Reintroduction To Programming
 description: Deeper knowledge of your most essential tool.
 slug: 
-date: 2024-12-27 00:16:10+0530
+date: 2024-12-27 18:16:25+0530
 image: cover.png
 tags:
   - C
-  - low-level
+  - ode5
 categories:
-  - recreational-programming
+  - knowledge
+  - low-level
 weight: 0
 math: false
 hidden: false
+toc: true
+readingTime: true
+comments: true
 ---
 This is the first in a series of blogs following [Kay Lack's ODE5](https://www.0de5.net) (pronounced odez)
 
@@ -49,7 +53,7 @@ Lets take a look into the compiled program. We will be achieving this using a re
 ![r2launch.png](r2launch.png)
 `V enter`, gives us hexdump view![](r2v.png)
 
-`:s main`
+`:s main enter`
 `V enter`
 ![r2main.png](r2main.png)
 This is the memory of our program (compiled code)  
@@ -64,7 +68,7 @@ The columns in the image are
 The profound idea is, that everything (text, image, audio whether its on your hard drive, some network...) on a computer at some level exists in this structure (this big list of numbers)
 
 ### Instructions
-`:s main`
+`:s main enter`
 `v enter`, gives us the disassembly view
 ![](disassembly.png)
 An instruction is a symbol representing an operation. Instruction both are memory, and operate on memory. Instruction is what makes programming programming and not electrical engineering, basically the abstraction which allows us to represent sequences of operations as data in memory.  

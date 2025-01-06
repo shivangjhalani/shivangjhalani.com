@@ -1,5 +1,9 @@
 ---
 links:
+  - title: LinkedIn
+    description: Check out my linkedIn page!
+    website: https://www.linkedin.com/in/shivang-jhalani/
+    image: https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/200px-LinkedIn_logo_initials.png
   - title: GitHub
     description: Check out my github profile!
     website: https://github.com/shivangjhalani
@@ -24,9 +28,9 @@ Right now, I'm getting my hands dirty with Golang and nerding out over the book 
 ```
 Studying CS
 Linux enthusiast (NixOS btw)
-Low level coding
+Low level
+Learning AI
 Web Dev
-Learning AI (in near future)
 Reinventing the wheel
 ```
 
