@@ -2,9 +2,9 @@
 title: Hello World
 description: Welcome to the blog!
 slug: hello-world
-date: 
+date: 2024-12-01
 image: cover.jpg
-tags: []
+tags: 
 weight: 1
 categories: 
 toc: false

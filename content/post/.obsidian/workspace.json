@@ -133,12 +133,16 @@
       "zk-prefixer:Create new unique note": false
     }
   },
-  "active": "5c06e4dae47acfdc",
+  "active": "bd249a1610f4d2bd",
   "lastOpenFiles": [
-    "3.ML/1.SupervisedLearning/index.md",
-    "3.ML/1.GradientDescentWithGolang/index.md",
-    "3.ML/1.GradientDescentWithGolang",
+    "4.Projects/V2V/index.md",
+    "2025-01-11.md",
     "1.General/1.hello-world/index.md",
+    "3.ML/1.GradientDescentWithGolang/index.md",
+    "4.Projects/V2V",
+    "4.Projects",
+    "3.ML/1.SupervisedLearning/index.md",
+    "3.ML/1.GradientDescentWithGolang",
     "2.ode5/ODE5 2. Binary/index.md",
     "3.ML/1.SupervisedLearning",
     "3.ML",
@@ -170,8 +174,6 @@
     "0.template/!template-NOTE.md",
     "2.ode5/hmm.md",
     "0.template/meta.txt.md",
-    "0.template/meta.txt",
-    "0.template",
     "0.template/{{date}}-index.md",
     "2.ode5/date.md",
     "202412262245.md"

@@ -1,5 +1,5 @@
 ---
-title: ML 1. Gradient Descent
+title: Gradient Descent in Go
 description: 
 slug: 
 date: 2025-01-03 13:22:58+0530
@@ -13,13 +13,13 @@ toc: true
 readingTime: true
 comments: true
 math: true
-hidden: false
+hidden: true
 ---
 ## Motivation
 I started the Machine Learning specialisation by Andrew Ng on coursera, and while I find the videos very interesting, the optional jupyter notebook labs were not as engaging, and already given all the code didn't seem fun at all!  
-Plus I do not like python, and the added abstraction of python + numpy didn't appeal to me. I will go on a rant about why I do not like python and abstractions someone else made so much.
+Plus I do not like python, and the added abstraction of python + numpy didn't appeal to me. 
 
-So, I decided that rather than mindlessly staring at the jupyter notebooks, I would rather code on my own, and while I am at it, why not add a bit of a challenge and learn go at the same time as well!didn't appeal to me.
+So, I decided that rather than mindlessly staring at the jupyter notebooks, I would rather code on my own, and while I am at it, why not add a bit of a challenge and learn go at the same time as well!
 
 ## Starting our Gradient Descent
 Gradient descent is an algorithm used for minimizing any function.  
