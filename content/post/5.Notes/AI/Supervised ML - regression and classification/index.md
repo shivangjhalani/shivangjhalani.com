@@ -1,7 +1,7 @@
 ---
 title: Supervised ML
 description: Course 1 of andrewng ML specialisation
-date: 2025-03-03 13:22:58+0530
+date: 2025-01-03 13:22:58+0530
 image:
 tags:
   - python
