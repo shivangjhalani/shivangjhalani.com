@@ -33,4 +33,4 @@ The part I worked on was: Run the simulation to collect the sensor data in real 
   <img src="./demo.png" height="auto" alt="demo png">
 </p>
 
-{{<video src="carla.mp4" type="video/mp4" preload="auto" >}}
+{{<video src="https://cloud.shivangjhalani.com/s/y37b76MNadaEWR8/download/carla-full-final.mp4" type="video/mp4" preload="auto" >}}
