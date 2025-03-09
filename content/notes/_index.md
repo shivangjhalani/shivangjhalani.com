@@ -5,5 +5,5 @@ menu:
     name: Notes
     weight: 4
     params:
-      icon: file-cv
+      icon: notebook-text
 ---
