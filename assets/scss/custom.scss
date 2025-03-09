@@ -1,4 +1,29 @@
 /* Place your custom SCSS in HUGO_SITE_FOLDER/assets/scss/custom.scss */
+
+// Custom styles for the site
+
+// Breadcrumb navigation for notes
+.breadcrumb {
+  padding: 0.5rem;
+  background-color: var(--card-background);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--shadow-l1);
+  
+  a {
+    color: var(--accent-color);
+    
+    &:hover {
+      color: var(--accent-color-darker);
+      text-decoration: underline;
+    }
+  }
+  
+  .breadcrumb-separator {
+    color: white;
+    margin: 0 0.2rem;
+  }
+}
+
 // Have done just for Home page to show content of content/_index.md
 .index-content {
   font-family: var(--article-font-family);

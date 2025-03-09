@@ -1,0 +1,53 @@
+{{ define "main" }}
+  <div class="notes-container">
+    <!-- Breadcrumb navigation -->
+    <div class="notes-breadcrumb">
+      {{ $baseURL := .Site.BaseURL }}
+      <a href="/notes/">Notes</a>
+      {{ $path := split (trim .RelPermalink "/") "/" }}
+      {{ $breadcrumbs := slice }}
+      {{ range $i, $e := after 1 $path }}
+        {{ $breadcrumbs = $breadcrumbs | append $e }}
+        {{ $url := delimit (slice "/notes" (delimit $breadcrumbs "/")) "/" }}
+        / <a href="{{ $url }}">{{ humanize $e }}</a>
+      {{ end }}
+    </div>
+    
+    <!-- If this is a content page with PDF -->
+    {{ if .Content }}
+      <article class="notes-content">
+        <h1>{{ .Title }}</h1>
+        {{ .Content }}
+      </article>
+    <!-- If this is a directory listing -->
+    {{ else }}
+      <h1>{{ .Title }}</h1>
+      
+      <!-- List subdirectories -->
+
+      
+      <!-- List pages (notes) -->
+      {{ $regularPages := .RegularPages }}
+      {{ if $regularPages }}
+        <div class="notes-files">
+          <h2>Notes</h2>
+          <ul class="notes-file-list">
+            {{ range $regularPages }}
+              <li>
+                <a href="{{ .RelPermalink }}">
+                  <span class="notes-icon">📄</span> {{ .Title }}
+                </a>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+  
+  {{- partial "footer/footer" . -}}
+{{ end }}
+
+{{ define "right-sidebar" }}
+  {{ partial "sidebar/right.html" (dict "Context" . "Scope" "notes") }}
+{{ end }}

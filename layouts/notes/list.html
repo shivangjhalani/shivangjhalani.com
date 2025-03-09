@@ -1,0 +1,20 @@
+{{ define "main" }}
+    <!-- List subdirectories and pages -->
+    <section class="article-list">
+        <!-- List subdirectories first -->
+        {{ range .Sections }}
+            {{ partial "article-list/default" . }}
+        {{ end }}
+        
+        <!-- List pages (notes) -->
+        {{ range .RegularPages }}
+            {{ partial "article-list/default" . }}
+        {{ end }}
+    </section>
+  
+  {{- partial "footer/footer" . -}}
+{{ end }}
+
+{{ define "right-sidebar" }}
+  {{ partial "sidebar/right.html" (dict "Context" . "Scope" "notes") }}
+{{ end }}

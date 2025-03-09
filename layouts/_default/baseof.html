@@ -20,6 +20,11 @@
             {{- end -}}
             {{- block "right-sidebar" . -}}{{ end }}
             <main class="main full-width">
+                <!-- Breadcrumb navigation (except on homepage) -->
+                {{ if ne .RelPermalink "/" }}
+                    {{ partial "breadcrumb.html" . }}
+                {{ end }}
+                
                 {{- block "main" . }}{{- end }}
             </main>
         </div>

@@ -1,6 +1,7 @@
 mainSections:
   - post
   - projects
+  - notes
 rssFullContent: true
 favicon: "/favicon.svg"
 featuredImageField: "image"

@@ -1,0 +1,14 @@
+<!-- Breadcrumb navigation -->
+<div class="breadcrumb">
+  <a href="/" title="Home">~</a><span class="breadcrumb-separator">/</span>
+  {{ $url := .RelPermalink }}
+  {{ $urlParts := split (trim $url "/") "/" }}
+  
+  {{ range $index, $element := $urlParts }}
+    {{ $path := "" }}
+    {{ range $i, $part := first (add $index 1) $urlParts }}
+      {{ $path = printf "%s/%s" $path $part }}
+    {{ end }}
+    <a href="{{ $path }}/">{{ humanize $element }}</a>{{ if ne (add $index 1) (len $urlParts) }}<span class="breadcrumb-separator">/</span>{{ end }}
+  {{ end }}
+</div>
