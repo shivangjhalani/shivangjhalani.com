@@ -19,6 +19,12 @@ hidden: false
 
 Course 1 of Andrew Ng's Machine Learning Specialization covering regression and classification.
 
-<object data="./1-supervised-ml.pdf" type="application/pdf" width="100%" height="800px">
-  <p>Your browser doesn't support PDF viewing. <a href="./1-supervised-ml.pdf">Download PDF</a> instead.</p>
+## Week 1,2
+<object data="./w1-w2-regression.pdf" type="application/pdf" width="100%" height="800px">
+  <p>Your browser doesn't support PDF viewing. <a href="./w1-w2-regression.pdf">Download PDF</a> instead.</p>
+</object>
+
+## Week 3
+<object data="./w3-classification.pdf" type="application/pdf" width="100%" height="800px">
+  <p>Your browser doesn't support PDF viewing. <a href="./w3-classification.pdf">Download PDF</a> instead.</p>
 </object>
