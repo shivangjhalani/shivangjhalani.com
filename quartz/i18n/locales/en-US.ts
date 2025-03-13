@@ -30,10 +30,10 @@ export default {
       darkMode: "Dark mode",
     },
     explorer: {
-      title: "Explorer",
+      title: "Naviagte",
     },
     footer: {
-      createdWith: "Created with",
+      createdWith: "Created with ",
     },
     graph: {
       title: "Graph View",
