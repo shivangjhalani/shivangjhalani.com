@@ -3,6 +3,8 @@
 git clone https://github.com/jackyzha0/quartz.git
 cd quartz
 git checkout v4  # Switch to the v4 branch
+git branch -m main v4  # Rename the local main branch to v4 (optional)
+git branch --set-upstream-to=origin/v4 v4  # Set upstream to track origin/v4
 npm i
 npx quartz create
 ```
