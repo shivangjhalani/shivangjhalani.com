@@ -48,10 +48,3 @@ There are
    - Deploy command: `npx wrangler pages deploy public`
 
 > **Note**: When using Wrangler with Pages, use `wrangler pages deploy` instead of `wrangler deploy` to deploy static sites. The `pages deploy` command is specifically designed for deploying static sites to Cloudflare Pages.
-
-### Manual Deployment with Wrangler
-Alternatively, you can deploy manually by running:
-```bash
-npx quartz build
-npx wrangler pages deploy public
-```
