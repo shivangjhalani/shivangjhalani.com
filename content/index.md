@@ -7,7 +7,21 @@ draft: false
 enableToc: true
 ---
 <html>
-    <img style="width: 200px; float: right; margin-left: 20px;" src="../attachments/avatar.jpg">
+    <style>
+        .profile-img {
+            width: 200px;
+            float: right;
+            margin-left: 20px;
+        }
+        @media (max-width: 768px) {
+            .profile-img {
+                float: none;
+                margin: 0 auto 20px auto;
+                display: block;
+            }
+        }
+    </style>
+    <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
 I'm doing bachelors in CS. I am exploring my interests and, low level coding, computer architecture and AI are my current ones.

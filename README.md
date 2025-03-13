@@ -23,3 +23,6 @@ There are
 
 ## Syncing
 `npx quartz sync` to push to github
+
+## Deployed
+github pages
