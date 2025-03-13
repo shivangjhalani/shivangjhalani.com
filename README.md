@@ -2,6 +2,7 @@
 ```
 git clone https://github.com/jackyzha0/quartz.git
 cd quartz
+git checkout v4  # Switch to the v4 branch
 npm i
 npx quartz create
 ```
@@ -17,3 +18,6 @@ Info about using quartz placed in content/private folder.
 There are
 - templates
 - frontmatter info
+
+## Syncing
+`npx quartz sync` to push to github
