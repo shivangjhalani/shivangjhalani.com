@@ -23,28 +23,3 @@ There are
 
 ## Syncing
 `npx quartz sync` to push to github
-
-## Deployment
-### Cloudflare Pages
-1. In Cloudflare dashboard, set up a new Pages project
-2. Connect to your Git repository
-3. Configure with these build settings:
-   - Framework preset: None
-   - Build command: `npx quartz build`
-   - Build output directory: `public`
-   - Deploy command: Leave blank or use `echo "Deployment complete"` 
-   
-   > If "Deploy command" is a required field, using a simple echo command is better than using wrangler, as wrangler expects a file entry point, not a directory.
-
-> **Note**: Don't use `npx wrangler deploy public` as a deploy command when deploying to Cloudflare Pages. Pages automatically deploys the static files from the build output directory.
-
-### Cloudflare Pages with Wrangler
-1. In Cloudflare dashboard, set up a new Pages project
-2. Connect to your Git repository
-3. Configure with these build settings:
-   - Framework preset: None
-   - Build command: `npx quartz build`
-   - Build output directory: `public`
-   - Deploy command: `npx wrangler pages deploy public`
-
-> **Note**: When using Wrangler with Pages, use `wrangler pages deploy` instead of `wrangler deploy` to deploy static sites. The `pages deploy` command is specifically designed for deploying static sites to Cloudflare Pages.
