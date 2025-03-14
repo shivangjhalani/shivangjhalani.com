@@ -5,6 +5,7 @@ tags:
 comments: true
 draft: false
 enableToc: true
+showReadingTime: false
 ---
 <html>
     <style>
