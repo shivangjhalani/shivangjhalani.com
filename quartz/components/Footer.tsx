@@ -14,6 +14,7 @@ export default ((opts?: Options) => {
     const links = opts?.links ?? []
     return (
       <footer class={`${displayClass ?? ""}`}>
+        <hr />
         <p>
           {/* {i18n(cfg.locale).components.footer.createdWith}{" "} */}
           {/* Shivang Jhalani © 2024 - {year} */}
