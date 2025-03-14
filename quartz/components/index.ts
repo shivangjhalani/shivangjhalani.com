@@ -21,6 +21,11 @@ import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import Flex from "./Flex"
+import ScrollToTop from "./_ScrollToTop"
+import RandomPageButton from "./_RandomPageButton"
+import HiddenGlobalGraph from "./_hiddenGlobalGraph"
+import FloatingButtons from "./_FloatingButtons"
+
 
 export {
   ArticleTitle,
@@ -46,4 +51,8 @@ export {
   Breadcrumbs,
   Comments,
   Flex,
+  ScrollToTop,
+  RandomPageButton,
+  HiddenGlobalGraph,
+  FloatingButtons,
 }

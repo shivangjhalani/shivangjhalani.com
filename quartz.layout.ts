@@ -1,6 +1,20 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
+
+// consts
+const tagsToRemove = ["graph-exclude", "explorer-exclude", "backlinks-exclude", "recents-exclude", "search-exclude"]
+const graphConfig = {
+  localGraph: {
+    removeTags: tagsToRemove,
+    excludeTags: ["graph-exclude"]
+  },
+  globalGraph: {
+    removeTags: tagsToRemove,
+    excludeTags: ["graph-exclude"]
+  }
+};
+
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
@@ -35,16 +49,19 @@ export const defaultContentPageLayout: PageLayout = {
       ],
     }),
     Component.Explorer(),
-    Component.DesktopOnly(Component.RecentNotes({
-      limit: 3,
-      title: "Recents",
-      linkToMore: "tags"
-    })),
+    Component.FloatingButtons({position: 'right'}),
   ],
   right: [
-    Component.Graph(),
+    Component.Graph(graphConfig),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
+  ],
+  afterBody: [
+    Component.RecentNotes({
+      limit: 3,
+      title: "Recent",
+      linkToMore: "tags"
+    })
   ],
 }
 
@@ -64,11 +81,13 @@ export const defaultListPageLayout: PageLayout = {
       ],
     }),
     Component.Explorer(),
+  ],
+  right: [
     Component.DesktopOnly(Component.RecentNotes({
       limit: 3,
-      title: "Recents",
+      title: "Recent",
       linkToMore: "tags"
     })),
+    Component.HiddenGlobalGraph(graphConfig),
   ],
-  right: [],
 }
