@@ -24,9 +24,9 @@ If not for modules the prevailing approach leans toward monolithic kernels, requ
 
 **View modules**
 1. `lsmod` : Know currently loaded kernel modules
-   ![[attachments/Pasted image 20250313092959.png]]
+   ![[Pasted image 20250313092959.png]]
 2. `cat /proc/modules`
-   ![[attachments/Pasted image 20250313093138.png]]
+   ![[Pasted image 20250313093138.png]]
 
  **To note**
 1. Modversioning : Module compiled for one kernel will not load for another kernel.  
@@ -35,16 +35,16 @@ If not for modules the prevailing approach leans toward monolithic kernels, requ
 3. Secure boot : security standard ensuring booting exclusively through trusted software endorsed by the original equipment manufacturer.
    Simplest solution : disabling UEFI SecureBoot from the boot menu of your PC or laptop.
    Intricate solution : generating keys, system key installation, and module signing.
+4. Running self-coded, non-tested modules on your daily driver (if you daily drive linux) can potentially disrupt your system, recommended to load kernel modules in a virtual machine so that's what we gonna do now.
 
 ---
-# Let's start
 ## Headers
 Install header files for the kernel : 
 ```
 sudo apt-get update
 apt-cache search linux-headers-`uname -r`
 ```
-![[attachments/Pasted image 20250313095240.png]]
+![[Pasted image 20250313095240.png]]
 ```
 sudo apt-get install kmod linux-headers-6.8.0-52-generic
 ```
@@ -97,7 +97,7 @@ clean:
 ```
 > Good and almost necessary convention to use tabspaces for padding.
 
-![[attachments/Pasted image 20250313103146.png]]
+![[Pasted image 20250313103146.png]]
 > Text is just warning, it works for now ig :)
 
 > If there is no PWD := $(CURDIR) statement in Makefile, then it may not compile correctly with sudo make. Because some environment variables arespecified by the security policy, they can’t be inherited. The default securitypolicy is sudoers. In the sudoers security policy, env_reset is enabled bydefault, which restricts environment variables. Specifically, path variables arenot retained from the user environment, they are set to default values.
@@ -108,20 +108,20 @@ clean:
 > 3. You can preserve environment variables by appending them to env_keep in /etc/sudoers. `Defaults env_keep += "PWD"`
 
 If all went well...
-![[attachments/Pasted image 20250313104029.png]]
+![[Pasted image 20250313104029.png]]
 
 `hello-1.ko` is our compiled kernel object file
 ```
 modinfo hello-1.ko
 ```
-![[attachments/Pasted image 20250313104102.png]]
+![[Pasted image 20250313104102.png]]
 
 The module is not loaded yet
 ```
 lsmod | grep hello
 ```
 returns nothing
-![[attachments/Pasted image 20250313104255.png]]
+![[Pasted image 20250313104255.png]]
 
 **Loading the module**
 ```
@@ -131,7 +131,7 @@ sudo insmod hello-1.ko
 > Good to know:  Here if we had `return -1;` in the code, we would get an error `insmod: ERROR: could not insert module hello-1.ko: Operation not permitted`  
 
 Now
-![[attachments/Pasted image 20250313104353.png]]
+![[Pasted image 20250313104353.png]]
 The module loaded is `hello_1`, the `-` from `hello-1` was converted to `_`.
 
 **Remove / Unload the module**
@@ -292,3 +292,16 @@ module_exit(hello_3_exit);
 
 MODULE_LICENSE("GPL");
 ```
+
+**`__init` macro**
+1. **For built-in drivers/modules:** When a function is marked with `__init` and the module is compiled directly into the kernel (not as a loadable module), the kernel will:
+    - Run this function during system boot
+    - Discard the function's code from memory after it executes (doesn't unload the module)
+    - Free up the memory occupied by this function
+2. **For loadable modules:** When used with loadable modules, the `__init` macro doesn't cause the function to be discarded from memory. This is because loadable modules can be loaded and unloaded multiple times during system operation.  
+3. There is also an `__initdata` which works similarly to `__init` but for init variables rather than functions.
+
+**`__exit` macro**
+1. **For built-in drivers/modules:** When a function is marked with `__exit` and the module is built into the kernel, this function is completely omitted from the final binary. This is because built-in modules are never unloaded, so their cleanup functions will never be called.  
+   When you boot your kernel and see something like Freeing unused kernel memory: 236k freed, this is precisely what the kernel is freeing.
+2. **For loadable modules:** The `__exit` macro has no special effect - the function remains in memory and will be called when the module is unloaded. Built-in drivers do not need a cleanup function, while loadable modules do.
