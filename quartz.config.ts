@@ -13,10 +13,10 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     analytics: { 
-      // provider: 'google',
-      // tagId: 'G-164NZVY7YE'
-      provider: 'goatcounter',
-      websiteId: 'shivangjhalani'
+      provider: 'google',
+      tagId: 'G-164NZVY7YE'
+      // provider: 'goatcounter',
+      // websiteId: 'shivangjhalani'
     },
     locale: "en-US",
     baseUrl: "shivangjhalani.com",
