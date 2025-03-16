@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "6c41e61c39855fee",
+        "id": "1434912d138e79c0",
         "type": "tabs",
         "children": [
           {
-            "id": "b6f1601063e8ace3",
+            "id": "caa37f4f4657ebc5",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "index.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "index"
             }
           }
         ]
@@ -126,12 +130,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of index"
             }
           }
         ],
@@ -139,7 +144,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 349.5
+    "width": 231.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -154,11 +159,18 @@
       "pdf-plus:PDF++: Toggle auto-paste": false
     }
   },
-  "active": "ce7c415877254ec1",
+  "active": "caa37f4f4657ebc5",
   "lastOpenFiles": [
-    "Blogs/index.md",
+    "Projects/index.md",
+    "Notes/index.md",
     "Yap/index.md",
     "index.md",
+    "SHIVANGJHALANI-PES1UG23CS548.md",
+    "attachments/Pasted image 20250316145347.png",
+    "attachments/Pasted image 20250316145343.png",
+    "Resume.md",
+    "attachments/resume.pdf",
+    "Blogs/index.md",
     "Yap",
     "Blogs/Linux/kernel-module-programming/2-Preliminaries.md",
     "Blogs/Linux/kernel-module-programming/1-Intro.md",
@@ -166,7 +178,6 @@
     "Blogs/ode5/Binary/Binary.md",
     "Blogs/Linux/kernel-module-programming",
     "private/templates/blog-template.md",
-    "Resume.md",
     "Hello.md",
     "STUDY.md",
     "pitch.md",
@@ -181,7 +192,6 @@
     "OS/attachments/Pasted image 20250313093138.png",
     "OS/attachments/Pasted image 20250313092959.png",
     "OS/attachments",
-    "OS/attachments/Pasted image 20250313092755.png",
     "OS",
     "books/CN.pdf",
     "Projects/car.canvas",
@@ -190,18 +200,13 @@
     "CN",
     "books/MPCA1.pdf",
     "books/OS.pdf",
-    "books/DAA.pdf",
     "tets.md",
     "C test.md",
     "Excalidraw/Drawing 2024-12-02 22.02.04.excalidraw.md",
     "Webtech/U3-nodejs.md",
     "Webtech/U3-react.md",
-    "Webtech/attachments/Pasted image 20241128175445.png",
     "Projects/DDCO Mini-Project.md",
     "Projects/TEAM9.md",
-    "Projects/AFLL PLY.md",
-    "Projects/DDCO Hackathon.md",
-    "README.md",
-    "Excalidraw/Drawing 2024-11-17 10.41.17.excalidraw.md"
+    "Projects/AFLL PLY.md"
   ]
 }

@@ -14,9 +14,9 @@
   "prevConfig": {
     "pageSize": "A4",
     "marginType": "1",
-    "showTitle": false,
-    "open": true,
-    "scale": 100,
+    "showTitle": true,
+    "open": false,
+    "scale": 0,
     "landscape": false,
     "marginTop": "10",
     "marginBottom": "10",

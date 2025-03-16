@@ -4,7 +4,7 @@ date: 2024-12-01
 tags: 
 comments: true
 draft: false
-enableToc: true
+enableToc: false
 showReadingTime: false
 ---
 <html>
@@ -25,10 +25,8 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I'm doing bachelors in CS. I am exploring my interests and, low level coding, computer architecture and AI are my current ones.
+I'm doing bachelors in CS @ PES University, Bangalore. I am exploring my interests; low level coding, computer architecture and AI are my current ones.
 I am proficient in C and Linux (I daily drive NixOS btw), I've dabbled in web dev, and am currently learning AI
-
-
 
 ```
 - Studying CS
@@ -40,3 +38,17 @@ I am proficient in C and Linux (I daily drive NixOS btw), I've dabbled in web de
 ```
 
 ![[reinvent.png| 300]]
+
+---
+
+> [!INFO]
+> This website is like my public digital garden, to express myself, showcase my technical knowledge, write about things that interest me. An ever-growing and evergreen knowledge base.
+
+## Explore my digital garden
+
+| Main sections                |
+| ---------------------------- |
+| [[Blogs/index\|Blogs]]       |
+| [[Notes/index\|Notes]]       |
+| [[Projects/index\|Projects]] |
+| [[Yap/index\|Yapping]]       |
