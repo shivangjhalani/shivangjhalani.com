@@ -35,7 +35,9 @@ If not for modules the prevailing approach leans toward monolithic kernels, requ
 3. Secure boot : security standard ensuring booting exclusively through trusted software endorsed by the original equipment manufacturer.
    Simplest solution : disabling UEFI SecureBoot from the boot menu of your PC or laptop.
    Intricate solution : generating keys, system key installation, and module signing.
-4. Running self-coded, non-tested modules on your daily driver (if you daily drive linux) can potentially disrupt your system, recommended to load kernel modules in a virtual machine so that's what we gonna do now.
+4. Running self-coded, non-tested modules on your daily driver (if you daily drive linux) can potentially disrupt your system, recommended to load kernel modules in a virtual machine so that's what we gonna do now.  
+   Recompiling your own kernel is another option, you can enable a number of useful debugging features, such as forced module unloading (`MODULE_FORCE_UNLOAD`): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a `sudo rmmod -f module` command.  
+   This can save you a lot of time and a number of reboots during development of a module.
 
 ---
 ## Headers
@@ -305,3 +307,244 @@ MODULE_LICENSE("GPL");
 1. **For built-in drivers/modules:** When a function is marked with `__exit` and the module is built into the kernel, this function is completely omitted from the final binary. This is because built-in modules are never unloaded, so their cleanup functions will never be called.  
    When you boot your kernel and see something like Freeing unused kernel memory: 236k freed, this is precisely what the kernel is freeing.
 2. **For loadable modules:** The `__exit` macro has no special effect - the function remains in memory and will be called when the module is unloaded. Built-in drivers do not need a cleanup function, while loadable modules do.
+
+### Passing command line arguments to a module
+Modules don't take arguments using `(int argc, char *argv[])`.  
+To take arguments
+1. Declare variables that will take values of command line arguments as global.
+2. Use `module_param()` macro.  
+
+At runtime, `insmod` will fill the variables with any arguments given.  
+Eg: `insmod mymodule.ko myvariable=5`
+
+`module_param()` macro takes 3 arguments
+1. name of variable
+2. type
+3. permissions for corresponding file in `sysfs`
+
+```c
+int myint = 3;
+module_param(myint, int, 0);
+```
+
+> Sysfs is a virtual filesystem in Linux that exports kernel data structures, attributes, and device information to userspace. Mounted at `/sys`, it provides a standardized interface for viewing and modifying kernel parameters without requiring specialized tools.  
+> When you use `module_param()`, the kernel automatically creates corresponding files in `/sys/module/[module_name]/parameters/` with the permissions specified in the macro's third argument.  
+> 
+> Permission argument follows default linux permission format for owner, group, and others.
+
+We can also use arrays of integers or strings, see `module_param_array()` and `module_param_string()`.
+
+```c
+int myintarray[2];
+module_param_array(myintarray, int, NULL, 0); /* not interested in count */
+
+short myshortarray[4];
+int count;
+module_param_array(myshortarray, short, &count, 0); /* put count into "count" variable */
+```
+To keep track of the number of parameters you need to pass a pointer to a count variable as third parameter. At your option, you could also ignore the count and pass NULL instead.
+
+Lastly, there is a macro function, `MODULE_PARM_DESC()`, that is used to document arguments that the module can take. It takes two parameters
+1. a variable name
+2. free form string describing that variable.
+
+```c
+/*
+ * hello-5.c - Demonstrates command line argument passing to a module.
+ */
+#include <linux/init.h>
+#include <linux/kernel.h> /* for ARRAY_SIZE() */
+#include <linux/module.h>
+#include <linux/moduleparam.h>
+#include <linux/printk.h>
+#include <linux/stat.h>
+
+MODULE_LICENSE("GPL");
+
+static short int myshort = 1;
+static int myint = 420;
+static long int mylong = 9999;
+static char *mystring = "shivang";
+static int myintarray[2] = {420, 420};
+static int arr_argc = 0;
+
+/* module_param(foo, int, 0000)
+ * The first param is the parameter's name.
+ * The second param is its data type.
+ * The final argument is the permissions bits,
+ * for exposing parameters in sysfs (if non-zero) at a later stage.
+ */
+module_param(myshort, short, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+MODULE_PARM_DESC(myshort, "A short integer");
+module_param(myint, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+MODULE_PARM_DESC(myint, "An integer");
+module_param(mylong, long, S_IRUSR);
+MODULE_PARM_DESC(mylong, "A long integer");
+module_param(mystring, charp, 0000);
+MODULE_PARM_DESC(mystring, "A character string");
+
+/* module_param_array(name, type, num, perm);
+ * The first param is the parameter's (in this case the array's) name.
+ * The second param is the data type of the elements of the array.
+ * The third argument is a pointer to the variable that will store the number
+ * of elements of the array initialized by the user at module loading time.
+ * The fourth argument is the permission bits.
+ */
+module_param_array(myintarray, int, &arr_argc, 0000);
+MODULE_PARM_DESC(myintarray, "An array of integers");
+
+static int __init hello_5_init(void) {
+  int i;
+
+  pr_info("Hello, world 5\n=============\n");
+  pr_info("myshort is a short integer: %hd\n", myshort);
+  pr_info("myint is an integer: %d\n", myint);
+  pr_info("mylong is a long integer: %ld\n", mylong);
+  pr_info("mystring is a string: %s\n", mystring);
+
+  for (i = 0; i < ARRAY_SIZE(myintarray); i++)
+    pr_info("myintarray[%d] = %d\n", i, myintarray[i]);
+
+  pr_info("got %d arguments for myintarray.\n", arr_argc);
+  return 0;
+}
+
+static void __exit hello_5_exit(void) {
+  pr_info("Goodbye, world 5\n");
+}
+
+module_init(hello_5_init);
+module_exit(hello_5_exit);
+```
+
+#### Experimenting with the cli arguments
+
+```
+// Update Makefile += hello-5.o
+make
+
+sudo insmod hello-5.ko
+sudo dmesg -t | tail -11
+
+hello_5: loading out-of-tree module taints kernel.
+hello_5: module verification failed: signature and/or required key missing - tainting kernel
+Hello, world 5
+=============
+myshort is a short integer: 1
+myint is an integer: 420
+mylong is a long integer: 9999
+mystring is a string: blah
+myintarray[0] = 420
+myintarray[1] = 420
+got 0 arguments for myintarray.
+
+sudo rmmod hello_5
+```
+
+```
+sudo insmod hello-5.ko mystring="bebop" myintarray=-1
+sudo dmesg -t | tail -7
+
+myshort is a short integer: 1
+myint is an integer: 420
+mylong is a long integer: 9999
+mystring is a string: bebop
+myintarray[0] = -1
+myintarray[1] = 420
+got 1 arguments for myintarray.
+
+sudo rmmod hello_5
+```
+
+```
+sudo rmmod hello_5
+sudo dmesg -t | tail -1
+
+Goodbye, world 5
+```
+
+```
+sudo insmod hello-5.ko mystring="supercalifragilisticexpialidocious" myintarray=-1,-1
+sudo dmesg -t | tail -7
+
+myshort is a short integer: 1
+myint is an integer: 420
+mylong is a long integer: 9999
+mystring is a string: supercalifragilisticexpialidocious
+myintarray[0] = -1
+myintarray[1] = -1
+got 2 arguments for myintarray.
+
+sudo rmmod hello_5
+```
+
+```
+sudo insmod hello-5.ko mylong=hello
+insmod: ERROR: could not insert module hello-5.ko: Invalid parameters
+```
+
+### Dividing modules b/w multiple source files
+
+```c title="start.c"
+/*
+ * start.c - Illustration of multi filed modules
+ */
+
+#include <linux/kernel.h> /* We are doing kernel work */
+#include <linux/module.h> /* Specifically, a module */
+
+int init_module(void) {
+  pr_info("Hello, world - this is the kernel speaking\n");
+  return 0;
+}
+
+MODULE_LICENSE("GPL");
+```
+
+```c title="stop.c"
+/*
+ * stop.c - Illustration of multi filed modules
+ */
+
+#include <linux/kernel.h> /* We are doing kernel work */
+#include <linux/module.h> /* Specifically, a module  */
+
+void cleanup_module(void) {
+  pr_info("Short is the life of a kernel module\n");
+}
+
+MODULE_LICENSE("GPL");
+```
+
+```makefile title="Finally, the Makefile" {6,7}
+obj-m += hello-1.o 
+obj-m += hello-2.o 
+obj-m += hello-3.o 
+# obj-m += hello-4.o 
+obj-m += hello-5.o
+obj-m += startstop.o 
+startstop-objs := start.o stop.o 
+ 
+PWD := $(CURDIR) 
+ 
+all: 
+    $(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules 
+ 
+clean: 
+    $(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+```
+
+We need 2 lines for compiling multiple source files into one object file.
+1. We invent an object name for our combined module
+2. Tell what object files are part of that module
+
+```
+sudo insmod startstop.ko
+sudo rmmod startstop
+sudo dmesg -t | tail -5
+
+startstop: loading out-of-tree module taints kernel.
+startstop: module verification failed: signature and/or required key missing - tainting kernel
+Hello, world - this is the kernel speaking
+Short is the life of a kernel module
+```

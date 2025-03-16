@@ -42,6 +42,9 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
       {list.map((page) => {
         const title = page.frontmatter?.title
         const tags = page.frontmatter?.tags ?? []
+        
+        // Sort tags alphabetically (case-insensitive)
+        const sortedTags = [...tags].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
 
         return (
           <li class="section-li">
@@ -57,7 +60,7 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
                 </h3>
               </div>
               <ul class="tags">
-                {tags.map((tag) => (
+                {sortedTags.map((tag) => (
                   <li>
                     <a
                       class="internal tag-link"

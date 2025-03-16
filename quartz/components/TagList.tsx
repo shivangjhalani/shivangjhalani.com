@@ -6,9 +6,12 @@ const TagList: QuartzComponent = ({ fileData, displayClass }: QuartzComponentPro
   const tags = fileData.frontmatter?.tags
   const baseDir = pathToRoot(fileData.slug!)
   if (tags && tags.length > 0) {
+    // Sort tags alphabetically (case-insensitive)
+    const sortedTags = [...tags].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
+    
     return (
       <ul class={classNames(displayClass, "tags")}>
-        {tags.map((tag) => {
+        {sortedTags.map((tag) => {
           const linkDest = baseDir + `/tags/${slugTag(tag)}`
           return (
             <li>

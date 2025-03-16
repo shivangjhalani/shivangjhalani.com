@@ -58,9 +58,9 @@ export default ((userOpts?: Partial<Options>) => {
                       <Date date={getDate(cfg, page)!} locale={cfg.locale} />
                     </p>
                   )}
-                  {opts.showTags && (
+                  {opts.showTags && tags.length > 0 && (
                     <ul class="tags">
-                      {tags.map((tag) => (
+                      {[...tags].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' })).map((tag) => (
                         <li>
                           <a
                             class="internal tag-link"
