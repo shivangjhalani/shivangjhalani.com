@@ -1,0 +1,37 @@
+{
+  "dualConfigs": false,
+  "showConsoleLog": false,
+  "desktop": {
+    "shortDelaySeconds": 5,
+    "longDelaySeconds": 15,
+    "delayBetweenPlugins": 40,
+    "defaultStartupType": null,
+    "showDescriptions": true,
+    "plugins": {
+      "advanced-canvas": {
+        "startupType": "disabled"
+      },
+      "better-export-pdf": {
+        "startupType": "long"
+      },
+      "obsidian-excalidraw-plugin": {
+        "startupType": "disabled"
+      },
+      "ink": {
+        "startupType": "disabled"
+      },
+      "obsidian-latex-suite": {
+        "startupType": "instant"
+      },
+      "pdf-plus": {
+        "startupType": "instant"
+      },
+      "settings-search": {
+        "startupType": "instant"
+      },
+      "obsidian-focus-mode": {
+        "startupType": "instant"
+      }
+    }
+  }
+}
