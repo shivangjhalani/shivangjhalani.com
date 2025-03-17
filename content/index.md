@@ -25,8 +25,10 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I'm doing bachelors in CS @ PES University, Bangalore. I am exploring my interests; low level coding, computer architecture and AI are my current ones.
-I am proficient in C and Linux (I daily drive NixOS btw), I've dabbled in web dev, and am currently learning AI
+I'm doing bachelors in CS @ PES University, Bangalore.  
+
+I love computers, tech and learning. Am still figuring out my interests but loving the journey.
+My interests range from low-level systems programming to AI, with a strong passion for Linux (NixOS btw).
 
 ```
 - Studying CS
