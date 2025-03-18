@@ -20,6 +20,7 @@ enableToc: true
 > The website is hosted on an ubuntu cloud server and tunneled through cloudflare argo tunnels.
 
 ### Live at : https://paws.shivang.dev
+Login demos `email : password`
 - Adopter : `adopter@gmail.com : 092004`
 - Rehomer : `rehomer@gmail.com : 092004`
 ### Github : https://github.com/shivangjhalani/paws
