@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "Projects/Linux/NixOS configuration.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "NixOS configuration"
             }
           }
         ]
@@ -130,13 +130,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "Projects/Linux/NixOS configuration.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of NixOS configuration"
             }
           }
         ],
@@ -161,8 +161,10 @@
   },
   "active": "caa37f4f4657ebc5",
   "lastOpenFiles": [
-    "Resume.md",
+    "Projects/Linux/NixOS configuration.md",
+    "Projects/Linux",
     "index.md",
+    "Resume.md",
     "Projects/index.md",
     "Notes/index.md",
     "Yap/index.md",
@@ -199,14 +201,12 @@
     "CN/1.1 Internet.md",
     "CN",
     "books/MPCA1.pdf",
-    "books/OS.pdf",
     "tets.md",
     "C test.md",
     "Excalidraw/Drawing 2024-12-02 22.02.04.excalidraw.md",
     "Webtech/U3-nodejs.md",
     "Webtech/U3-react.md",
     "Projects/DDCO Mini-Project.md",
-    "Projects/TEAM9.md",
-    "Projects/AFLL PLY.md"
+    "Projects/TEAM9.md"
   ]
 }
