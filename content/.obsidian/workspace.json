@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/WebDev/Paws.md",
+                "file": "Projects/V2V/IoT system and simulation for V2V communication.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Paws"
+              "title": "IoT system and simulation for V2V communication"
             }
           }
         ]
@@ -130,13 +130,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Projects/WebDev/Paws.md",
+                "file": "Projects/V2V/IoT system and simulation for V2V communication.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Paws"
+              "title": "Outline of IoT system and simulation for V2V communication"
             }
           }
         ],
@@ -161,6 +161,7 @@
   },
   "active": "caa37f4f4657ebc5",
   "lastOpenFiles": [
+    "Projects/WebDev/Pawfect.md",
     "Projects/WebDev/attachments/Pasted image 20250318193947.png",
     "Projects/WebDev/attachments/Pasted image 20250318193938.png",
     "Projects/WebDev/attachments/Pasted image 20250318193901.png",
@@ -169,7 +170,6 @@
     "Projects/WebDev/attachments/Pasted image 20250318193659.png",
     "Projects/WebDev/attachments/Pasted image 20250318193617.png",
     "Projects/WebDev/attachments",
-    "Projects/WebDev/Paws.md",
     "Projects/WebDev",
     "Projects/Linux/NixOS configuration.md",
     "Projects/Linux",
@@ -196,7 +196,6 @@
     "OS/index.md",
     "OS/index.md.md",
     "OS/attachments/Pasted image 20250313104353.png",
-    "OS/attachments/Pasted image 20250313104255.png",
     "OS/attachments",
     "OS",
     "books/CN.pdf",

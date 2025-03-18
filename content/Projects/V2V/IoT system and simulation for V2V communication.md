@@ -11,7 +11,7 @@ comments: true
 draft: false
 ---
 ## Context
-This is a project built for a national level **hackathon** : Code Red 25 organised by BMSIT College, Bangalore
+Winning project built for a national level **hackathon** : Code Red 25 organised by BMSIT College, Bangalore
 
 **Problem Statement**  
 Develop a real-time IoT system enabling vehicles to exchange critical data such as location, speed, and road conditions to enhance road safety. The system should alert vehicles to sudden stops, road hazards, or traffic changes, reducing accidents and supporting autonomous or semi-autonomous driving.
