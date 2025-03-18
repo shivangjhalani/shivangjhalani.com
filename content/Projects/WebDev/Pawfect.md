@@ -9,9 +9,20 @@ draft:
 enableToc: true
 ---
 # Full-stack web-app
-**Tech Stack**: ReactJS, ShadCN, Tailwind, NodeJs, ExpressJs (On top of NodeJs), MongoDB
-The website is hosted on a ubuntu cloud server and tunneled through cloudflare argo tunnels.
 
+> [!INFO] Tech Stack
+> - ReactJS
+> - ShadCN
+> - Tailwind
+> - NodeJs
+> - ExpressJs (On top of NodeJs)
+> - MongoDB  
+> The website is hosted on an ubuntu cloud server and tunneled through cloudflare argo tunnels.
+
+### Live at : https://paws.shivang.dev
+- Adopter : `adopter@gmail.com : 092004`
+- Rehomer : `rehomer@gmail.com : 092004`
+### Github : https://github.com/shivangjhalani/paws
 ### Guided tour
 #### Home
 ![[Pasted image 20250318193617.png]]
@@ -66,11 +77,6 @@ The core problem "Paws" solves is the fragmented and often inefficient process o
 **Development Challenges and Learnings**
 
 Developing "Paws" presented several challenges, particularly in designing a scalable database schema and implementing secure user authentication. Overcoming these hurdles reinforced my problem-solving skills and deepened my understanding of full-stack development.
-
-### Live at : https://paws.shivang.dev
-- Adopter : `adopter@gmail.com : 092004`
-- Rehomer : `rehomer@gmail.com : 092004`
-### Github : https://github.com/shivangjhalani/paws
 
 ```
 ❯ tree -I "node_modules|dist|coverage|.git|.cache|*.png"
