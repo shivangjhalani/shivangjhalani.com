@@ -14,6 +14,12 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
+// Filter function to exclude index pages
+const filterOutIndexPages = (file: any) => {
+  // Check if the slug ends with '/index' or is just 'index'
+  return !file.slug?.endsWith("/index") && file.slug !== "index"
+}
+
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
@@ -75,7 +81,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.RecentNotes({
       limit: 3,
       title: "Recent",
-      linkToMore: "tags"
+      linkToMore: "tags",
+      showTags: false,
+      filter: filterOutIndexPages
     })
   ],
 }
@@ -102,7 +110,9 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(Component.RecentNotes({
       limit: 3,
       title: "Recent",
-      linkToMore: "tags"
+      linkToMore: "tags",
+      showTags: false,
+      filter: filterOutIndexPages
     })),
   ],
 }
