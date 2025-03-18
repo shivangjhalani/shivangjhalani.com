@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/index.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
@@ -130,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Projects/index.md",
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -161,6 +161,7 @@
   },
   "active": "caa37f4f4657ebc5",
   "lastOpenFiles": [
+    "Projects/index.md",
     "Notes/index.md",
     "Projects/WebDev/Pawfect.md",
     "Notes/ai/Supervised ML.md",
@@ -178,7 +179,6 @@
     "Projects/Linux",
     "index.md",
     "Resume.md",
-    "Projects/index.md",
     "Yap/index.md",
     "SHIVANGJHALANI-PES1UG23CS548.md",
     "attachments/Pasted image 20250316145347.png",

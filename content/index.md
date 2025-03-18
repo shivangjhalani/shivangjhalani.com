@@ -27,7 +27,7 @@ showReadingTime: false
 
 I'm doing bachelors in CS @ PES University, Bangalore.  
 
-I love computers, tech and learning. Am still figuring out my interests but loving the journey.
+I love computers, tech and learning. I am actively learning AI and systems programming.
 My interests range from low-level systems programming to AI, with a strong passion for Linux (NixOS btw).
 
 ```
