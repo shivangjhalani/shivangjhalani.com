@@ -1,5 +1,9 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { FileTrieNode } from './quartz/util/fileTrie';
+import { QuartzPluginData } from "./quartz/plugins/vfile"
+
+
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -14,11 +18,30 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
-// Filter function to exclude index pages
-const filterOutIndexPages = (file: any) => {
-  // Check if the slug ends with '/index' or is just 'index'
-  return !file.slug?.endsWith("/index") && file.slug !== "index"
+const recentNotesConfig = { 
+  showTags: false, 
+  title: "Recent", 
+  showDate: true,
+  // linkToMore: "meta/" + modifiedListTitle as SimpleSlug,
+  linkToMore: "tags",
+  excludeTags: [""],
+  filter: (f: QuartzPluginData) => {
+    // Combine both filters: exclude tags pages and index pages
+    return !f.slug!.startsWith("tags/") && !f.slug?.endsWith("/index") && f.slug !== "index";
+  }
 }
+
+const explorerConfig = {
+  filterFn: (node: FileTrieNode) => !(node.data?.tags.includes("explorer-exclude") === true),
+  mapFn: (node: FileTrieNode) => {
+    // dont change name of root node
+    if (!node.isFolder) {
+      // set emoji for file/folder      
+        node.displayName = "# " + node.displayName
+    }
+  },
+}
+
 
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
@@ -40,7 +63,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer(explorerConfig),
     Component.FloatingButtons({position: 'right'}),
   ],
   right: [
@@ -78,13 +101,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Backlinks(),
   ],
   afterBody: [
-    Component.RecentNotes({
-      limit: 3,
-      title: "Recent",
-      linkToMore: "tags",
-      showTags: false,
-      filter: filterOutIndexPages
-    })
+    Component.RecentNotes(recentNotesConfig),
   ],
 }
 
@@ -103,16 +120,10 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer(explorerConfig),
     Component.FloatingButtons({position: 'right'}),
   ],
   right: [
-    Component.DesktopOnly(Component.RecentNotes({
-      limit: 3,
-      title: "Recent",
-      linkToMore: "tags",
-      showTags: false,
-      filter: filterOutIndexPages
-    })),
+    Component.DesktopOnly(Component.RecentNotes(recentNotesConfig)),
   ],
 }

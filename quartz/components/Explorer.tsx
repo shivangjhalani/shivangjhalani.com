@@ -87,11 +87,18 @@ export default ((userOpts?: Partial<Options>) => {
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="lucide-menu"
+            class="lucide-menu lucide-folder"
+            stroke="currentColor"
+            fill="none"
           >
-            <line x1="4" x2="20" y1="12" y2="12" />
+            {/* Changed it to a folder down svg - ez 03/18/25 */}
+            <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
+            {/* <path d="M12 10v6"/>
+            <path d="m15 13-3 3-3-3"/> */}
+            
+            {/* <line x1="4" x2="20" y1="12" y2="12" />
             <line x1="4" x2="20" y1="6" y2="6" />
-            <line x1="4" x2="20" y1="18" y2="18" />
+            <line x1="4" x2="20" y1="18" y2="18" /> */}
           </svg>
         </button>
         <button

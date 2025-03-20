@@ -25,9 +25,7 @@ The part I worked on was: Run the simulation to collect the sensor data in real 
 [Github](https://github.com/shivangjhalani/v2v-carla-simulation.git)
 
 ## Demo
-<p align="center">
-  <img src="./demo.png" height="auto" alt="demo png">
-</p>
+![[demo.png]]
 
 ![](https://www.youtube.com/watch?v=iNDNUqBqwZw)
 

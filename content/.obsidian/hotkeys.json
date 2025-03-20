@@ -17,5 +17,14 @@
       ],
       "key": "C"
     }
+  ],
+  "workspace:show-trash": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "T"
+    }
   ]
 }

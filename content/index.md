@@ -39,7 +39,7 @@ I am proficient in C, python, full-stack web development and linux system admini
 - Reinventing the wheel
 ```
 
-And did I mention I love learning?
+**And did I mention I love learning?**  
 ![[reinvent.png| 300]]
 
 ---
@@ -49,9 +49,9 @@ And did I mention I love learning?
 
 ## Explore my digital garden
 
-| Main sections                |
-| ---------------------------- |
-| [[Blogs/index\|Blogs]]       |
-| [[Notes/index\|Notes]]       |
-| [[Projects/index\|Projects]] |
-| [[Yap/index\|Yapping]]       |
+| Main sections                | All Notes |
+| ---------------------------- | --------- |
+| [[Blogs/index\|Blogs]]       |           |
+| [[Notes/index\|Notes]]       |           |
+| [[Projects/index\|Projects]] |           |
+| [[Yap/index\|Yapping]]       |           |

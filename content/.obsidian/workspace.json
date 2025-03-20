@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "meta/All Notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "All Notes"
             }
           }
         ]
@@ -130,13 +130,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "meta/All Notes.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of All Notes"
             }
           }
         ],
@@ -161,22 +161,32 @@
   },
   "active": "caa37f4f4657ebc5",
   "lastOpenFiles": [
+    "index.md",
+    "meta/All Notes.md",
+    "meta",
+    "Blogs/Linux/kernel-module-programming/1-Intro.md",
+    "Blogs/Low-Level/Nand2Tetris/Part 1 - Boolean Logic.md",
+    "Blogs/Low-Level/Nand2Tetris/index.md",
+    "Blogs/Low-Level/attachments/assignment.png",
+    "Blogs/Low-Level/Reintroduction to programming.md",
+    "Blogs/Low-Level/Binary.md",
+    "Projects/V2V/IoT system and simulation for V2V communication.md",
+    "Projects/V2V/demo.png",
+    "attachments/avatar.jpg",
+    "Blogs/Low-Level/Nand2Tetris/attachments/Pasted image 20250320070338.png",
+    "Blogs/Low-Level/Nand2Tetris/attachments",
+    "Blogs/Low-Level/Nand2Tetris",
     "attachments/reinvent.png",
     "attachments/resume.pdf",
-    "attachments/avatar.jpg",
-    "index.md",
     "Projects/index.md",
     "Notes/index.md",
     "Projects/WebDev/Pawfect.md",
     "Notes/ai/Supervised ML.md",
-    "Projects/V2V/IoT system and simulation for V2V communication.md",
     "Projects/WebDev/attachments/Pasted image 20250318193947.png",
     "Projects/WebDev/attachments/Pasted image 20250318193938.png",
     "Projects/WebDev/attachments/Pasted image 20250318193901.png",
     "Projects/WebDev/attachments/Pasted image 20250318193831.png",
     "Projects/WebDev/attachments/Pasted image 20250318193712.png",
-    "Projects/WebDev/attachments/Pasted image 20250318193659.png",
-    "Projects/WebDev/attachments/Pasted image 20250318193617.png",
     "Projects/WebDev/attachments",
     "Projects/WebDev",
     "Projects/Linux/NixOS configuration.md",
@@ -184,14 +194,9 @@
     "Resume.md",
     "Yap/index.md",
     "SHIVANGJHALANI-PES1UG23CS548.md",
-    "attachments/Pasted image 20250316145347.png",
-    "attachments/Pasted image 20250316145343.png",
     "Blogs/index.md",
     "Yap",
     "Blogs/Linux/kernel-module-programming/2-Preliminaries.md",
-    "Blogs/Linux/kernel-module-programming/1-Intro.md",
-    "Blogs/ode5/Reintroduction To Programming/Reintroduction to programming.md",
-    "Blogs/ode5/Binary/Binary.md",
     "Blogs/Linux/kernel-module-programming",
     "private/templates/blog-template.md",
     "Hello.md",
@@ -200,13 +205,8 @@
     "OS/index.md",
     "OS/index.md.md",
     "OS/attachments",
-    "OS",
-    "books/CN.pdf",
     "Projects/car.canvas",
-    "books/LAA.pdf",
     "CN/1.1 Internet.md",
-    "tets.md",
-    "C test.md",
-    "Excalidraw/Drawing 2024-12-02 22.02.04.excalidraw.md"
+    "tets.md"
   ]
 }
