@@ -42,7 +42,6 @@ const explorerConfig = {
   },
 }
 
-
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
