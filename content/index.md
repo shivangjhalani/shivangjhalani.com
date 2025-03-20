@@ -49,9 +49,9 @@ I am proficient in C, python, full-stack web development and linux system admini
 
 ## Explore my digital garden
 
-| Main sections                | All Notes |
-| ---------------------------- | --------- |
-| [[Blogs/index\|Blogs]]       |           |
-| [[Notes/index\|Notes]]       |           |
-| [[Projects/index\|Projects]] |           |
-| [[Yap/index\|Yapping]]       |           |
+| Main sections                |
+| ---------------------------- |
+| [[Blogs/index\|Blogs]]       |
+| [[Notes/index\|Notes]]       |
+| [[Projects/index\|Projects]] |
+| [[Yap/index\|Yapping]]       |

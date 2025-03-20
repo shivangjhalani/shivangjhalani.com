@@ -31,6 +31,15 @@
       },
       "obsidian-focus-mode": {
         "startupType": "instant"
+      },
+      "oz-clear-unused-images": {
+        "startupType": "disabled"
+      },
+      "dataview": {
+        "startupType": "instant"
+      },
+      "dataview-serializer": {
+        "startupType": "instant"
       }
     }
   }
