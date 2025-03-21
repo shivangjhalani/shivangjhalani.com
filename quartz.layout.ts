@@ -19,9 +19,10 @@ export const sharedPageComponents: SharedLayout = {
 }
 
 const recentNotesConfig = { 
-  showTags: false, 
+  limit: 4,
   title: "Recent", 
   showDate: true,
+  showTags: true,
   // linkToMore: "meta/" + modifiedListTitle as SimpleSlug,
   linkToMore: "tags",
   excludeTags: [""],
