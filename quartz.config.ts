@@ -20,7 +20,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "shivangjhalani.com",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates"],
     defaultDateType: "created",
     generateSocialImages: true,
     theme: {
