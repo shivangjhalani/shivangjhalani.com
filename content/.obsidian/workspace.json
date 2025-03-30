@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "fdf0e94773c23d25",
+        "id": "a9ea34e34798e39f",
         "type": "tabs",
         "children": [
           {
-            "id": "f2d2a3048e7b2953",
+            "id": "aaffc3324b22f187",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Blogs/Low-Level/FPGA Programming.md",
+                "file": "index.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "FPGA Programming"
+              "title": "index"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Blogs/Low-Level/FPGA Programming.md",
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of FPGA Programming"
+              "title": "Outline of index"
             }
           }
         ],
@@ -162,11 +162,19 @@
       "find-orphaned-images:Find orphaned images": false
     }
   },
-  "active": "f2d2a3048e7b2953",
+  "active": "aaffc3324b22f187",
   "lastOpenFiles": [
-    "Blogs/Low-Level/attachments/Pasted image 20250329105019.png",
+    "private/notes for self.md",
+    "index.md",
+    "Blogs/Low-Level/Intro to FPGA Programming.md",
+    "Blogs/Low-Level/FPGA",
+    "Blogs/Low-Level/attachments/simulation.webm",
+    "Blogs/Low-Level/attachments/Pasted image 20250330151127.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250330150444.png",
+    "Resume.md",
+    "attachments/avatar_ghibli.png",
     "Orphaned Images Report.md",
-    "Blogs/Low-Level/FPGA Programming.md",
+    "Blogs/Low-Level/attachments/Pasted image 20250329105019.png",
     "Blogs/Low-Level/attachments/Pasted image 20250330144151.png",
     "Blogs/Low-Level/attachments/Pasted image 20250330144032.png",
     "Blogs/Low-Level/attachments/Pasted image 20250330143607.png",
@@ -174,22 +182,15 @@
     "Blogs/Low-Level/attachments/final.mp4",
     "Blogs/Low-Level/attachments/Pasted image 20250329221336.png",
     "Blogs/Low-Level/attachments/Pasted image 20250329195128.png",
-    "Blogs/Low-Level/attachments/Pasted image 20250329174806.png",
-    "Blogs/Low-Level/attachments/Pasted image 20250329174755.png",
-    "Blogs/Low-Level/attachments/Pasted image 20250329174724.png",
-    "Blogs/Low-Level/attachments/Pasted image 20250329174712.png",
     "Blogs/Low-Level/Reintroduction to programming.md",
     "Blogs/Low-Level/attachments/ac701-schematic-xtp218-rev1-0.pdf",
     "Blogs/Low-Level/attachments/switch-leds.webm",
-    "index.md",
-    "Resume.md",
     "Untitled.md",
     "private/ARCHIVE",
     "private/ARCHIVE/HUNT/HUNT.md",
     "private/ARCHIVE/HUNT/attachments",
     "private/ARCHIVE/HUNT",
     "meta/Archive.md",
-    "private/notes for self.md",
     "meta",
     "Blogs/Linux/kernel-module-programming/1-Intro.md",
     "private/ARCHIVE/Nand2Tetris/Part 1 - Boolean Logic.md",
@@ -197,8 +198,6 @@
     "Blogs/Low-Level/Binary.md",
     "Projects/V2V/IoT system and simulation for V2V communication.md",
     "Blogs/Low-Level/Nand2Tetris/attachments",
-    "private/ARCHIVE/Nand2Tetris",
-    "attachments/resume.pdf",
     "Projects/index.md",
     "Notes/index.md",
     "Projects/WebDev/Pawfect.md",

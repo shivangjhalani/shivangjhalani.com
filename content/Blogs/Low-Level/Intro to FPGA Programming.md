@@ -1,5 +1,5 @@
 ---
-title: FPGA Programming in Verilog
+title: Intro to FPGA Programming in Verilog
 subtitle: https://www.youtube.com/playlist?list=PLqOe1_kmWOx33G3gOzQSajSdrTtW9shBO
 date: 2025-03-29
 tags:
@@ -179,10 +179,100 @@ Pro tip : Or just click on generate bit-stream directly, it does all on it's own
 ---
 
 # 3. Simulating code : Testbenches in verilog
+We will create an RGB LED indicator and will use vivado simulator to test the code.  
+We wont be loading it on an FPGA board so doesn't matter if your board has RBG LEDs or not.  
+
+First, let's establish a plan for dividing the 16 inputs (represented by the 4-bit switch input)
+Here's the truth table:
+
+| switch[3:0] | Decimal | red | green | blue |
+| ----------- | ------- | --- | ----- | ---- |
+| 0000        | 0       | 1   | 0     | 0    |
+| 0001        | 1       | 1   | 0     | 0    |
+| 0010        | 2       | 1   | 0     | 0    |
+| 0011        | 3       | 1   | 0     | 0    |
+| 0100        | 4       | 0   | 1     | 0    |
+| 0101        | 5       | 0   | 1     | 0    |
+| 0110        | 6       | 0   | 1     | 0    |
+| 0111        | 7       | 0   | 1     | 0    |
+| 1000        | 8       | 0   | 0     | 1    |
+| 1001        | 9       | 0   | 0     | 1    |
+| 1010        | 10      | 0   | 0     | 1    |
+| 1011        | 11      | 0   | 0     | 1    |
+| 1100        | 12      | 0   | 0     | 1    |
+| 1101        | 13      | 0   | 0     | 1    |
+| 1110        | 14      | 0   | 0     | 1    |
+| 1111        | 15      | 0   | 0     | 1    |
+
+In a new vivado project, add this verilog design source.
+```verilog
+`timescale 1ns / 1ps
+
+module top(
+    input [3:0] switch,
+    output red,
+    output green,
+    output blue
+);
+
+    // Assign red when switch[3:2] = 00 (values 0-3)
+    assign red = ~switch[3] & ~switch[2];
+    // Assign green when switch[3:2] = 01 (values 4-7)
+    assign green = ~switch[3] & switch[2];
+    // Assign blue when switch[3] = 1 (values 8-15)
+    assign blue = switch[3];
 
 
+endmodule
+```
+
+To create a simulation file, right click `Simulation Sources` from the sources pane, and add simulation source.
+![[Pasted image 20250330151127.png]]
+
+The testbench
+```verilog
+`timescale 10ns / 1ps
+
+module testbench();
+// inputs, all inputs need to be a register, it retains it's values until a new value is assigned to it
+reg [3:0] switch = 0; // you can only initialze registets not wires
+// outputs, need to be wires
+wire red;
+wire green;
+wire blue;
+
+// Unit under test (UUT) : wrapper that ties the input and output of the verilog file we are simulating to the registers and wires of the testbench file.
+top uut(
+    .switch(switch), // .switch is from top module in verilog file, (switch) is from this simulation file
+    .red(red),
+    .green(green),
+    .blue(blue)
+);
+integer k = 0;
+
+initial
+begin
+    switch = 0;
+    for(k=0; k<16; k=k+1)
+    #10 switch = k; // Time delay (10 * 10ns) since timesacle is set is 1ns = 100ns
+    
+    #5 $finish;
+end
+
+endmodule
+```
+
+Now run simulation from the left sidebar, make sure you have gcc installed.
+![[simulation.webm]]
+
+Notice the values of red, green and blue changing!
 
 ---
+
+
+> [!INFO] Blog ends here
+> Below section is not related to FPGA or much to verilog
+
 # 4. Logic Gates
 Logic gates are devices that are used to implement boolean functions on one or more binary inputs and produces a single binary output.  
 Logic circuits (circuits made of multiple logic gates DUH) can be used to make devices like encoders, multiplexers, ALUs and even whole microprocessors!  

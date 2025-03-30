@@ -9,5 +9,6 @@
     "downscalePercent": 10
   },
   "newLinkFormat": "shortest",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true
 }
