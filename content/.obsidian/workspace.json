@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "Blogs/Low-Level/Intro to FPGA Programming.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "Intro to FPGA Programming"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "Blogs/Low-Level/Intro to FPGA Programming.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of Intro to FPGA Programming"
             }
           }
         ],
@@ -164,14 +164,16 @@
   },
   "active": "aaffc3324b22f187",
   "lastOpenFiles": [
-    "private/notes for self.md",
+    "Archive.md",
     "index.md",
+    "Resume.md",
+    "Blogs/ML/Gradient Descent in Go.md",
+    "private/notes for self.md",
     "Blogs/Low-Level/Intro to FPGA Programming.md",
     "Blogs/Low-Level/FPGA",
     "Blogs/Low-Level/attachments/simulation.webm",
     "Blogs/Low-Level/attachments/Pasted image 20250330151127.png",
     "Blogs/Low-Level/attachments/Pasted image 20250330150444.png",
-    "Resume.md",
     "attachments/avatar_ghibli.png",
     "Orphaned Images Report.md",
     "Blogs/Low-Level/attachments/Pasted image 20250329105019.png",
@@ -185,7 +187,6 @@
     "Blogs/Low-Level/Reintroduction to programming.md",
     "Blogs/Low-Level/attachments/ac701-schematic-xtp218-rev1-0.pdf",
     "Blogs/Low-Level/attachments/switch-leds.webm",
-    "Untitled.md",
     "private/ARCHIVE",
     "private/ARCHIVE/HUNT/HUNT.md",
     "private/ARCHIVE/HUNT/attachments",

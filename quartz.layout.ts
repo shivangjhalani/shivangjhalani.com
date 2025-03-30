@@ -38,7 +38,7 @@ const explorerConfig = {
     // dont change name of root node
     if (!node.isFolder) {
       // set emoji for file/folder      
-        node.displayName = "- " + node.displayName
+        node.displayName = "⊹ " + node.displayName
     }
   },
 }
