@@ -11,10 +11,14 @@
             "id": "f2d2a3048e7b2953",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Blogs/Low-Level/FPGA Programming.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "FPGA Programming"
             }
           }
         ]
@@ -80,7 +84,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "OS/index.md",
+                "file": "Blogs/Low-Level/FPGA Programming.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -90,7 +94,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for index"
+              "title": "Backlinks for FPGA Programming"
             }
           },
           {
@@ -99,12 +103,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "NixOS hands-on task.md",
+                "file": "Blogs/Low-Level/FPGA Programming.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from NixOS hands-on task"
+              "title": "Outgoing links from FPGA Programming"
             }
           },
           {
@@ -114,7 +118,9 @@
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Tags"
@@ -126,12 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Blogs/Low-Level/FPGA Programming.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of FPGA Programming"
             }
           }
         ],
@@ -151,36 +158,44 @@
       "obsidian-focus-mode:Toggle Focus Mode (Shift + Click to show active pane only)": false,
       "pdf-plus:PDF++: Toggle auto-copy": false,
       "pdf-plus:PDF++: Toggle auto-focus": false,
-      "pdf-plus:PDF++: Toggle auto-paste": false
+      "pdf-plus:PDF++: Toggle auto-paste": false,
+      "find-orphaned-images:Find orphaned images": false
     }
   },
-  "active": "ce7c415877254ec1",
+  "active": "f2d2a3048e7b2953",
   "lastOpenFiles": [
+    "Blogs/Low-Level/attachments/Pasted image 20250329105019.png",
+    "Orphaned Images Report.md",
+    "Blogs/Low-Level/FPGA Programming.md",
+    "Blogs/Low-Level/attachments/Pasted image 20250330144151.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250330144032.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250330143607.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250330142913.png",
+    "Blogs/Low-Level/attachments/final.mp4",
+    "Blogs/Low-Level/attachments/Pasted image 20250329221336.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250329195128.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250329174806.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250329174755.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250329174724.png",
+    "Blogs/Low-Level/attachments/Pasted image 20250329174712.png",
+    "Blogs/Low-Level/Reintroduction to programming.md",
+    "Blogs/Low-Level/attachments/ac701-schematic-xtp218-rev1-0.pdf",
+    "Blogs/Low-Level/attachments/switch-leds.webm",
+    "index.md",
+    "Resume.md",
+    "Untitled.md",
     "private/ARCHIVE",
     "private/ARCHIVE/HUNT/HUNT.md",
-    "index.md",
-    "private/ARCHIVE/HUNT/attachments/Pasted image 20250323184512.png",
-    "private/ARCHIVE/HUNT/attachments/Pasted image 20250322103611.png",
-    "private/ARCHIVE/HUNT/attachments/Pasted image 20250322114603.png",
-    "private/ARCHIVE/HUNT/attachments/Pasted image 20250322103707.png",
-    "private/ARCHIVE/HUNT/attachments/Pasted image 20250322103619.png",
-    "private/ARCHIVE/HUNT/attachments/Pasted image 20250322115117.png",
-    "private/ARCHIVE/HUNT/attachments/Pasted image 20250322114634.png",
     "private/ARCHIVE/HUNT/attachments",
     "private/ARCHIVE/HUNT",
     "meta/Archive.md",
     "private/notes for self.md",
-    "Resume.md",
     "meta",
     "Blogs/Linux/kernel-module-programming/1-Intro.md",
     "private/ARCHIVE/Nand2Tetris/Part 1 - Boolean Logic.md",
     "Blogs/Low-Level/Nand2Tetris/index.md",
-    "Blogs/Low-Level/attachments/assignment.png",
-    "Blogs/Low-Level/Reintroduction to programming.md",
     "Blogs/Low-Level/Binary.md",
     "Projects/V2V/IoT system and simulation for V2V communication.md",
-    "Projects/V2V/demo.png",
-    "attachments/avatar.jpg",
     "Blogs/Low-Level/Nand2Tetris/attachments",
     "private/ARCHIVE/Nand2Tetris",
     "attachments/resume.pdf",
@@ -188,20 +203,13 @@
     "Notes/index.md",
     "Projects/WebDev/Pawfect.md",
     "Notes/ai/Supervised ML.md",
-    "Projects/WebDev/attachments",
-    "Projects/WebDev",
     "Projects/Linux/NixOS configuration.md",
-    "Projects/Linux",
     "Yap/index.md",
     "SHIVANGJHALANI-PES1UG23CS548.md",
     "Blogs/index.md",
-    "Yap",
     "Blogs/Linux/kernel-module-programming/2-Preliminaries.md",
     "private/templates/blog-template.md",
     "Hello.md",
-    "STUDY.md",
-    "pitch.md",
-    "OS/index.md",
     "Projects/car.canvas"
   ]
 }

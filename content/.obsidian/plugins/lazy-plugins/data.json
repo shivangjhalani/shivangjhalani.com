@@ -40,6 +40,9 @@
       },
       "dataview-serializer": {
         "startupType": "instant"
+      },
+      "find-orphaned-images": {
+        "startupType": "instant"
       }
     }
   }

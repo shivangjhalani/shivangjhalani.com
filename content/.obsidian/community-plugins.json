@@ -3,5 +3,6 @@
   "lazy-plugins",
   "settings-search",
   "obsidian-focus-mode",
-  "pdf-plus"
+  "pdf-plus",
+  "find-orphaned-images"
 ]

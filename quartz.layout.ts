@@ -38,7 +38,7 @@ const explorerConfig = {
     // dont change name of root node
     if (!node.isFolder) {
       // set emoji for file/folder      
-        node.displayName = "# " + node.displayName
+        node.displayName = "- " + node.displayName
     }
   },
 }
@@ -90,7 +90,7 @@ export const defaultContentPageLayout: PageLayout = {
         repelForce: 0.3,
         centerForce: 0.9,
         linkDistance: 30,
-        fontSize: 0.6,
+        fontSize: 0.8,
         opacityScale: 1,
         removeTags: [], // what tags to remove from the graph
         showTags: true, // whether to show tags in the graph
