@@ -1,5 +1,5 @@
 {
-  "imageExtensions": "png, jpg, jpeg, gif, svg, bmp",
+  "imageExtensions": "png, jpg, jpeg, gif, svg, bmp, .webp, .mp4",
   "maxDeleteCount": -1,
   "moveToTrash": true
 }

@@ -21,6 +21,12 @@ FPGAs are made of a matrix of Configurable Logic Blocks (CLBs) with a mesh of re
 1. Faster : they can do parallel processing of signals
 2. Re-programming hardware structure : no money wasted on re-manufacturing board if any error occurs.
 
+---
+
+> [!INFO]
+> This blog is like a tutorial, we will be building small small projects while learning and gradually build up to bigger project, final being 8-bit counter on 7-segment display on our board.
+
+---
 # 1. Hello world : Switching LEDs
 We do stuff in vivado : this is where we will be coding in verilog
 ![[Pasted image 20250329100724.png]]
@@ -269,6 +275,136 @@ Notice the values of red, green and blue changing!
 
 ---
 
+# 4. Clock : Blinking LED
+We will be learning how clock works by creating a blinking LED using **clock divider**.  
+
+Clock input is really fast by default 100MHz (100 million cycles per second), the LED would be blinking soo fast we wouldn't see it blinking.  
+We want to use a clock divider to divide down the clock signal.
+
+Let's also make our code modular now, we will create a seperate file for clocl_divider module.
+
+## 1. `clock_divider`
+
+```verilog title="clock_divider.v"
+`timescale 1ns / 1ps
+
+// Counter based clock divider
+module clock_divider(
+    input wire clk,        // Input clock (100MHz = 10ns period, rising edge every 10ns)
+    output reg divided_clk = 0  // Output clock (1Hz with current settings)
+);
+    // For 1Hz output (0.5s HIGH, 0.5s LOW):
+    // div_value = 100MHz / ((2*desired freq) - 1) => 1Hz => 49999999
+    // 100MHz input ÷ 49999999 = 2Hz, then toggle to get 1Hz
+    // Each clock cycle = 10ns, so 49999999 cycles = 0.5s
+    localparam div_value = 49999999;  
+    
+    integer counter = 0;  // 32-bit wide counter
+    
+    // Counter logic
+    // Triggers on each rising edge of the input clock (every 10ns)
+    always@ (posedge clk)
+    begin
+        if (counter == div_value - 1)  // Use div_value-1 for exact timing
+            counter <= 0;  // Reset counter when it reaches div_value-1
+        else
+            counter <= counter + 1;  // Increment counter
+    end
+    
+    // Output clock generation
+    // Toggles the output when counter reaches div_value-1
+    always@ (posedge clk)
+    begin
+        if(counter == div_value - 1)
+            divided_clk <= ~divided_clk;  // Flip output signal, Each count = 10ns, so 50M counts = 0.5s, divided_clk flips every 0.5s
+        else 
+            divided_clk <= divided_clk;   // Maintain current output
+    end
+    
+endmodule
+```
+
+## 2. Simulating the `clock_divider`
+
+```verilog title="testbench.v"
+`timescale 1ns / 1ps
+
+module testbench;
+
+reg clk = 0; // 100MHz
+wire divided_clk;
+
+// Wrapper
+clock_divider UUT(
+    .clk(clk),
+    .divided_clk(divided_clk)
+);
+
+always #5 clk = ~clk; // every 5 ns, signal flips => 10ns perios => 100MHz
+
+endmodule
+```
+
+In vivado, by default running time is 1ns, this is too short since our divided clock will flip every 0.5s.  
+Change the simulation time to 1.1s atleast, it'll take some time, have a cup of coffee.  
+
+Notice the divided clock flips every 0.5s  
+![[Pasted image 20250331104632.png]]
+While the i/p clock flips every 5ns  
+![[Pasted image 20250331104651.png]]
+
+
+## 3. Blinking LEDs
+
+```verilog title="top.v"
+`timescale 1ns / 1ps
+
+module top(
+    input wire clk,
+    output wire led
+);
+
+    // wrapper for the clock divider
+    clock_divider wrapper(
+        .clk(clk),
+        .divided_clk(led)
+    );
+endmodule
+```
+
+```xdc title="master.xdc"
+##Clock
+set_property -dict { PACKAGE_PIN H16   IOSTANDARD LVCMOS33 } [get_ports { clk }];
+
+#Individual LEDS
+set_property -dict { PACKAGE_PIN N20   IOSTANDARD LVCMOS33 } [get_ports { led }]; #IO_L14P_T2_SRCC_34 Schematic=LD0
+```
+
+Load the bit file on your board and the LED blinks!
+
+---
+
+# 5. Binary to BCD Decoder
+Converting 8-bit binary to 8421 Binary coded decimal  
+![[Pasted image 20250401092632.png]]
+
+## The algorithm
+![[Pasted image 20250401092759.png]]
+The 8-bit value `11010101` was converted into BCD `0010 0001 0011` using this simple algorithm.
+
+---
+
+# 6. 8-bit counter
+We will be using the Basys3 (Xilinx Artix-7 FPGA: XC7A35T-1CPG236C) board for this project.  
+
+## Basys3 board schematic
+![[basys3-schematic.pdf#height=400]]
+
+Also refer to basys3-master.xdc
+![[basys3-master.xdc]]
+
+
+---
 
 > [!INFO] Blog ends here
 > Below section is not related to FPGA or much to verilog
