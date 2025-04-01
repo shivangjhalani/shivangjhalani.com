@@ -389,20 +389,138 @@ Converting 8-bit binary to 8421 Binary coded decimal
 ![[Pasted image 20250401092632.png]]
 
 ## The algorithm
-![[Pasted image 20250401092759.png]]
-The 8-bit value `11010101` was converted into BCD `0010 0001 0011` using this simple algorithm.
+
+The Double-Dabble Algorithm:
+- **Initialization:** Start with all BCD digits set to zero. 
+- **Iteration:** For each bit in the binary number (from right to left):
+    - **Shift:** Shift the current BCD digits to the left (multiply by 2). 
+    - **Add Bit:** Add the current bit of the binary number to the least significant BCD digit. 
+    - **Check and Add 3:** If any BCD digit is 5 or greater, add 3 to that digit. 
+- **Repeat:** Continue these steps for all bits of the binary number.
+
+**Example : 213 `11010101`** 
+
+| Iteration | Current Bit | BCD Hundreds | BCD Tens | BCD Ones | Notes                                                                      |
+| --------- | ----------- | ------------ | -------- | -------- | -------------------------------------------------------------------------- |
+| Initial   | -           | 0000         | 0000     | 0000     | All BCD digits initialized to 0                                            |
+| 1         | 1 (MSB)     | 0000         | 0000     | 0001     | Shift BCD left, add MSB (1)                                                |
+| 2         | 1           | 0000         | 0000     | 0010     | Shift BCD left, add bit (1)                                                |
+|           |             | 0000         | 0000     | 0010     | No adjustment needed (all digits < 5)                                      |
+| 3         | 0           | 0000         | 0000     | 0100     | Shift BCD left, add bit (0)                                                |
+|           |             | 0000         | 0000     | 0100     | No adjustment needed (all digits < 5)                                      |
+| 4         | 1           | 0000         | 0000     | 1001     | Shift BCD left, add bit (1)                                                |
+|           |             | 0000         | 0001     | 0010     | Adjustment: ones digit > 4, add 3 -> 1001 + 0011 = 1100, becomes 0001 0010 |
+| 5         | 0           | 0000         | 0010     | 0100     | Shift BCD left, add bit (0)                                                |
+|           |             | 0000         | 0010     | 0100     | No adjustment needed (all digits < 5)                                      |
+| 6         | 1           | 0000         | 0100     | 1001     | Shift BCD left, add bit (1)                                                |
+|           |             | 0000         | 0101     | 0010     | Adjustment: ones digit > 4, add 3 -> 1001 + 0011 = 1100, becomes 0101 0010 |
+|           |             | 0000         | 1000     | 0010     | Adjustment: tens digit > 4, add 3 -> 0101 + 0011 = 1000                    |
+| 7         | 0           | 0001         | 0000     | 0100     | Shift BCD left, add bit (0)                                                |
+|           |             | 0001         | 0000     | 0100     | No adjustment needed (all digits < 5)                                      |
+| 8         | 1 (LSB)     | 0010         | 0000     | 1001     | Shift BCD left, add bit (1)                                                |
+|           |             | 0010         | 0001     | 0010     | Adjustment: ones digit > 4, add 3 -> 1001 + 0011 = 1100, becomes 0001 0010 |
+| Final     | -           | 0010         | 0001     | 0011     | Final BCD value: 213                                                       |
+
+The final BCD result is 0010 0001 0011, which represents 213 in decimal (2 hundreds, 1 ten, and 3 ones).
+
+The 8-bit value `11010101` (213) was converted into BCD `0010 0001 0011` using this simple algorithm.
+
+```verilog title="binary_to_bcd.v"
+module bin2bcd(
+    bin,
+    bcd
+    ); 
+    //input ports and their sizes
+    input [7:0] bin;
+    //output ports and, their size
+    output [11:0] bcd;
+    //Internal variables
+    reg [11 : 0] bcd; 
+     reg [3:0] i;   
+     
+     //Always block - implement the Double Dabble algorithm
+     always @(bin)
+        begin
+            bcd = 0; //initialize bcd to zero.
+            for (i = 0; i < 8; i = i+1) //run for 8 iterations
+            begin
+                bcd = {bcd[10:0],bin[7-i]}; //concatenation
+                    
+                //if a hex digit of 'bcd' is more than 4, add 3 to it.  
+                if(i < 7 && bcd[3:0] > 4) 
+                    bcd[3:0] = bcd[3:0] + 3;
+                if(i < 7 && bcd[7:4] > 4)
+                    bcd[7:4] = bcd[7:4] + 3;
+                if(i < 7 && bcd[11:8] > 4)
+                    bcd[11:8] = bcd[11:8] + 3;  
+            end
+        end     
+                
+endmodule
+```
+
+```verilog title="testbench.v"
+`timescale 1ns / 1ps
+
+module testbench;
+
+    // Input
+    reg [7:0] bin;
+    // Output
+    wire [11:0] bcd;
+    // Extra variables
+    reg [8:0] i;
+
+    // Instantiate the Unit Under Test (UUT)
+    bin2bcd uut (
+        .bin(bin), 
+        .bcd(bcd)
+    );
+
+//Simulation - Apply inputs
+    initial begin
+    //A for loop for checking all the input combinations.
+        for(i=0;i<256;i=i+1)
+        begin
+            bin = i; 
+            #10; //wait for 10 ns.
+        end 
+        $finish; //system function for stoping the simulation.
+    end
+      
+endmodule
+```
+
+![[Pasted image 20250401103441.png]]
+
 
 ---
 
 # 6. 8-bit counter
 We will be using the Basys3 (Xilinx Artix-7 FPGA: XC7A35T-1CPG236C) board for this project.  
-
 ## Basys3 board schematic
 ![[basys3-schematic.pdf#height=400]]
 
 Also refer to basys3-master.xdc
 ![[basys3-master.xdc]]
 
+## Implementation
+Create a new project with `binary-to-bcd` with this board  
+![[Pasted image 20250401100613.png]]
+
+![[Pasted image 20250401124958.png]]
+
+### Files
+![[top.v]]
+![[8_bit_counter.v]]
+![[counter_clock_gen.v]]
+![[refresh_clock_gen.v]]
+![[bin_to_bcd.v]]
+![[7_seg_controller.v]]
+![[testbench.v]]
+![[basys3-8-bit-counter.xdc]]
+
+![[Pasted image 20250401125727.png]]
 
 ---
 
