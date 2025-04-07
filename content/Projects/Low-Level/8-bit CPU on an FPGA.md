@@ -10,6 +10,11 @@ comments: true
 draft: 
 enableToc: true
 ---
+# Final showcaseFinal
+> Still in progress
+
+---
+
 Why? My microprocessor and computer architecture teacher recently told in class that we could build a small toy processor on our own, I remember my eyes light up, cause?!?! it would be soo cool if I could build my own CPU and how much I would learn on the way...  
 
 We anyways had to do something for our semester final project, I asked one of my classmates if they wanted to do it and we set on the journey!  
@@ -17,14 +22,13 @@ I began searching online on how to build a CPU from scratch when I came across [
 Ben Eater's 8-bit computer :  
 ![[Pasted image 20250407000709.png | 400]]
 
-# Final showcase
-> Still in progress
-
 # Background
 
 After learning and documenting basics of how FPGA and verilog programming works in [[Intro to FPGA Programming]], I want to recreate a CPU on an FPGA instead, it's not tedious at all but still has just as much if not more learning!  
 
 Still getting inspiration from Ben Eater, he followed the design laid out in a book called [Digital Computer Electronics](https://www.goodreads.com/book/show/942643.Digital_Computer_Electronics) by Malvino and Brown. The book builds what it calls the **Simple-as-Possible (SAP) Computer**. It starts with the incredibly simple **SAP-1**, adds some features to get the **SAP-2**, and then adds a few more to reach the final version called **SAP-3**.
+
+For now, we will only be building SAP-1
 
 # SAP-1
 ![[Pasted image 20250407090956.png]]
@@ -387,15 +391,16 @@ Those control signals are:
 | b_load    | Load a value from the bus into B                        |
 | adder_sub | Subtract the value in B from A                          |
 | adder_en  | Put the adder’s value onto the bus                      |
-Instruction execution in the SAP-1 CPU proceeds in a fixed sequence of six **stages**, each lasting one clock cycle (Stage 0 to Stage 5, then repeating). A 3-bit **stage register** tracks the current stage, incrementing with each clock tick and resetting to 0 after Stage 5. Stage transitions occur on the negative clock edge to ensure control signals are ready for the next positive edge.
+
+Instruction execution in the SAP-1 CPU proceeds in a fixed sequence of six **stages**, each lasting one clock cycle (Stage 0 to Stage 5, then repeating). A 3-bit **stage register** tracks the current stage, incrementing with each clock tick and resetting to 0 after Stage 5. Stage transitions occur on the negative clock edge to ensure control signals are ready for the next positive edge.  
 
 The **opcode** from the **Instruction Register (IR)** is sent to the **controller**. Based on the opcode and the current execution stage, the controller generates 12 **control signals**. These signals are bundled into a single 12-bit value for cleaner handling. Different instruction stages assert specific control signals to perform various operations.
 
 The SAP-1 supports four instructions:
-- **LDA $X (0000):** Loads the value at memory address $X into register A.
-- **ADD $X (0001):** Adds the value at memory address $X to register A and stores the result in A.
-- **SUB $X (0010):** Subtracts the value at memory address $X from register A and stores the result in A.
-- **HLT (1111):** Stops program execution.
+- **LDA X (0000)**: Loads the value at memory address X into register A.
+- **ADD X (0001)**: Adds the value at memory address X to register A and stores the result in A.
+- **SUB X (0010)**: Subtracts the value at memory address X from register A and stores the result in A.
+- **HLT (1111)**: Stops program execution.
 
 The first three stages are common to all instructions and handle instruction fetching:
 - **Stage 0:** The **Program Counter (PC)**'s value (the address of the next instruction) is placed on the bus, and this address is loaded into the **Memory Address Register (MAR)**.
@@ -638,7 +643,7 @@ module sap1_cpu_top (
     adder u_adder (
         .in_a     (a_out),
         .in_b     (b_out),
-        .subtract (adder_sub),
+        .subt     (adder_sub),
         .result   (adder_out) // Or .out(adder_out) if port name is 'out'
     );
 
@@ -880,13 +885,13 @@ module top_tb();
 endmodule
 ```
 
-### 12. Feeding instructions
+## Feeding instructions
 Right now in our `memory.v` file, we are hard-coding instructions.  
 Instead now, we will go through how to convert our  assembly code into a `.hex` file and feed it to our `memory.v`.
 
 Since your SAP-1 CPU has a custom instruction set, we can't use standard assemblers like the ARM one. We need to define our own simple assembly format and create a script to "assemble" it directly into the hex format needed by your `memory.v`'s `$readmemh`.
 
-#### 1. Define the SAP-1 Assembly Language
+### 1. Define the SAP-1 Assembly Language
 
 Let's use simple mnemonics. Remember:
 *   Instructions are 8 bits: `Opcode (4 bits) | Operand (4 bits)`
@@ -924,7 +929,7 @@ HLT     # Halt execution
 *   `.BYTE <hex_byte>`: A *directive* to place a specific 8-bit hex value at the current memory address.
 *   `#`: Comments, ignored by the script.
 
-#### 2. Create the Bash "Assembler" Script (`assemble_sap1.sh`)
+### 2. Create the Bash "Assembler" Script (`assemble_sap1.sh`)
 
 This script will read `program.sap1`, parse it, and generate `memory.hex`.
 
@@ -1105,7 +1110,7 @@ echo "Assembly complete. Output file: $output_hex_file"
 exit 0
 ```
 
-#### 3. Steps to Use:
+### 3. Steps to Use:
 
 4.  **Save:** Save the assembly code above as `program.sap1`.
 5.  **Save:** Save the bash script above as `assemble_sap1.sh`.
@@ -1137,7 +1142,7 @@ exit 0
     14  <-- .BYTE 14 (Address F)
     ```
 
-#### 4. Feed to `memory.v`
+### 4. Feed to `memory.v`
 
 *   **Place the File:** Copy the generated `memory.hex` file into the *same directory* where Vivado will run synthesis/simulation, or provide the correct path in your Verilog code. Usually, placing it in the main project source directory or a dedicated `data` directory added to the project works.
 *   **Verilog Code:**
@@ -1158,3 +1163,401 @@ exit 0
     ```
 
 Now, when you run synthesis or simulation in Vivado, the simulator/tool will execute the `initial` block and load the contents of `memory.hex` into the `ram` register array *before* the simulation starts or during FPGA configuration. Our SAP-1 CPU will then fetch and execute these instructions.
+
+### Testing
+```assembly title="program.sap1"
+# --- My SAP-1 Test Program ---
+# Goal: Compute 10 + 20 - 10 = 20 (0x14)
+
+# Code Section
+LDA E   # Load value from address 0xE (should be 10 = 0x0A) into Reg A
+ADD F   # Add value from address 0xF (should be 20 = 0x14) to Reg A. A = 0x0A + 0x14 = 0x1E
+SUB E   # Subtract value from address 0xE (0x0A) from Reg A. A = 0x1E - 0x0A = 0x14
+HLT     # Halt execution
+
+# Padding directives to place data correctly
+# Ensure next data byte is at address 0xE
+.PAD E
+
+# Data Section
+.BYTE 0A # Define byte at address 0xE (Value = 10)
+.BYTE 14 # Define byte at address 0xF (Value = 20)
+
+# --- End of Program ---
+```
+
+![[Pasted image 20250407130737.png]]
+
+After about 215ns, our final result was available in a_out = 0x14
+
+## Translating code to real world
+In order to see our FPGA perform the instructions, we will be taking help of the 7-segment display to see the ouput of our instructions.  
+![[Pasted image 20250407152432.png]]
+
+To achieve this, we would need multiple modules.  
+1. Binary to BCD Conversion : The 8-bit result (0-255) needs to be converted into three 4-bit Binary Coded Decimal (BCD) digits representing hundreds, tens, and ones.
+2. BCD to 7-Segment Encoding : Each BCD digit needs to be translated into the 7 signals (active-low for Basys 3 common anode display) required to light up the segments (a-g) for that digit.
+3. Display Multiplexing : The Basys 3 has 4 digits sharing the segment lines. We need to rapidly cycle through enabling each digit's anode and driving the corresponding segment pattern. This requires a slower clock for the cycling (refresh rate) and logic to select the correct digit and its pattern at the right time.
+
+### 1. `binary_to_bcd.v`
+This module converts an 8-bit binary number into three 4-bit BCD digits using the "Double Dabble" (Shift-and-Add-3) algorithm. This is purely combinational.
+```verilog
+// Module to convert 8-bit binary to 3-digit BCD
+// Uses the Double Dabble (Shift-and-Add-3) algorithm
+
+module binary_to_bcd (
+    input  [7:0] bin_in,        // 8-bit binary input (0-255)
+    output [3:0] bcd_hundreds,  // BCD digit for 100s place
+    output [3:0] bcd_tens,      // BCD digit for 10s place
+    output [3:0] bcd_ones       // BCD digit for 1s place
+);
+
+    // Intermediate register for the Double Dabble process
+    // Needs 8 bits for original binary + 3 * 4 bits for BCD = 20 bits total
+    reg [19:0] dabble_reg;
+    integer i;
+
+    // Combinational logic for the conversion
+    always @(bin_in) begin
+        // Initialize with binary input in the lower 8 bits
+        dabble_reg = {12'b0, bin_in};
+
+        // Perform 8 shifts (one for each input bit)
+        for (i = 0; i < 8; i = i + 1) begin
+            // Check each BCD digit (ones, tens, hundreds) before shifting
+            // If a BCD digit is >= 5, add 3
+            if (dabble_reg[11:8] >= 5) begin // Check ones digit
+                dabble_reg[11:8] = dabble_reg[11:8] + 3;
+            end
+            if (dabble_reg[15:12] >= 5) begin // Check tens digit
+                dabble_reg[15:12] = dabble_reg[15:12] + 3;
+            end
+            if (dabble_reg[19:16] >= 5) begin // Check hundreds digit
+                dabble_reg[19:16] = dabble_reg[19:16] + 3;
+            end
+
+            // Shift left by 1 bit
+            dabble_reg = dabble_reg << 1;
+        end
+    end
+
+    // Assign outputs from the final BCD positions in the register
+    assign bcd_hundreds = dabble_reg[19:16];
+    assign bcd_tens     = dabble_reg[15:12];
+    assign bcd_ones     = dabble_reg[11:8];
+
+endmodule
+```
+
+### 2. `bcd_to_7seg.v`
+This module takes a 4-bit BCD digit and outputs the 7 segment patterns. Crucially, it's designed for the Basys 3's common anode display, meaning segments are active LOW (0 turns ON).
+```verilog
+// Module to convert a 4-bit BCD digit to 7-segment display patterns
+// For Common Anode display (Active LOW segments: 0 = ON, 1 = OFF)
+
+module bcd_to_7seg (
+    input  [3:0] bcd_in,    // 4-bit BCD input (0-9)
+    output [6:0] segments   // 7-segment output (a,b,c,d,e,f,g) - Active LOW
+);
+
+    reg [6:0] seg_out;
+
+    // Combinational logic: Update segments when bcd_in changes
+    always @(bcd_in) begin
+        case (bcd_in)
+            // Digit: Segments abcdefg (0=on, 1=off)
+            4'b0000: seg_out = 7'b0000001; // 0
+            4'b0001: seg_out = 7'b1001111; // 1
+            4'b0010: seg_out = 7'b0010010; // 2
+            4'b0011: seg_out = 7'b0000110; // 3
+            4'b0100: seg_out = 7'b1001100; // 4
+            4'b0101: seg_out = 7'b0100100; // 5
+            4'b0110: seg_out = 7'b0100000; // 6
+            4'b0111: seg_out = 7'b0001111; // 7
+            4'b1000: seg_out = 7'b0000000; // 8
+            4'b1001: seg_out = 7'b0000100; // 9
+            default: seg_out = 7'b1111111; // Off (blank) for invalid BCD
+        endcase
+    end
+
+    assign segments = seg_out;
+
+endmodule
+```
+
+### 3. `seven_segment_controller.v`
+This is the core display driver. It takes the BCD digits, uses a slower clock derived from the main clock to cycle through the digits, enables the correct anode, and uses the bcd_to_7seg module to drive the segments. It also includes an enable input, which we will connect to the CPU's hlt signal.
+```verilog
+// 7-Segment Display Controller (Multiplexer) for Basys 3 (Common Anode)
+
+module seven_segment_controller (
+    input         clk,       // System clock (e.g., 100MHz)
+    input         reset,     // System reset
+    input         enable,    // Display enable (connect to CPU HLT signal)
+
+    // BCD digits to display (from binary_to_bcd)
+    input [3:0]   bcd_h,     // Hundreds digit
+    input [3:0]   bcd_t,     // Tens digit
+    input [3:0]   bcd_o,     // Ones digit
+
+    // Outputs to the 7-segment display pins
+    output reg [6:0] seg,      // Segment cathodes (Active LOW)
+    output reg [3:0] an        // Anode selectors (Active HIGH, one hot)
+);
+
+    // --- Clock Divider for Refresh Rate ---
+    // Divide 100MHz down to ~few hundred Hz for multiplexing
+    // 100,000,000 / 2^18 (~262144) = ~381 Hz refresh rate per digit cycle
+    // Total refresh rate = 381 Hz / 4 digits = ~95 Hz per digit (well above flicker fusion)
+    localparam REFRESH_COUNTER_BITS = 18;
+    reg [REFRESH_COUNTER_BITS-1:0] refresh_counter;
+    wire refresh_tick;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            refresh_counter <= 0;
+        end else begin
+            refresh_counter <= refresh_counter + 1;
+        end
+    end
+    // Generate a tick when the counter overflows
+    assign refresh_tick = (refresh_counter == {(REFRESH_COUNTER_BITS){1'b1}});
+
+    // --- Digit Selection Counter ---
+    reg [1:0] digit_select; // 00, 01, 10, 11 (for AN0, AN1, AN2, AN3)
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            digit_select <= 2'b00;
+        end else if (refresh_tick) begin // Change digit on refresh tick
+            digit_select <= digit_select + 1;
+        end
+    end
+
+    // --- BCD Digit Multiplexer ---
+    reg [3:0] current_bcd;
+
+    always @(*) begin
+        case (digit_select)
+            2'b00:  current_bcd = bcd_o;        // Display Ones digit on AN0 (rightmost)
+            2'b01:  current_bcd = bcd_t;        // Display Tens digit on AN1
+            2'b10:  current_bcd = bcd_h;        // Display Hundreds digit on AN2
+            2'b11:  current_bcd = 4'b0000;      // Display Zero on AN3 (leftmost) - or make it blank
+            default: current_bcd = 4'b1111;     // Should not happen, display blank
+        endcase
+    end
+
+    // --- Instantiate BCD to 7-Segment Decoder ---
+    wire [6:0] current_segments;
+    bcd_to_7seg decoder (
+        .bcd_in   (current_bcd),
+        .segments (current_segments)
+    );
+
+    // --- Drive Outputs ---
+    // Combinational block to update anodes and segments
+    always @(*) begin
+        if (enable) begin // Only display if enable (HLT) is active
+            // Select active anode (active HIGH, one-hot)
+            case (digit_select)
+                 2'b00: an = 4'b1110; // Enable AN0 (rightmost)
+                 2'b01: an = 4'b1101; // Enable AN1
+                 2'b10: an = 4'b1011; // Enable AN2
+                 2'b11: an = 4'b0111; // Enable AN3 (leftmost) - displaying zero
+                 default: an = 4'b1111; // All off
+            endcase
+            // Drive the segments (active LOW) from the decoder
+            seg = current_segments;
+        end else begin
+            // If not enabled, turn off all anodes and segments
+            an = 4'b1111;  // All anodes off
+            seg = 7'b1111111; // All segments off
+        end
+    end
+
+endmodule
+```
+
+### 4. Integrating in top module
+Modify your sap1_cpu_top to include the display logic and add the necessary output ports.
+```verilog
+// SAP-1 CPU Top-Level Module with 7-Segment Display Output
+
+module sap1_cpu_top (
+    input         clk_in,     // Clock input (Connect to Basys 3 100MHz oscillator, e.g., W5)
+    input         rst,        // Reset input (Connect to a button or reset circuit)
+    output        hlt_out,    // Output the halt signal status (e.g., to an LED)
+
+    // Outputs for the 7-Segment Display
+    output [6:0]  seg_out,    // Segment cathodes (Active LOW)
+    output [3:0]  an_out      // Anode selectors (Active HIGH)
+);
+
+    // --- Internal Signal Declarations ---
+
+    // Clocks and Reset (as before)
+    wire clk;       // Gated clock used by most components
+    wire hlt;       // Internal halt signal from controller
+
+    // Control Signals (as before)
+    wire pc_inc;
+    wire pc_en;
+    wire mar_load;
+    wire mem_en;
+    wire ir_load;
+    wire ir_en;
+    wire a_load;
+    wire a_en;
+    wire b_load;
+    wire adder_sub;
+    wire adder_en;
+    wire [11:0] control_word;
+
+    // Data Paths & Intermediate Signals (as before)
+    wire [7:0] bus_data;
+    wire [3:0] pc_out_internal;
+    wire [7:0] mem_out;
+    wire [7:0] ir_out;
+    wire [7:0] a_out; // <<< This holds the final result
+    wire [7:0] b_out;
+    wire [7:0] adder_out;
+    wire [3:0] opcode;
+
+    // --- Instantiate Clock Module --- (as before)
+    clock u_clock (
+        .clk_100mhz (clk_in),
+        .hlt        (hlt),
+        .clk_out    (clk)
+    );
+
+    // --- Instantiate CPU Components --- (as before)
+    pc u_pc (.clk(clk), .rst(rst), .inc(pc_inc), .out(pc_out_internal));
+    memory u_memory (.clk(clk), .rst(rst), .load(mar_load), .bus(bus_data), .out(mem_out));
+    reg_a u_reg_a (.clk(clk), .rst(rst), .load(a_load), .bus(bus_data), .out(a_out));
+    reg_b u_reg_b (.clk(clk), .rst(rst), .load(b_load), .bus(bus_data), .out(b_out));
+    adder u_adder (.in_a(a_out), .in_b(b_out), .sub(adder_sub), .result(adder_out)); // Check '.sub' vs '.subt' if you used a different name
+    ir u_ir (.clk(clk), .rst(rst), .load(ir_load), .bus(bus_data), .out(ir_out));
+
+    // --- Instantiate Controller --- (as before)
+    assign opcode = ir_out[7:4];
+    controller u_controller (.clk(clk), .rst(rst), .opcode(opcode), .out(control_word));
+
+    // --- Deconstruct Control Word --- (as before)
+    assign hlt       = control_word[11];
+    assign pc_inc    = control_word[10];
+    assign pc_en     = control_word[9];
+    assign mar_load  = control_word[8];
+    assign mem_en    = control_word[7];
+    assign ir_load   = control_word[6];
+    assign ir_en     = control_word[5];
+    assign a_load    = control_word[4];
+    assign a_en      = control_word[3];
+    assign b_load    = control_word[2];
+    assign adder_sub = control_word[1];
+    assign adder_en  = control_word[0];
+
+    // --- Instantiate Bus Multiplexer --- (as before)
+    bus_mux u_bus_mux (
+        .adder_out(adder_out), .a_out(a_out), .ir_out(ir_out), .mem_out(mem_out), .pc_out(pc_out_internal),
+        .adder_en(adder_en), .a_en(a_en), .ir_en(ir_en), .mem_en(mem_en), .pc_en(pc_en),
+        .bus_data(bus_data)
+    );
+
+    // --- Instantiate Display Logic ---
+
+    // 1. Convert final result (a_out) to BCD
+    wire [3:0] bcd_h_w, bcd_t_w, bcd_o_w;
+    binary_to_bcd u_bin_to_bcd (
+        .bin_in       (a_out), // Input is the result from Register A
+        .bcd_hundreds (bcd_h_w),
+        .bcd_tens     (bcd_t_w),
+        .bcd_ones     (bcd_o_w)
+    );
+
+    // 2. Instantiate the 7-Segment Controller
+    seven_segment_controller u_display_controller (
+        .clk      (clk_in), // Use the fast main clock for the controller's internal divider
+        .reset    (rst),
+        .enable   (hlt),    // Enable display only when CPU is halted
+        .bcd_h    (bcd_h_w),
+        .bcd_t    (bcd_t_w),
+        .bcd_o    (bcd_o_w),
+        .seg      (seg_out), // Connect to top-level output
+        .an       (an_out)   // Connect to top-level output
+    );
+
+    // --- Assign Top-Level Outputs ---
+    assign hlt_out = hlt;
+
+endmodule
+```
+
+### Loading it onto our FPGA
+We will be using the [Basys3](https://digilent.com/shop/basys-3-artix-7-fpga-trainer-board-recommended-for-introductory-users) (Xilinx Artix-7 FPGA: XC7A35T-1CPG236C) board for this project.  
+#### Basys3 board schematic
+![[basys3-schematic.pdf#height=400]]
+
+Also refer to basys3-master.xdc.  
+![[basys3-master.xdc]]  
+The `.xdc` file basically maps inputs and outputs from our verilog code to physical ports on the board.
+
+#### 8-bit-cpu xdc file
+This is the .xdc file we need for our CPU, add it as a constraint source in our vivado project.
+```
+## Basys 3 Constraints File for SAP-1 CPU Project
+## Target Device: Xilinx Artix-7 XC7A35T-1CPG236C
+
+#------------------------------------------------------------------------------
+# Clock Signal
+#------------------------------------------------------------------------------
+# Connects to the 100MHz oscillator on the Basys 3 board (Pin W5)
+set_property -dict { PACKAGE_PIN W5   IOSTANDARD LVCMOS33 } [get_ports clk_in]
+# Define the clock period (10ns for 100MHz) for timing analysis
+create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk_in]
+
+#------------------------------------------------------------------------------
+# Reset Button
+#------------------------------------------------------------------------------
+# Connects to the Center Push Button (BTNC - Pin U18)
+set_property -dict { PACKAGE_PIN U18 IOSTANDARD LVCMOS33 } [get_ports rst]
+
+#------------------------------------------------------------------------------
+# Halt Status LED
+#------------------------------------------------------------------------------
+# Connects to LED LD0 (Pin U16) to indicate CPU halt status
+set_property -dict { PACKAGE_PIN U16 IOSTANDARD LVCMOS33 } [get_ports hlt_out]
+
+#------------------------------------------------------------------------------
+# 7-Segment Display
+#------------------------------------------------------------------------------
+## Segment Cathodes (Active LOW)
+# Maps seg_out[6:0] to segments g,f,e,d,c,b,a respectively
+set_property -dict { PACKAGE_PIN W7   IOSTANDARD LVCMOS33 } [get_ports {seg_out[0]}] ;# Segment A
+set_property -dict { PACKAGE_PIN W6   IOSTANDARD LVCMOS33 } [get_ports {seg_out[1]}] ;# Segment B
+set_property -dict { PACKAGE_PIN U8   IOSTANDARD LVCMOS33 } [get_ports {seg_out[2]}] ;# Segment C
+set_property -dict { PACKAGE_PIN V8   IOSTANDARD LVCMOS33 } [get_ports {seg_out[3]}] ;# Segment D
+set_property -dict { PACKAGE_PIN U5   IOSTANDARD LVCMOS33 } [get_ports {seg_out[4]}] ;# Segment E
+set_property -dict { PACKAGE_PIN V5   IOSTANDARD LVCMOS33 } [get_ports {seg_out[5]}] ;# Segment F
+set_property -dict { PACKAGE_PIN U7   IOSTANDARD LVCMOS33 } [get_ports {seg_out[6]}] ;# Segment G
+
+## Anode Selectors (Active HIGH)
+# Maps an_out[3:0] to AN3, AN2, AN1, AN0 respectively (Left to Right)
+set_property -dict { PACKAGE_PIN U2   IOSTANDARD LVCMOS33 } [get_ports {an_out[0]}] ;# Anode 0 (Rightmost)
+set_property -dict { PACKAGE_PIN U4   IOSTANDARD LVCMOS33 } [get_ports {an_out[1]}] ;# Anode 1
+set_property -dict { PACKAGE_PIN V4   IOSTANDARD LVCMOS33 } [get_ports {an_out[2]}] ;# Anode 2
+set_property -dict { PACKAGE_PIN W4   IOSTANDARD LVCMOS33 } [get_ports {an_out[3]}] ;# Anode 3 (Leftmost)
+
+#------------------------------------------------------------------------------
+# General Configuration Settings (Recommended for all Basys 3 designs)
+#------------------------------------------------------------------------------
+set_property CONFIG_VOLTAGE 3.3 [current_design]
+set_property CFGBVS VCCO [current_design]
+
+#------------------------------------------------------------------------------
+# SPI Configuration Settings (for programming via QSPI Flash)
+#------------------------------------------------------------------------------
+set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
+set_property BITSTREAM.CONFIG.CONFIGRATE 33 [current_design]
+set_property CONFIG_MODE SPIx4 [current_design]
+```
+
