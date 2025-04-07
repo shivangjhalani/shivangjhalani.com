@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "67fd4c05dfb8a04f",
+        "id": "e09f80566f81baf0",
         "type": "tabs",
         "children": [
           {
-            "id": "d048474a0f7a3f6a",
+            "id": "39affaa2eda15d4e",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -158,14 +158,14 @@
       "find-orphaned-images:Find orphaned images": false
     }
   },
-  "active": "d048474a0f7a3f6a",
+  "active": "39affaa2eda15d4e",
   "lastOpenFiles": [
+    "Blogs/Low-Level/Intro to FPGA Programming.md",
+    "Projects/Low-Level/8-bit CPU on an FPGA.md",
     "Projects/Low-Level/attachments/Pasted image 20250407091355.png",
     "Projects/Low-Level/attachments/Pasted image 20250407090956.png",
     "Projects/Low-Level/attachments/SAP-1 Overview.canvas",
-    "Projects/Low-Level/8-bit CPU on an FPGA.md",
     "Projects/Low-Level/attachments/Pasted image 20250407003144.png",
-    "Blogs/Low-Level/Intro to FPGA Programming.md",
     "Projects/Low-Level/attachments/Pasted image 20250407000709.png",
     "Projects/Low-Level/attachments",
     "Blogs/Low-Level/Reintroduction to programming.md",
@@ -186,7 +186,6 @@
     "Blogs/Low-Level/attachments/Pasted image 20250401100613.png",
     "Archive.md",
     "Blogs/Low-Level/attachments/Pasted image 20250401092759.png",
-    "Blogs/Low-Level/attachments/Pasted image 20250401092632.png",
     "Orphaned Images Report.md",
     "index.md",
     "Resume.md",
