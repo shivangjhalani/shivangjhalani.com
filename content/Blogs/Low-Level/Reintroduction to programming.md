@@ -7,7 +7,7 @@ tags:
   - low-level
   - ode5
 ---
-This is the first in a series of blogs following [Kay Lack's ODE5](https://www.0de5.net) (pronounced odez)
+This is a blog following [Kay Lack's ODE5](https://www.0de5.net)
 
 ODE5 is a project to rekindle the excitement everyone first experienced about computer science and problem solving, but most of us have not had the chance/ability/inclination to really fall in love with it like some of us have. You went from a bootcamp or a degree where you might have only learned a slice of this field to a job where you still only working at the surface level of it.
 

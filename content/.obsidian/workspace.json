@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Blogs/Low-Level/Intro to FPGA Programming.md",
+                "file": "Projects/Low-Level/8-bit CPU on an FPGA.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Intro to FPGA Programming"
+              "title": "8-bit CPU on an FPGA"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Blogs/Low-Level/Intro to FPGA Programming.md",
+                "file": "Projects/Low-Level/8-bit CPU on an FPGA.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Intro to FPGA Programming"
+              "title": "Outline of 8-bit CPU on an FPGA"
             }
           }
         ],
@@ -158,12 +158,21 @@
       "find-orphaned-images:Find orphaned images": false
     }
   },
-  "active": "ce7c415877254ec1",
+  "active": "d048474a0f7a3f6a",
   "lastOpenFiles": [
+    "Projects/Low-Level/attachments/Pasted image 20250407091355.png",
+    "Projects/Low-Level/attachments/Pasted image 20250407090956.png",
+    "Projects/Low-Level/attachments/SAP-1 Overview.canvas",
+    "Projects/Low-Level/8-bit CPU on an FPGA.md",
+    "Projects/Low-Level/attachments/Pasted image 20250407003144.png",
+    "Blogs/Low-Level/Intro to FPGA Programming.md",
+    "Projects/Low-Level/attachments/Pasted image 20250407000709.png",
+    "Projects/Low-Level/attachments",
+    "Blogs/Low-Level/Reintroduction to programming.md",
+    "test.md",
     "Blogs/Low-Level/attachments/8-bit-counter-files/basys3-8-bit-counter.xdc",
     "Blogs/Low-Level/attachments/Pasted image 20250401125727.png",
     "Blogs/Low-Level/attachments/Pasted image 20250401124958.png",
-    "Blogs/Low-Level/Intro to FPGA Programming.md",
     "Blogs/Low-Level/attachments/8-bit-counter-files/testbench.v",
     "Blogs/Low-Level/attachments/8-bit-counter-files/8_bit_counter.v",
     "Blogs/Low-Level/attachments/8-bit-counter-files/bin_to_bcd.v",
@@ -178,34 +187,26 @@
     "Archive.md",
     "Blogs/Low-Level/attachments/Pasted image 20250401092759.png",
     "Blogs/Low-Level/attachments/Pasted image 20250401092632.png",
-    "Blogs/Low-Level/attachments/basys3-master.xdc",
-    "Blogs/Low-Level/attachments/basys3-master.txt",
-    "Blogs/Low-Level/attachments/Pasted image 20250331104651.png",
-    "Blogs/Low-Level/attachments/Pasted image 20250331104632.png",
     "Orphaned Images Report.md",
-    "Blogs/Low-Level/attachments/Pasted image 20250331095910.png",
     "index.md",
     "Resume.md",
     "Blogs/ML/Gradient Descent in Go.md",
     "private/notes for self.md",
-    "Blogs/Low-Level/Reintroduction to programming.md",
     "private/ARCHIVE/HUNT/HUNT.md",
     "meta/Archive.md",
     "Blogs/Linux/kernel-module-programming/1-Intro.md",
     "private/ARCHIVE/Nand2Tetris/Part 1 - Boolean Logic.md",
     "Blogs/Low-Level/Nand2Tetris/index.md",
     "Blogs/Low-Level/Binary.md",
-    "Projects/V2V/IoT system and simulation for V2V communication.md",
+    "Projects/IoT/IoT system and simulation for V2V communication.md",
     "Projects/index.md",
     "Notes/index.md",
     "Projects/WebDev/Pawfect.md",
     "Notes/ai/Supervised ML.md",
-    "Projects/Linux/NixOS configuration.md",
+    "Projects/Low-Level/NixOS configuration.md",
     "Yap/index.md",
     "SHIVANGJHALANI-PES1UG23CS548.md",
     "Blogs/index.md",
-    "Blogs/Linux/kernel-module-programming/2-Preliminaries.md",
-    "private/templates/blog-template.md",
     "Projects/car.canvas"
   ]
 }

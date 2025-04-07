@@ -527,7 +527,7 @@ Create a new project with `binary-to-bcd` with this board
 > [!INFO] Blog ends here
 > Below section is not related to FPGA or much to verilog
 
-# 4. Logic Gates
+# Logic Gates
 Logic gates are devices that are used to implement boolean functions on one or more binary inputs and produces a single binary output.  
 Logic circuits (circuits made of multiple logic gates DUH) can be used to make devices like encoders, multiplexers, ALUs and even whole microprocessors!  
 
