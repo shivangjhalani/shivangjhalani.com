@@ -1,5 +1,5 @@
 ---
-title: 8-bit CPU on an FPGA
+title: Building my own assembly language and CPU
 subtitle: 
 date: 2025-04-06
 tags:
@@ -10,8 +10,12 @@ comments: true
 draft: 
 enableToc: true
 ---
-# Final showcaseFinal
+# Final showcase
 > Still in progress
+
+
+> [!NOTE]
+> To download all the final files, go to [[#Here are all the final files]]
 
 ---
 
@@ -230,17 +234,17 @@ module memory (
     initial begin
         // Use $readmemh for a hex file (e.g., "memory.hex")
         // Use $readmemb for a binary file (e.g., "memory.bin")
-        // Example: $readmemh("memory.hex", ram); 
+        $readmemh("/home/shivang/vivadoprojects/8-bit-cpu/memory.hex", ram); ; 
         
-        // For testing without a file, you can initialize manually:
-         ram[0] = 8'h01; // Example instruction LDA 15
-         ram[1] = 8'h0F;
-         ram[2] = 8'h11; // Example instruction ADD 14
-         ram[3] = 8'h0E; 
-         // ... initialize other locations up to ram[15] ...
-         ram[14] = 8'h10; // Example data 16
-         ram[15] = 8'h20; // Example data 32
-         // Ensure all 16 locations are defined if using manual init
+//        // For testing without a file, you can initialize manually:
+//         ram[0] = 8'h01; // Example instruction LDA 15
+//         ram[1] = 8'h0F;
+//         ram[2] = 8'h11; // Example instruction ADD 14
+//         ram[3] = 8'h0E; 
+//         // ... initialize other locations up to ram[15] ...
+//         ram[14] = 8'h10; // Example data 16
+//         ram[15] = 8'h20; // Example data 32
+//         // Ensure all 16 locations are defined if using manual init
     end
 
     // MAR Logic: Load address bits from bus when 'load' is high
@@ -551,27 +555,28 @@ endmodule
 The "top module" is the Verilog file that connects all the individual modules (`pc`, `reg_a`, `reg_b`, `memory`, `ir`, `adder_subtractor`, `controller`, `bus_mux`, `clock_halt`) together to form the complete CPU. It wires up the inputs and outputs of each component according to your design (and mirroring the connections in the testbench).
 
 ```verilog
-// SAP-1 CPU Top-Level Module
+// SAP-1 CPU Top-Level Module with 7-Segment Display Output
 
 module sap1_cpu_top (
     input         clk_in,     // Clock input (Connect to Basys 3 100MHz oscillator, e.g., W5)
     input         rst,        // Reset input (Connect to a button or reset circuit)
-    output        hlt_out     // Output the halt signal status (e.g., to an LED)
-    // You could add more outputs here for debugging, e.g.:
-    // output [7:0] bus_debug_out,
-    // output [7:0] reg_a_debug_out
+    output        hlt_out,    // Output the halt signal status (e.g., to an LED)
+
+    // Outputs for the 7-Segment Display
+    output [6:0]  seg_out,    // Segment cathodes (Active LOW)
+    output [3:0]  an_out      // Anode selectors (Active HIGH)
 );
 
     // --- Internal Signal Declarations ---
 
-    // Clocks and Reset
+    // Clocks and Reset (as before)
     wire clk;       // Gated clock used by most components
     wire hlt;       // Internal halt signal from controller
 
-    // Control Signals (driven by Controller)
+    // Control Signals (as before)
     wire pc_inc;
     wire pc_en;
-    wire mar_load;  // Mapped from controller's SIG_MEM_LOAD
+    wire mar_load;
     wire mem_en;
     wire ir_load;
     wire ir_en;
@@ -580,308 +585,141 @@ module sap1_cpu_top (
     wire b_load;
     wire adder_sub;
     wire adder_en;
-    wire [11:0] control_word; // Raw 12-bit output from controller
+    wire [11:0] control_word;
 
-    // Data Paths & Intermediate Signals
-    wire [7:0] bus_data;          // Value on the internal bus (from bus_mux)
-    wire [3:0] pc_out_internal;   // 4-bit output from PC module
+    // Data Paths & Intermediate Signals (as before)
+    wire [7:0] bus_data;
+    wire [3:0] pc_out_internal;
     wire [7:0] mem_out;
     wire [7:0] ir_out;
-    wire [7:0] a_out;
+    wire [7:0] a_out; // <<< This holds the final result
     wire [7:0] b_out;
     wire [7:0] adder_out;
-    wire [3:0] opcode;            // Opcode for controller (from IR)
+    wire [3:0] opcode;
 
-
-    // --- Instantiate Clock Module ---
-    // Generates the gated clock 'clk' based on input 'clk_in' and 'hlt'
-    clock_halt u_clock (
+    // --- Instantiate Clock Module --- (as before)
+    clock u_clock (
         .clk_100mhz (clk_in),
         .hlt        (hlt),
         .clk_out    (clk)
     );
 
-    // --- Instantiate CPU Components ---
+    // --- Instantiate CPU Components --- (as before)
+    pc u_pc (.clk(clk), .rst(rst), .inc(pc_inc), .out(pc_out_internal));
+    memory u_memory (.clk(clk), .rst(rst), .load(mar_load), .bus(bus_data), .out(mem_out));
+    reg_a u_reg_a (.clk(clk), .rst(rst), .load(a_load), .bus(bus_data), .out(a_out));
+    reg_b u_reg_b (.clk(clk), .rst(rst), .load(b_load), .bus(bus_data), .out(b_out));
+    adder u_adder (.in_a(a_out), .in_b(b_out), .sub(adder_sub), .result(adder_out)); // Check '.sub' vs '.subt' if you used a different name
+    ir u_ir (.clk(clk), .rst(rst), .load(ir_load), .bus(bus_data), .out(ir_out));
 
-    // Program Counter (4-bit)
-    pc u_pc (
-        .clk (clk),
-        .rst (rst),
-        .inc (pc_inc),
-        .out (pc_out_internal)
-    );
-
-    // Memory (16x8) with internal MAR
-    memory u_memory (
-        .clk  (clk),
-        .rst  (rst),
-        .load (mar_load),   // MAR load signal
-        .bus  (bus_data),   // MAR loads address from bus
-        .out  (mem_out)
-    );
-
-    // Register A (8-bit)
-    reg_a u_reg_a (
-        .clk  (clk),
-        .rst  (rst),
-        .load (a_load),
-        .bus  (bus_data),
-        .out  (a_out)
-    );
-
-    // Register B (8-bit)
-    reg_b u_reg_b (
-        .clk  (clk),
-        .rst  (rst),
-        .load (b_load),
-        .bus  (bus_data),
-        .out  (b_out)
-    );
-
-    // Adder/Subtractor (8-bit)
-    // Ensure module name matches your adder file (adder_subtractor or adder)
-    adder u_adder (
-        .in_a     (a_out),
-        .in_b     (b_out),
-        .subt     (adder_sub),
-        .result   (adder_out) // Or .out(adder_out) if port name is 'out'
-    );
-
-    // Instruction Register (8-bit)
-    ir u_ir (
-        .clk  (clk),
-        .rst  (rst),
-        .load (ir_load),
-        .bus  (bus_data),
-        .out  (ir_out)
-    );
-
-    // --- Instantiate Controller ---
-
-    // Extract 4-bit opcode from the fetched instruction
+    // --- Instantiate Controller --- (as before)
     assign opcode = ir_out[7:4];
+    controller u_controller (.clk(clk), .rst(rst), .opcode(opcode), .out(control_word));
 
-    controller u_controller (
-        .clk    (clk),
-        .rst    (rst),
-        .opcode (opcode),
-        .out    (control_word) // Outputs the 12-bit control word
+    // --- Deconstruct Control Word --- (as before)
+    assign hlt       = control_word[11];
+    assign pc_inc    = control_word[10];
+    assign pc_en     = control_word[9];
+    assign mar_load  = control_word[8];
+    assign mem_en    = control_word[7];
+    assign ir_load   = control_word[6];
+    assign ir_en     = control_word[5];
+    assign a_load    = control_word[4];
+    assign a_en      = control_word[3];
+    assign b_load    = control_word[2];
+    assign adder_sub = control_word[1];
+    assign adder_en  = control_word[0];
+
+    // --- Instantiate Bus Multiplexer --- (as before)
+    bus_mux u_bus_mux (
+        .adder_out(adder_out), .a_out(a_out), .ir_out(ir_out), .mem_out(mem_out), .pc_out(pc_out_internal),
+        .adder_en(adder_en), .a_en(a_en), .ir_en(ir_en), .mem_en(mem_en), .pc_en(pc_en),
+        .bus_data(bus_data)
     );
 
-    // --- Deconstruct Control Word ---
-    // Assign controller output bits to named wires based on the mapping used
-    // (Using the mapping from the last controller version provided)
-    assign hlt       = control_word[11]; // SIG_HLT
-    assign pc_inc    = control_word[10]; // SIG_PC_INC
-    assign pc_en     = control_word[9];  // SIG_PC_EN
-    assign mar_load  = control_word[8];  // SIG_MEM_LOAD (Interpreted as MAR Load)
-    assign mem_en    = control_word[7];  // SIG_MEM_EN
-    assign ir_load   = control_word[6];  // SIG_IR_LOAD
-    assign ir_en     = control_word[5];  // SIG_IR_EN
-    assign a_load    = control_word[4];  // SIG_A_LOAD
-    assign a_en      = control_word[3];  // SIG_A_EN
-    assign b_load    = control_word[2];  // SIG_B_LOAD
-    assign adder_sub = control_word[1];  // SIG_ADDER_SUB
-    assign adder_en  = control_word[0];  // SIG_ADDER_EN
+    // --- Instantiate Display Logic ---
 
-    // --- Instantiate Bus Multiplexer ---
-    // Connects the enabled component output to the 'bus_data' wire
-    bus_mux u_bus_mux (
-        // Data inputs
-        .adder_out (adder_out),
-        .a_out     (a_out),
-        .ir_out    (ir_out),
-        .mem_out   (mem_out),
-        .pc_out    (pc_out_internal), // Connect 4-bit PC output
+    // 1. Convert final result (a_out) to BCD
+    wire [3:0] bcd_h_w, bcd_t_w, bcd_o_w;
+    binary_to_bcd u_bin_to_bcd (
+        .bin_in       (a_out), // Input is the result from Register A
+        .bcd_hundreds (bcd_h_w),
+        .bcd_tens     (bcd_t_w),
+        .bcd_ones     (bcd_o_w)
+    );
 
-        // Enable signals
-        .adder_en  (adder_en),
-        .a_en      (a_en),
-        .ir_en     (ir_en),
-        .mem_en    (mem_en),
-        .pc_en     (pc_en),
-
-        // Output
-        .bus_data  (bus_data)
+    // 2. Instantiate the 7-Segment Controller
+    seven_segment_controller u_display_controller (
+        .clk      (clk_in), // Use the fast main clock for the controller's internal divider
+        .reset    (rst),
+        .enable   (hlt),    // Enable display only when CPU is halted
+        .bcd_h    (bcd_h_w),
+        .bcd_t    (bcd_t_w),
+        .bcd_o    (bcd_o_w),
+        .seg_out  (seg_out), // CORRECT: Connect to module's 'seg_out' port
+        .an_out   (an_out)   // CORRECT: Connect to module's 'an_out' port
     );
 
     // --- Assign Top-Level Outputs ---
-    assign hlt_out = hlt; // Make the internal halt signal visible outside
-    // assign bus_debug_out = bus_data; // Example assignment if needed
-    // assign reg_a_debug_out = a_out; // Example assignment if needed
+    assign hlt_out = hlt;
 
 endmodule
 ```
 ### 11. Simulation
 
 ```verilog
-// Testbench for SAP-1 CPU (top_tb)
+// Testbench for SAP-1 CPU Top-Level Module (sap1_cpu_top) with Detailed Logging
 `timescale 1ns / 1ps
 
 module top_tb();
 
-    // --- Signal Declarations ---
+    // --- Testbench Signals ---
 
-    // Clock and Reset
-    reg clk_in = 0; // Raw clock input for clock module
-    reg rst;
-    wire clk;      // Gated clock output from clock module
+    // Inputs to the DUT (sap1_cpu_top)
+    reg  clk_in; // 100MHz clock input signal
+    reg  rst;    // Reset signal
 
-    // Control Signals (Wires driven by Controller output)
-    wire hlt;
-    wire pc_inc;
-    wire pc_en;
-    wire mar_load; // Mapped from controller's SIG_MEM_LOAD
-    wire mem_en;
-    wire ir_load;
-    wire ir_en;
-    wire a_load;
-    wire a_en;
-    wire b_load;
-    wire adder_sub;
-    wire adder_en;
+    // Outputs from the DUT (sap1_cpu_top)
+    wire hlt_out;   // Halt status output
+    wire [6:0] seg_out; // 7-Segment cathode outputs
+    wire [3:0] an_out;  // 7-Segment anode selector outputs
 
-    // Data Paths & Intermediate Signals
-    wire [7:0] bus_data;         // Output of the bus multiplexer
-    wire [3:0] pc_out_internal;  // 4-bit output from PC module
-    wire [7:0] mem_out;
-    wire [7:0] ir_out;
-    wire [7:0] a_out;
-    wire [7:0] b_out;
-    wire [7:0] adder_out;
-    wire [3:0] opcode;           // Opcode input to controller (from IR)
-    wire [11:0] control_word;    // Raw output from controller
-
+    // --- Instantiate the Design Under Test (DUT) ---
+    sap1_cpu_top u_dut (
+        .clk_in(clk_in),
+        .rst(rst),
+        .hlt_out(hlt_out),
+        .seg_out(seg_out),
+        .an_out(an_out)
+    );
 
     // --- Clock Generation ---
-    integer i;
+    parameter CLK_PERIOD = 10; // 10ns period for 100MHz
     initial begin
-        // Generate clock for ~100 cycles (200 toggles)
-        for (i = 0; i < 200; i++) begin
-            #5 clk_in = ~clk_in; // 5ns high, 5ns low => 10ns period (100 MHz)
-        end
-        $finish; // End simulation
+        clk_in = 0;
+        forever #(CLK_PERIOD / 2) clk_in = ~clk_in;
     end
 
-    // --- Reset Generation & VCD Dump ---
+    // --- Reset Generation & Simulation Control ---
     initial begin
-        $dumpfile("top_tb.vcd"); // VCD filename
-        $dumpvars(0, top_tb);    // Dump all signals in this module and below
-        rst = 1'b1;          // Assert reset
-        #15 rst = 1'b0;          // De-assert reset after ~1.5 clock cycles
+        // VCD Dump Setup
+        $dumpfile("sap1_cpu_top_tb_detailed.vcd"); // New VCD filename
+        $dumpvars(0, top_tb.u_dut); // Dump DUT internals
+
+        // Reset Sequence
+        $display("\n--- Simulation Start ---");
+        rst = 1'b1; // Assert reset
+        $display("@%t: Reset Asserted", $time);
+        #(CLK_PERIOD * 2); // Hold reset
+        rst = 1'b0; // De-assert reset
+        $display("@%t: Reset De-asserted", $time);
+
+        // Simulation Duration
+        #6000; // Increased duration slightly for more post-halt observation
+
+        $display("\n--- Simulation Finished @ Time %t ns ---", $time);
+        $finish;
     end
-
-    // --- Instantiate Clock Module ---
-    // Uses the clock module with halt functionality generated earlier
-    clock u_clock (
-        .clk_100mhz (clk_in),    // Drive with raw input clock
-        .hlt        (hlt),       // Halt signal from controller
-        .clk_out    (clk)        // Gated clock output drives the system
-    );
-
-    // --- Instantiate CPU Components ---
-
-    // Program Counter (4-bit output)
-    pc u_pc (
-        .clk (clk),
-        .rst (rst),
-        .inc (pc_inc),
-        .out (pc_out_internal) // Connect to internal 4-bit wire
-    );
-
-    // Memory (16x8)
-    memory u_memory (
-        .clk  (clk),
-        .rst  (rst),
-        .load (mar_load),   // MAR load signal
-        .bus  (bus_data),   // MAR loaded from bus
-        .out  (mem_out)
-    );
-
-    // Register A
-    reg_a u_reg_a (
-        .clk  (clk),
-        .rst  (rst),
-        .load (a_load),
-        .bus  (bus_data),
-        .out  (a_out)
-    );
-
-    // Register B
-    reg_b u_reg_b (
-        .clk  (clk),
-        .rst  (rst),
-        .load (b_load),
-        .bus  (bus_data),
-        .out  (b_out)
-    );
-
-    // Adder/Subtractor
-    adder u_adder (
-        .in_a     (a_out),
-        .in_b     (b_out),
-        .sub      (adder_sub),
-        .result   (adder_out) // Renamed output port to 'result' if using that module
-        // .out(adder_out) // Use .out if the adder module uses that name
-    );
-
-    // Instruction Register
-    ir u_ir (
-        .clk  (clk),
-        .rst  (rst),
-        .load (ir_load),
-        .bus  (bus_data),
-        .out  (ir_out)
-    );
-
-    // --- Instantiate Controller ---
-
-    // Extract opcode from IR output
-    assign opcode = ir_out[7:4];
-
-    controller u_controller (
-        .clk    (clk),
-        .rst    (rst),
-        .opcode (opcode),       // Feed extracted opcode
-        .out    (control_word) // Get the 12-bit control word
-    );
-
-    // Deconstruct control word into individual signals based on last controller mapping
-    // (Matches user example signal mapping)
-    assign hlt       = control_word[11]; // SIG_HLT
-    assign pc_inc    = control_word[10]; // SIG_PC_INC
-    assign pc_en     = control_word[9];  // SIG_PC_EN
-    assign mar_load  = control_word[8];  // SIG_MEM_LOAD (Interpreted as MAR Load)
-    assign mem_en    = control_word[7];  // SIG_MEM_EN
-    assign ir_load   = control_word[6];  // SIG_IR_LOAD
-    assign ir_en     = control_word[5];  // SIG_IR_EN
-    assign a_load    = control_word[4];  // SIG_A_LOAD
-    assign a_en      = control_word[3];  // SIG_A_EN
-    assign b_load    = control_word[2];  // SIG_B_LOAD
-    assign adder_sub = control_word[1];  // SIG_ADDER_SUB
-    assign adder_en  = control_word[0];  // SIG_ADDER_EN
-
-    // --- Instantiate Bus Multiplexer ---
-    // This module selects which component drives the bus_data wire
-    bus_mux u_bus_mux (
-        // Data inputs from components
-        .adder_out (adder_out),
-        .a_out     (a_out),
-        .ir_out    (ir_out),     // Note: Connects full IR as per bus_mux design
-        .mem_out   (mem_out),
-        .pc_out    (pc_out_internal), // Connect 4-bit PC output directly
-
-        // Enable signals from controller
-        .adder_en  (adder_en),
-        .a_en      (a_en),
-        .ir_en     (ir_en),      // Enable signal for IR onto bus
-        .mem_en    (mem_en),
-        .pc_en     (pc_en),
-
-        // Output
-        .bus_data  (bus_data)   // Output wire representing the bus value
-    );
-
 endmodule
 ```
 
@@ -1206,42 +1044,49 @@ This module converts an 8-bit binary number into three 4-bit BCD digits using th
 // Uses the Double Dabble (Shift-and-Add-3) algorithm
 
 module binary_to_bcd (
-    input  [7:0] bin_in,        // 8-bit binary input (0-255)
+    input  [7:0] bin_in,        // 8-bit binary input (Value: 0 to 255)
+
     output [3:0] bcd_hundreds,  // BCD digit for 100s place
     output [3:0] bcd_tens,      // BCD digit for 10s place
     output [3:0] bcd_ones       // BCD digit for 1s place
 );
 
-    // Intermediate register for the Double Dabble process
-    // Needs 8 bits for original binary + 3 * 4 bits for BCD = 20 bits total
+    // Internal register for the Double Dabble process.
+    // Size: 3 * 4 bits (BCD) + 8 bits (Binary) = 20 bits.
+    // Layout: [ Hundreds | Tens | Ones | Original Binary ]
     reg [19:0] dabble_reg;
-    integer i;
+    integer i; // Loop counter for shifts
 
-    // Combinational logic for the conversion
+    // Combinational logic: Recalculates whenever bin_in changes.
     always @(bin_in) begin
-        // Initialize with binary input in the lower 8 bits
+        // Step 1: Initialize the register.
+        // Place the binary input in the lower 8 bits, BCD digits are initially 0.
         dabble_reg = {12'b0, bin_in};
 
-        // Perform 8 shifts (one for each input bit)
+        // Step 2: Perform 8 iterations (one for each bit of the input).
         for (i = 0; i < 8; i = i + 1) begin
-            // Check each BCD digit (ones, tens, hundreds) before shifting
-            // If a BCD digit is >= 5, add 3
-            if (dabble_reg[11:8] >= 5) begin // Check ones digit
-                dabble_reg[11:8] = dabble_reg[11:8] + 3;
+            // Step 2a: Check each BCD digit *before* shifting.
+            // If a digit is 5 or greater, add 3 to it.
+            // Check Hundreds Digit (bits 19:16)
+            if (dabble_reg[19:16] >= 4'd5) begin
+                dabble_reg[19:16] = dabble_reg[19:16] + 4'd3;
             end
-            if (dabble_reg[15:12] >= 5) begin // Check tens digit
-                dabble_reg[15:12] = dabble_reg[15:12] + 3;
+            // Check Tens Digit (bits 15:12)
+            if (dabble_reg[15:12] >= 4'd5) begin
+                dabble_reg[15:12] = dabble_reg[15:12] + 4'd3;
             end
-            if (dabble_reg[19:16] >= 5) begin // Check hundreds digit
-                dabble_reg[19:16] = dabble_reg[19:16] + 3;
+            // Check Ones Digit (bits 11:8)
+            if (dabble_reg[11:8] >= 4'd5) begin
+                dabble_reg[11:8] = dabble_reg[11:8] + 4'd3;
             end
 
-            // Shift left by 1 bit
+            // Step 2b: Shift the entire register left by 1 bit.
             dabble_reg = dabble_reg << 1;
         end
     end
 
-    // Assign outputs from the final BCD positions in the register
+    // Step 3: Assign the final BCD digits to the output ports.
+    // The BCD digits are now in the upper 12 bits of the dabble_reg.
     assign bcd_hundreds = dabble_reg[19:16];
     assign bcd_tens     = dabble_reg[15:12];
     assign bcd_ones     = dabble_reg[11:8];
@@ -1252,35 +1097,46 @@ endmodule
 ### 2. `bcd_to_7seg.v`
 This module takes a 4-bit BCD digit and outputs the 7 segment patterns. Crucially, it's designed for the Basys 3's common anode display, meaning segments are active LOW (0 turns ON).
 ```verilog
-// Module to convert a 4-bit BCD digit to 7-segment display patterns
-// For Common Anode display (Active LOW segments: 0 = ON, 1 = OFF)
+// Description: Converts a 4-bit BCD digit (0-9) into 7-segment display
+//              cathode patterns.
+// Target:      Basys 3 (Common Anode Display -> Active-LOW Cathodes)
 
 module bcd_to_7seg (
-    input  [3:0] bcd_in,    // 4-bit BCD input (0-9)
-    output [6:0] segments   // 7-segment output (a,b,c,d,e,f,g) - Active LOW
+    input  [3:0] bcd_in,    // 4-bit BCD input (Value: 0 to 9)
+    output [6:0] segments   // 7-segment cathode outputs {g,f,e,d,c,b,a} - Active LOW (0=ON)
+                            // segments[0] = Segment A (Top)
+                            // segments[1] = Segment B (Top-Right)
+                            // segments[2] = Segment C (Bottom-Right)
+                            // segments[3] = Segment D (Bottom)
+                            // segments[4] = Segment E (Bottom-Left)
+                            // segments[5] = Segment F (Top-Left)
+                            // segments[6] = Segment G (Middle)
 );
 
-    reg [6:0] seg_out;
+    reg [6:0] seg_out_reg; // Internal register for segment patterns
 
-    // Combinational logic: Update segments when bcd_in changes
+    // Combinational logic: Update segments whenever bcd_in changes.
     always @(bcd_in) begin
-        case (bcd_in)
-            // Digit: Segments abcdefg (0=on, 1=off)
-            4'b0000: seg_out = 7'b0000001; // 0
-            4'b0001: seg_out = 7'b1001111; // 1
-            4'b0010: seg_out = 7'b0010010; // 2
-            4'b0011: seg_out = 7'b0000110; // 3
-            4'b0100: seg_out = 7'b1001100; // 4
-            4'b0101: seg_out = 7'b0100100; // 5
-            4'b0110: seg_out = 7'b0100000; // 6
-            4'b0111: seg_out = 7'b0001111; // 7
-            4'b1000: seg_out = 7'b0000000; // 8
-            4'b1001: seg_out = 7'b0000100; // 9
-            default: seg_out = 7'b1111111; // Off (blank) for invalid BCD
+        case(bcd_in)
+            // BCD -> segments {g,f,e,d,c,b,a} (Active LOW: 0=ON, 1=OFF)
+            4'd0: seg_out_reg = 7'b1000000; // "0" (gfedcba = 1000000)
+            4'd1: seg_out_reg = 7'b1111001; // "1" (gfedcba = 1111001)
+            4'd2: seg_out_reg = 7'b0100100; // "2" (gfedcba = 0100100)
+            4'd3: seg_out_reg = 7'b0110000; // "3" (gfedcba = 0110000)
+            4'd4: seg_out_reg = 7'b0011001; // "4" (gfedcba = 0011001)
+            4'd5: seg_out_reg = 7'b0010010; // "5" (gfedcba = 0010010)
+            4'd6: seg_out_reg = 7'b0000010; // "6" (gfedcba = 0000010)
+            4'd7: seg_out_reg = 7'b1111000; // "7" (gfedcba = 1111000)
+            4'd8: seg_out_reg = 7'b0000000; // "8" (gfedcba = 0000000)
+            4'd9: seg_out_reg = 7'b0010000; // "9" (gfedcba = 0010000)
+
+            // For invalid BCD inputs (10-15), display blank (all segments OFF).
+            default: seg_out_reg = 7'b1111111; // Blank
         endcase
     end
 
-    assign segments = seg_out;
+    // Assign the internal register to the output port.
+    assign segments = seg_out_reg;
 
 endmodule
 ```
@@ -1288,31 +1144,46 @@ endmodule
 ### 3. `seven_segment_controller.v`
 This is the core display driver. It takes the BCD digits, uses a slower clock derived from the main clock to cycle through the digits, enables the correct anode, and uses the bcd_to_7seg module to drive the segments. It also includes an enable input, which we will connect to the CPU's hlt signal.
 ```verilog
-// 7-Segment Display Controller (Multiplexer) for Basys 3 (Common Anode)
-
 module seven_segment_controller (
-    input         clk,       // System clock (e.g., 100MHz)
-    input         reset,     // System reset
-    input         enable,    // Display enable (connect to CPU HLT signal)
+    input         clk,       // System clock input (e.g., 100MHz)
+    input         reset,     // System reset input (active high)
+    input         enable,    // Display enable input (e.g., from CPU halt signal)
 
-    // BCD digits to display (from binary_to_bcd)
+    // BCD digits from the binary_to_bcd converter
     input [3:0]   bcd_h,     // Hundreds digit
     input [3:0]   bcd_t,     // Tens digit
     input [3:0]   bcd_o,     // Ones digit
 
-    // Outputs to the 7-segment display pins
-    output reg [6:0] seg,      // Segment cathodes (Active LOW)
-    output reg [3:0] an        // Anode selectors (Active HIGH, one hot)
+    // Outputs to the Basys 3 7-Segment Display Pins
+    output reg [6:0] seg_out,  // Segment cathode outputs {g,f,e,d,c,b,a} (Active LOW)
+    output reg [3:0] an_out    // Anode selector outputs {AN3,AN2,AN1,AN0} (Active LOW)
 );
 
-    // --- Clock Divider for Refresh Rate ---
-    // Divide 100MHz down to ~few hundred Hz for multiplexing
-    // 100,000,000 / 2^18 (~262144) = ~381 Hz refresh rate per digit cycle
-    // Total refresh rate = 381 Hz / 4 digits = ~95 Hz per digit (well above flicker fusion)
+    // --- Parameters ---
+    // Clock divider setup for display refresh rate
+    // Target refresh rate per digit > 60Hz to avoid flicker.
+    // With 100MHz clock:
+    // 18 bits -> 2^18 / 100MHz = 2.62ms per digit -> ~95 Hz refresh per 4 digits.
+    // 19 bits -> 5.24ms -> ~47 Hz refresh. Might flicker slightly.
+    // 20 bits -> 10.48ms -> ~24 Hz refresh. Will likely flicker.
+    // Let's use 18 bits for a faster refresh (~380 Hz per digit).
     localparam REFRESH_COUNTER_BITS = 18;
-    reg [REFRESH_COUNTER_BITS-1:0] refresh_counter;
-    wire refresh_tick;
 
+    // Define which digit selection value corresponds to which anode
+    localparam ANODE_SEL_ONES      = 2'b00; // Rightmost digit (AN0)
+    localparam ANODE_SEL_TENS      = 2'b01; // Digit AN1
+    localparam ANODE_SEL_HUNDREDS  = 2'b10; // Digit AN2
+    localparam ANODE_SEL_UNUSED    = 2'b11; // Leftmost digit (AN3) - currently unused/blank
+
+    // --- Internal Signals ---
+    reg [REFRESH_COUNTER_BITS-1:0] refresh_counter; // Counter for multiplexing
+    wire [1:0] digit_select;      // Selects which digit (0-3) is currently active
+
+    reg [3:0] current_bcd;        // BCD value for the currently selected digit
+    wire [6:0] current_segments;  // Segment pattern for the current BCD value
+
+    // --- Clock Divider for Refresh Rate ---
+    // Free-running counter based on the system clock
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             refresh_counter <= 0;
@@ -1320,58 +1191,54 @@ module seven_segment_controller (
             refresh_counter <= refresh_counter + 1;
         end
     end
-    // Generate a tick when the counter overflows
-    assign refresh_tick = (refresh_counter == {(REFRESH_COUNTER_BITS){1'b1}});
 
-    // --- Digit Selection Counter ---
-    reg [1:0] digit_select; // 00, 01, 10, 11 (for AN0, AN1, AN2, AN3)
-
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
-            digit_select <= 2'b00;
-        end else if (refresh_tick) begin // Change digit on refresh tick
-            digit_select <= digit_select + 1;
-        end
-    end
+    // Use the top bits of the counter to select the active digit (00, 01, 10, 11)
+    assign digit_select = refresh_counter[REFRESH_COUNTER_BITS-1 : REFRESH_COUNTER_BITS-2];
 
     // --- BCD Digit Multiplexer ---
-    reg [3:0] current_bcd;
-
+    // Selects the appropriate BCD input based on the active digit
     always @(*) begin
         case (digit_select)
-            2'b00:  current_bcd = bcd_o;        // Display Ones digit on AN0 (rightmost)
-            2'b01:  current_bcd = bcd_t;        // Display Tens digit on AN1
-            2'b10:  current_bcd = bcd_h;        // Display Hundreds digit on AN2
-            2'b11:  current_bcd = 4'b0000;      // Display Zero on AN3 (leftmost) - or make it blank
-            default: current_bcd = 4'b1111;     // Should not happen, display blank
+            ANODE_SEL_ONES:     current_bcd = bcd_o;        // AN0 -> Ones digit
+            ANODE_SEL_TENS:     current_bcd = bcd_t;        // AN1 -> Tens digit
+            ANODE_SEL_HUNDREDS: current_bcd = bcd_h;        // AN2 -> Hundreds digit
+            ANODE_SEL_UNUSED:   current_bcd = 4'b1111;      // AN3 -> Display Blank (using default in BCD decoder)
+            default:            current_bcd = 4'b1111;      // Default: Blank
         endcase
     end
 
     // --- Instantiate BCD to 7-Segment Decoder ---
-    wire [6:0] current_segments;
-    bcd_to_7seg decoder (
+    // Connect the currently selected BCD digit to the decoder
+    bcd_to_7seg bcd_decoder (
         .bcd_in   (current_bcd),
-        .segments (current_segments)
+        .segments (current_segments) // Gets the Active-LOW segment pattern
     );
 
-    // --- Drive Outputs ---
-    // Combinational block to update anodes and segments
+    // --- Output Drive Logic ---
+    // Drives the anode and segment outputs based on selection and enable signal
     always @(*) begin
-        if (enable) begin // Only display if enable (HLT) is active
-            // Select active anode (active HIGH, one-hot)
+        if (enable) begin
+            // Display is enabled - drive segments and selected anode
+
+            // Drive segments based on the decoder output (Active LOW)
+            seg_out = current_segments;
+
+            // Activate the selected Anode (Active LOW)
+            // Only one anode is LOW at a time.
             case (digit_select)
-                 2'b00: an = 4'b1110; // Enable AN0 (rightmost)
-                 2'b01: an = 4'b1101; // Enable AN1
-                 2'b10: an = 4'b1011; // Enable AN2
-                 2'b11: an = 4'b0111; // Enable AN3 (leftmost) - displaying zero
-                 default: an = 4'b1111; // All off
+                ANODE_SEL_ONES:     an_out = 4'b1110; // AN0 LOW, others HIGH
+                ANODE_SEL_TENS:     an_out = 4'b1101; // AN1 LOW, others HIGH
+                ANODE_SEL_HUNDREDS: an_out = 4'b1011; // AN2 LOW, others HIGH
+                ANODE_SEL_UNUSED:   an_out = 4'b0111; // AN3 LOW, others HIGH (if displaying blank)
+                                     // If truly unused, set to 4'b1111 here.
+                                     // Let's drive it but show blank via current_bcd.
+                default:            an_out = 4'b1111; // All anodes HIGH (OFF)
             endcase
-            // Drive the segments (active LOW) from the decoder
-            seg = current_segments;
+
         end else begin
-            // If not enabled, turn off all anodes and segments
-            an = 4'b1111;  // All anodes off
-            seg = 7'b1111111; // All segments off
+            // Display is disabled - turn off all segments and anodes
+            an_out = 4'b1111;      // All anodes HIGH (OFF)
+            seg_out = 7'b1111111; // All segments HIGH (Segments OFF)
         end
     end
 
@@ -1561,3 +1428,46 @@ set_property BITSTREAM.CONFIG.CONFIGRATE 33 [current_design]
 set_property CONFIG_MODE SPIx4 [current_design]
 ```
 
+---
+
+# Upgrading a bit
+
+## ALU
+Here's the new instruction set:
+
+| Mnemonic | Opcode (Hex) | Syntax    | Machine Code | Function                                                 |
+| -------- | ------------ | --------- | ------------ | -------------------------------------------------------- |
+| LDA      | 0            | LDA addr  | 0addr        | Loads value from memory address into Register A          |
+| ADD      | 1            | ADD addr  | 1addr        | Adds value from memory address to Register A             |
+| SUB      | 2            | SUB addr  | 2addr        | Subtracts value from memory address from Register A      |
+| AND      | 5            | AND addr  | 5addr        | Performs bitwise AND between memory value and Register A |
+| OR       | 6            | OR addr   | 6addr        | Performs bitwise OR between memory value and Register A  |
+| XOR      | 7            | XOR addr  | 7addr        | Performs bitwise XOR between memory value and Register A |
+| NOTA     | 8            | NOTA addr | 8addr        | Performs bitwise NOT on Register A (addr ignored)        |
+| HLT      | F            | HLT       | F0           | Halts the CPU                                            |
+
+## Stepping through instructions one by one
+
+
+### Here are all the final files
+#### CPU
+![[sap_1_cpu_top.v]]
+![[clock.v]]
+![[memory.v]]
+![[ir.v]]
+![[pc.v]]
+![[alu.v]]
+![[controller.v]]
+![[bus_mux.v]]
+![[reg_a.v]]
+![[reg_b.v]]
+#### 7-segment
+![[binary_to_bcd.v]]
+![[bcd_to_7seg.v]]
+![[seven_segment_controller.v]]
+#### Testbench and constraint
+![[basys3.xdc]]
+![[top_tb.v]]
+
+
+---
