@@ -5,6 +5,7 @@ tags:
   - golang
   - ml
 enableToc: true
+draft: true
 ---
 ## Motivation
 I started the Machine Learning specialisation by Andrew Ng on coursera, and while I find the videos very interesting, the optional jupyter notebook labs were not as engaging, and already given all the code didn't seem fun at all!  

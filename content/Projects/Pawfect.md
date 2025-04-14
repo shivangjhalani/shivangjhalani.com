@@ -19,7 +19,7 @@ enableToc: true
 > - MongoDB  
 > The website is hosted on an ubuntu cloud server and tunneled through cloudflare argo tunnels.
 
-### Live at : https://paws.shivang.dev
+### Live at : https://paws.shivangjhalani.com
 Login demos `email : password`
 - Adopter : `adopter@gmail.com : 092004`
 - Rehomer : `rehomer@gmail.com : 092004`
