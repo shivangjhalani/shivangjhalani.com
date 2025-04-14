@@ -86,16 +86,19 @@ set_property -dict { PACKAGE_PIN R8 IOSTANDARD LVCMOS33 } [get_ports {switch}];
 
 Now run synthesis, then run implementation, then generate bitstream from the left sidebar.  
 ## 1. Synthesis
+**Purpose:** The synthesis stage translates your high-level Verilog code (Register Transfer Level - RTL) into a lower-level netlist. This netlist is an abstract representation of the digital circuit using basic logic elements like flip-flops, logic gates (AND, OR, NOT, XOR), and memory blocks.
 ![[Pasted image 20250329104504.png]]  
 Let's take a look at synthesized design first.
 ![[Pasted image 20250329104518.png]]
 ![[Pasted image 20250329104746.png]]
 
 ## 2. Run Implementation
+**Purpose:** The implementation stage takes the synthesized netlist and maps it onto the physical resources of the target FPGA device. This involves deciding where each logic element will be placed on the chip and how they will be interconnected.
+
 This will check if all timing requirements are met and that all FPGA pins are mapped correctly.
 
 ## 3. Generate Bitstream
-Translates the implemented design into a bitstream which can be downloaded onto your FPGA board
+**Purpose:** The bitstream generation stage takes the implemented design and translates it into a configuration file that can be downloaded onto the FPGA device to program its programmable fabric.
 
 After it is completed, open Hardware Manager.  
 Make sure your board is connected to your computer, turn on the FPGA, then on the green callout in vivado on the top, click on open target and select auto connect.  

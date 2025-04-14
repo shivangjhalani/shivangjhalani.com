@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Pawfect.md",
+                "file": "Projects/Building my own assembly language and CPU.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Pawfect"
+              "title": "Building my own assembly language and CPU"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Projects/Pawfect.md",
+                "file": "Projects/Building my own assembly language and CPU.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Pawfect"
+              "title": "Outline of Building my own assembly language and CPU"
             }
           }
         ],
@@ -160,6 +160,10 @@
   },
   "active": "be75a908da62e184",
   "lastOpenFiles": [
+    "Projects/IoT system and simulation for V2V communication.md",
+    "Projects/Building my own assembly language and CPU.md",
+    "Blogs/Low-Level/Intro to FPGA Programming.md",
+    "Projects/Pawfect.md",
     "Blogs/ML/Gradient Descent in Go.md",
     "Blogs/index.md",
     "Notes/college/sem4/index.md",
@@ -174,17 +178,13 @@
     "Notes/ai/attachments/w3-classification.pdf",
     "Projects/index.md",
     "Archive.md",
-    "Projects/Building my own assembly language and CPU.md",
-    "Projects/Pawfect.md",
     "Projects/NixOS configuration.md",
-    "Projects/IoT system and simulation for V2V communication.md",
     "Projects/attachments/Pasted image 20250318193617.png",
     "Projects/attachments/8-bit-cpu-files/top_tb.v",
     "Projects/attachments/8-bit-cpu-files/alu.v",
     "Projects/attachments/8-bit-cpu-files/basys3.xdc",
     "Projects/attachments/Pasted image 20250407130737.png",
     "Projects/attachments/Pasted image 20250407152432.png",
-    "Blogs/Low-Level/Intro to FPGA Programming.md",
     "Projects/attachments/Pasted image 20250407091355.png",
     "Projects/attachments/Pasted image 20250407090956.png",
     "Projects/Low-Level/attachments/SAP-1 Overview.canvas",

@@ -11,7 +11,7 @@ draft:
 enableToc: true
 ---
 # Final showcase
-> Still in progress
+![](https://youtu.be/4irHzcvj6vU?si=CASe-uZpBNXN5hY0)
 
 
 > [!NOTE]
