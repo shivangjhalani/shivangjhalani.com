@@ -4,5 +4,6 @@
   "find-orphaned-images",
   "obsidian-latex-suite",
   "dataview",
-  "dataview-serializer"
+  "dataview-serializer",
+  "code-emitter"
 ]

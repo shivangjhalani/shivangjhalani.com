@@ -25,10 +25,11 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I'm doing bachelors in CS @ PES University, Bangalore.  
+I’m pursuing a Bachelor's degree in CS @ PES University, Bangalore.
 
-I love computers, my knowledge is driven by interests and curiosity. I love learning and I write about my journey here!  
-I am proficient in C, python, full-stack web development and linux system administration.   Am actively learning AI, my interests are low level systems programming, cloud computing and am a hardcore linux enthusiast (NixOS btw)
+I love computers; my knowledge is driven by interests and curiosity. I love learning, and I write about my journey here!
+
+I am proficient in C, Python, full-stack web development, and Linux system administration. I am actively learning AI. My interests include low-level systems programming and cloud computing, and I am a hardcore Linux enthusiast (NixOS btw).
 
 ```
 - Studying CS

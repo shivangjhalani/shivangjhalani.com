@@ -1,9 +1,5 @@
 ---
 title: Notes
-subtitle: 
-tags: 
-comments: true
-draft:
 ---
 
 ```

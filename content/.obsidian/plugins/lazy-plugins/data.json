@@ -43,6 +43,9 @@
       },
       "find-orphaned-images": {
         "startupType": "instant"
+      },
+      "code-emitter": {
+        "startupType": "instant"
       }
     }
   }
