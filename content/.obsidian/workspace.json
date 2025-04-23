@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Notes/college/sem4/index.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
@@ -132,9 +132,9 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Notes/college/sem4/index.md",
+                "file": "index.md",
                 "followCursor": false,
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
@@ -160,10 +160,10 @@
   },
   "active": "be75a908da62e184",
   "lastOpenFiles": [
-    "Notes/index.md",
     "Notes/college/sem4/index.md",
     "Notes/college/sem4/mpca.md",
     "Blogs/index.md",
+    "Notes/index.md",
     "Projects/index.md",
     "index.md",
     "Projects/Building my own assembly language and CPU.md",
