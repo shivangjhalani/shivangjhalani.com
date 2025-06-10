@@ -29,7 +29,7 @@ I’m pursuing a Bachelor's degree in CS @ PES University, Bangalore.
 
 I love computers; my knowledge is driven by interests and curiosity. I love learning, and I write about my journey here!
 
-I am proficient in C, Python, full-stack web development, and Linux system administration. I am actively learning AI. My interests include low-level systems programming and cloud computing, and I am a hardcore Linux enthusiast (NixOS btw).
+I am proficient in C, Python, full-stack web development, and Linux system administration. I am actively learning AI. My interests include low-level systems programming, system administration and software architecture, and I am a hardcore Linux enthusiast (NixOS btw).
 
 ```
 - Studying CS
@@ -40,7 +40,6 @@ I am proficient in C, Python, full-stack web development, and Linux system admin
 - Reinventing the wheel
 ```
 
-**And did I mention I love learning?**  
 ![[reinvent.png| 300]]
 
 ---
