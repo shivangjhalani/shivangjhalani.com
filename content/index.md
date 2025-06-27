@@ -57,4 +57,3 @@ I am proficient in C, Python, full-stack web development, and Linux system admin
 | [[Notes/index\|Notes]]       |
 | [[Projects/index\|Projects]] |
 | [[Yap/index\|Yapping]]       |
-![[test.zip]]
