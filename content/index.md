@@ -1,7 +1,7 @@
 ---
 title: Hello 👋
 date: 2024-12-01
-tags: 
+tags:
 comments: true
 draft: false
 enableToc: false
@@ -27,18 +27,11 @@ showReadingTime: false
 
 I’m pursuing a Bachelor's degree in CS @ PES University, Bangalore.
 
-I love computers; my knowledge is driven by interests and curiosity. I love learning, and I write about my journey here!
+I love tech, helping others, and making things people would love!
 
-I am proficient in C, Python, full-stack web development, and Linux system administration. I am actively learning AI. My interests include low-level systems programming, system administration and software architecture, and I am a hardcore Linux enthusiast (NixOS btw).
+Am driven by interests and curiosity. I love learning, and I write about my journey here!
 
-```
-- Studying CS
-- Linux enthusiast (NixOS btw)
-- Low level
-- Learning AI
-- Web Dev
-- Reinventing the wheel
-```
+I am proficient in C, Python, Go, full-stack web development, and Linux system administration. I am actively learning AI. My interests include low-level systems programming, system administration and software architecture, and I am a hardcore Linux enthusiast (NixOS btw).
 
 ![[reinvent.png| 300]]
 
