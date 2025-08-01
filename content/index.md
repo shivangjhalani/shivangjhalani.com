@@ -25,13 +25,17 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I’m pursuing a Bachelor's degree in CS @ PES University, Bangalore.
+I geeek out on tech, and love building things that people would enjoy using. I enjoy architecting/planning solutions and lending out a hand to others in any way possible.
+I am learning and I document parts of that journey here...
 
-I love tech, helping others, and making things people would love!
+My technical skill set includes:
+- Proficient in C, Python, and Go
+- Experienced in full-stack web development
+- Skilled in Linux system administration (NixOS btw)
 
-Am driven by interests and curiosity. I love learning, and I write about my journey here!
+I'm interested in low-level systems programming, software architecture, and the broader world of systems engineering. Lately, I’ve been diving into AI/ML — exploring both theory and implementation.
 
-I am proficient in C, Python, Go, full-stack web development, and Linux system administration. I am actively learning AI. My interests include low-level systems programming, system administration and software architecture, and I am a hardcore Linux enthusiast (NixOS btw).
+Always open to collaborating, learning, or just nerding out over good tech.
 
 ![[reinvent.png| 300]]
 
