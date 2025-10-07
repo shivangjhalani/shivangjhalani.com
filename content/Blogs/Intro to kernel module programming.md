@@ -1,5 +1,5 @@
 ---
-title: 1-Intro
+title: Intro to kernel module programming
 date: 2025-03-14
 tags:
   - linux

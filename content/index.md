@@ -25,15 +25,8 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I geeek out on tech, and love building things that people would enjoy using. I enjoy architecting/planning solutions and lending out a hand to others in any way possible.
+I geeek out on tech and elegant systems, and love building things that people would enjoy using. I enjoy architecting/planning solutions and lending out a hand to others in any way possible.
 I am learning and I document parts of that journey here...
-
-My technical skill set includes:
-- Proficient in C, Python, and Go
-- Experienced in full-stack web development
-- Skilled in Linux system administration (NixOS btw)
-
-I'm interested in low-level systems programming, software architecture, and the broader world of systems engineering. Lately, I’ve been diving into AI/ML — exploring both theory and implementation.
 
 Always open to collaborating, learning, or just nerding out over good tech.
 

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "Blogs/How google handled BIG data.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "How google handled BIG data"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "Blogs/How google handled BIG data.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of How google handled BIG data"
             }
           }
         ],
@@ -150,6 +150,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -160,34 +161,40 @@
   },
   "active": "be75a908da62e184",
   "lastOpenFiles": [
+    "Blogs/Handing big data.md",
+    "Blogs/How google handled BIG data.md",
+    "Blogs/Intro to FPGA Programming.md",
+    "Projects/IoT system and simulation for V2V communication.md",
     "index.md",
+    "Blogs/attachments/bd/mr.pdf",
+    "Blogs/attachments/bd/hdfs.pdf",
+    "Blogs/attachments/bd/gfs.pdf",
+    "Blogs/attachments/bd/yarn.pdf",
+    "Blogs/attachments/bd",
+    "Archive.md",
+    "Blogs/Intro to kernel module programming.md",
+    "Blogs/Reintroduction to programming.md",
+    "Blogs/attachments/Pasted image 20250313092959.png",
+    "Blogs/Linux/kernel-module-programming/2-Preliminaries.md",
+    "Blogs/ML/Gradient Descent in Go.md",
+    "Blogs/index.md",
     "test.zip",
     "Notes/college/sem4/index.md",
     "Notes/college/sem4/mpca.md",
-    "Blogs/index.md",
     "Notes/index.md",
     "Projects/index.md",
     "Projects/Building my own assembly language and CPU.md",
     "PES1UG23CS548_Shivang_Jhalani_OS_ASSIGNMENT_3.md",
     "attachments/Pasted image 20250415105451.png",
     "attachments/Pasted image 20250415105345.png",
-    "Projects/IoT system and simulation for V2V communication.md",
-    "Blogs/Low-Level/Intro to FPGA Programming.md",
     "Projects/Pawfect.md",
-    "Blogs/ML/Gradient Descent in Go.md",
     "Notes/college",
     "Notes/college/sem4/attachments/unit3.pdf",
     "Notes/college/sem4/attachments/unit1.pdf",
     "Notes/college/sem4/attachments",
     "Notes/ai/Supervised ML.md",
-    "Notes/sem4/Untitled",
-    "Notes/college/sem4",
-    "Notes/ai/attachments/w3-classification.pdf",
-    "Archive.md",
     "Projects/NixOS configuration.md",
     "Projects/attachments/Pasted image 20250318193617.png",
-    "Projects/attachments/8-bit-cpu-files/top_tb.v",
-    "Projects/attachments/8-bit-cpu-files/alu.v",
     "Projects/attachments/Pasted image 20250407130737.png",
     "Projects/attachments/Pasted image 20250407152432.png",
     "Projects/attachments/Pasted image 20250407091355.png",
@@ -195,17 +202,12 @@
     "Projects/Low-Level/attachments/SAP-1 Overview.canvas",
     "Projects/attachments/Pasted image 20250407003144.png",
     "Projects/attachments/Pasted image 20250407000709.png",
-    "Blogs/Low-Level/Reintroduction to programming.md",
     "test.md",
-    "Blogs/Low-Level/attachments/Pasted image 20250401125727.png",
     "Orphaned Images Report.md",
     "Resume.md",
     "private/notes for self.md",
     "private/ARCHIVE/HUNT/HUNT.md",
     "meta/Archive.md",
-    "Blogs/Linux/kernel-module-programming/1-Intro.md",
-    "private/ARCHIVE/Nand2Tetris/Part 1 - Boolean Logic.md",
-    "Blogs/Low-Level/Nand2Tetris/index.md",
     "Projects/car.canvas"
   ]
 }
