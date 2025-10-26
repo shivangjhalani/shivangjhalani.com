@@ -11,14 +11,12 @@
             "id": "dc108a0b958e0fa2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "Projects/Yet another chat app.md",
-                "mode": "source",
-                "source": false
+                "file": "Blogs/attachments/bd/mr.pdf"
               },
-              "icon": "lucide-file",
-              "title": "Yet another chat app"
+              "icon": "lucide-file-text",
+              "title": "mr"
             }
           }
         ]
@@ -132,13 +130,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Projects/Yet another chat app.md",
+                "file": "Blogs/attachments/bd/mr.pdf",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Yet another chat app"
+              "title": "Outline of mr"
             }
           }
         ],
@@ -161,11 +159,11 @@
   },
   "active": "dc108a0b958e0fa2",
   "lastOpenFiles": [
-    "Projects/attachments/Pasted image 20251008002013.png",
-    "Projects/attachments/Pasted image 20251008002005.png",
-    "Projects/Yet another chat app.md",
     "Blogs/How google handled BIG data.md",
     "Blogs/Handing big data.md",
+    "Projects/Yet another chat app.md",
+    "Projects/attachments/Pasted image 20251008002013.png",
+    "Projects/attachments/Pasted image 20251008002005.png",
     "Blogs/Intro to FPGA Programming.md",
     "Projects/IoT system and simulation for V2V communication.md",
     "index.md",
@@ -203,7 +201,6 @@
     "Projects/attachments/Pasted image 20250407091355.png",
     "Projects/attachments/Pasted image 20250407090956.png",
     "Projects/Low-Level/attachments/SAP-1 Overview.canvas",
-    "Projects/attachments/Pasted image 20250407003144.png",
     "test.md",
     "Orphaned Images Report.md",
     "Resume.md",

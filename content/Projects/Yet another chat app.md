@@ -4,7 +4,7 @@ subtitle:
 date: 2025-10-08
 tags:
 comments: true
-draft:
+draft: false
 enableToc: true
 ---
 ![[Pasted image 20251008002005.png]]
