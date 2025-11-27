@@ -2,7 +2,7 @@
 title: Binary
 description: The encoding of information
 date: 2024-12-27
-draft: false
+draft: true
 tags:
   - ode5
 ---
@@ -104,4 +104,3 @@ Let's break this down step by step:
 > At this point I got pretty bored writing more about this because all of this seemed very easy and basic to me, the main idea of the analogy of counting with fingers and the history has been conveyed, if you wanna know more please google I'm sorry :)
 >
 > Google about various other forms of encoding of binary like hexadecimal, you have 16 fingers, about ASCII etc.
-
