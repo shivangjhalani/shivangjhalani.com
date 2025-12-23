@@ -7,6 +7,7 @@ draft: false
 enableToc: false
 showReadingTime: false
 ---
+
 <html>
     <style>
         .profile-img {
@@ -25,7 +26,7 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I geeek out on tech and elegant systems, and love building things that people would enjoy using. I enjoy architecting/planning solutions and lending out a hand to others in any way possible.
+I geeek out on tech and elegant systems, and and wish to make a positive societal impact.
 I am learning and I document parts of that journey here...
 
 Always open to collaborating, learning, or just nerding out over good tech.
