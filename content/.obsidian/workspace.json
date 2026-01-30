@@ -11,12 +11,14 @@
             "id": "dc108a0b958e0fa2",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "Blogs/attachments/bd/mr.pdf"
+                "file": "Yap/What journaling can do to you.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "mr"
+              "icon": "lucide-file",
+              "title": "What journaling can do to you"
             }
           }
         ]
@@ -130,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Blogs/attachments/bd/mr.pdf",
+                "file": "Yap/What journaling can do to you.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of mr"
+              "title": "Outline of What journaling can do to you"
             }
           }
         ],
@@ -159,6 +161,10 @@
   },
   "active": "dc108a0b958e0fa2",
   "lastOpenFiles": [
+    "Yap/index.md",
+    "Yap/What journaling can do to you.md",
+    "Projects/index.md",
+    "Blogs/attachments/bd/mr.pdf",
     "Blogs/How google handled BIG data.md",
     "Blogs/Handing big data.md",
     "Projects/Yet another chat app.md",
@@ -167,7 +173,6 @@
     "Blogs/Intro to FPGA Programming.md",
     "Projects/IoT system and simulation for V2V communication.md",
     "index.md",
-    "Blogs/attachments/bd/mr.pdf",
     "Blogs/attachments/bd/hdfs.pdf",
     "Blogs/attachments/bd/gfs.pdf",
     "Blogs/attachments/bd/yarn.pdf",
@@ -183,7 +188,6 @@
     "Notes/college/sem4/index.md",
     "Notes/college/sem4/mpca.md",
     "Notes/index.md",
-    "Projects/index.md",
     "Projects/Building my own assembly language and CPU.md",
     "PES1UG23CS548_Shivang_Jhalani_OS_ASSIGNMENT_3.md",
     "attachments/Pasted image 20250415105451.png",
@@ -204,7 +208,6 @@
     "test.md",
     "Orphaned Images Report.md",
     "Resume.md",
-    "private/notes for self.md",
     "Projects/car.canvas"
   ]
 }

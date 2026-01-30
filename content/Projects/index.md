@@ -1,9 +1,9 @@
 ---
 title: Projects
-subtitle: 
-tags: 
+subtitle:
+tags:
 comments: true
-draft:
+draft: false
 ---
 ```
 ⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀
