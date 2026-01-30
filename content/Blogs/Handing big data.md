@@ -1,5 +1,5 @@
 ---
-title: Handing big data
+title: Handling big data
 subtitle:
 date: 2025-10-07
 tags:
