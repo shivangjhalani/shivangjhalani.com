@@ -27,6 +27,6 @@ I live in hostel inside the college, and I am not soo extroverted. Walking alone
 
 ---
 
-So I have been going crazy over this idea for quite some time, with the little time I have left apart from college, placement prep and capstone project, I have been experimenting with my own audio. And am very excited to see how I can take it forward!
+So I have been going crazy over this idea for quite some time, building something while experiencing it first hand gives me a lot of ideas for how I want it to turn out. With the little time I have left apart from college, placement prep and capstone project, I have been experimenting with my own audio. And am very excited to see how I can take it forward!
 
 <3

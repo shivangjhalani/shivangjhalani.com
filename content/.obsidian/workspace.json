@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Projects/Pawfect.md",
+                "file": "Yap/What journaling can do to you.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Pawfect"
+              "title": "What journaling can do to you"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Projects/Pawfect.md",
+                "file": "Yap/What journaling can do to you.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Pawfect"
+              "title": "Outline of What journaling can do to you"
             }
           }
         ],
@@ -161,10 +161,11 @@
   },
   "active": "dc108a0b958e0fa2",
   "lastOpenFiles": [
+    "Yap/index.md",
+    "Projects/Pawfect.md",
     "Projects/NixOS configuration.md",
     "Blogs/Handing big data.md",
     "Yap/What journaling can do to you.md",
-    "Yap/index.md",
     "Projects/index.md",
     "Blogs/attachments/bd/mr.pdf",
     "Blogs/How google handled BIG data.md",
@@ -193,7 +194,6 @@
     "PES1UG23CS548_Shivang_Jhalani_OS_ASSIGNMENT_3.md",
     "attachments/Pasted image 20250415105451.png",
     "attachments/Pasted image 20250415105345.png",
-    "Projects/Pawfect.md",
     "Notes/college",
     "Notes/college/sem4/attachments/unit3.pdf",
     "Notes/college/sem4/attachments/unit1.pdf",
