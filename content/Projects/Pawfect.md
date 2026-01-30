@@ -1,11 +1,11 @@
 ---
 title: Pawfect
-subtitle: 
+subtitle:
 date: 2025-03-18
 tags:
   - web-dev
 comments: true
-draft: 
+draft: true
 enableToc: true
 ---
 # Full-stack web-app

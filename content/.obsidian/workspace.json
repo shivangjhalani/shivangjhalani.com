@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Blogs/Handing big data.md",
+                "file": "Projects/Pawfect.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Handing big data"
+              "title": "Pawfect"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Blogs/Handing big data.md",
+                "file": "Projects/Pawfect.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Handing big data"
+              "title": "Outline of Pawfect"
             }
           }
         ],
@@ -161,12 +161,13 @@
   },
   "active": "dc108a0b958e0fa2",
   "lastOpenFiles": [
+    "Projects/NixOS configuration.md",
+    "Blogs/Handing big data.md",
     "Yap/What journaling can do to you.md",
     "Yap/index.md",
     "Projects/index.md",
     "Blogs/attachments/bd/mr.pdf",
     "Blogs/How google handled BIG data.md",
-    "Blogs/Handing big data.md",
     "Projects/Yet another chat app.md",
     "Projects/attachments/Pasted image 20251008002013.png",
     "Projects/attachments/Pasted image 20251008002005.png",
@@ -198,7 +199,6 @@
     "Notes/college/sem4/attachments/unit1.pdf",
     "Notes/college/sem4/attachments",
     "Notes/ai/Supervised ML.md",
-    "Projects/NixOS configuration.md",
     "Projects/attachments/Pasted image 20250318193617.png",
     "Projects/attachments/Pasted image 20250407130737.png",
     "Projects/attachments/Pasted image 20250407152432.png",
