@@ -4,7 +4,7 @@ subtitle:
 date: 2026-01-28
 tags:
 comments: true
-draft:
+draft: true
 enableToc: true
 ---
 Well I have been told journaling is great for you. Take it from Dr. K : https://www.youtube.com/watch?v=FNJO1pZV-I8
@@ -15,7 +15,11 @@ So about a month ago, I started writing before bed, it wasn't easy, doing it for
 
 On the third day, while writing, I realised my thoughts are much faster than my writing. Journaling is something I see as capturing my raw thoughts and emotions, and stopping them to consolidate into writing breaks the flow of raw and authentic self-reflection. I had to repeatedly pause, recollect what I was thinking about, structure it and then write it down. Journaling wasn't fun because this process was annoying.
 
-It felt very unnatural and crazy at the time, but I set out walking alone, speaking, and recording myself, and I loved it. I did not know audio journaling was a thing until then. There is one major issue I realised while walking. How do I look back at it? Ain't no way I'm ever listening to the whole 30 minute yap again!
+It felt very unnatural and crazy at the time, but I set out walking alone, speaking, and recording myself, and I loved it. I did not know audio journaling was a thing until then. 
+
+While I do realise that writing is slower and more effortful than speaking and this friction forces structuring and refinement of thoughts, I preferred the method of slow speaking 
+
+There is one major issue I realised while walking though. How do I look back at it? Ain't no way I'm ever listening to the whole 30 minute yap again!
 
 Well, this was a great problem worth tackling, something which I really needed.
 
