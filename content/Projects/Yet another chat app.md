@@ -4,9 +4,10 @@ subtitle:
 date: 2025-10-08
 tags:
 comments: true
-draft: false
+draft: true
 enableToc: true
 ---
+
 ![[Pasted image 20251008002005.png]]
 
 ![[Pasted image 20251008002013.png]]
@@ -14,42 +15,46 @@ enableToc: true
 > The following are just notes for self while building
 
 # Architecting
+
 ## Tech stack choice (Tentative)
+
 1. DB
-	- Convex (Postgres) : OSS (both selfhostable and DBaaS (offers much more than just DB)) and Built on top of planetscale postgres
-	- Vector DB : Convex
+   - Convex (Postgres) : OSS (both selfhostable and DBaaS (offers much more than just DB)) and Built on top of planetscale postgres
+   - Vector DB : Convex
 2. Backend
-	- Convex : Convex is a reactive backend/database where server logic, data schema and API surface live together as TypeScript functions. So no need for a backend yet, will need if workload becomes waayy too much (billions of vectors), not needed rn ig...
-	- I will also not have to deal with websockets since convex provides real time sync using either websockets or optimized HTTP polling.
-	- Expose the required API endpoints via Convex HTTP actions
-	- tRPC if needed
+   - Convex : Convex is a reactive backend/database where server logic, data schema and API surface live together as TypeScript functions. So no need for a backend yet, will need if workload becomes waayy too much (billions of vectors), not needed rn ig...
+   - I will also not have to deal with websockets since convex provides real time sync using either websockets or optimized HTTP polling.
+   - Expose the required API endpoints via Convex HTTP actions
+   - tRPC if needed
 3. Auth (not yet decided)
-	- Not setting up my own auth
-	- Convex Auth : Inbuilt auth, easiest (Using this)
-	- BetterAuth : OSS, convex integration is in very alpha stage right now, dont know if ill run into issues
-	- Clerk : Managed, easy compared to other options, convex has nice integration with clerk
+   - Not setting up my own auth
+   - Convex Auth : Inbuilt auth, easiest (Using this)
+   - BetterAuth : OSS, convex integration is in very alpha stage right now, dont know if ill run into issues
+   - Clerk : Managed, easy compared to other options, convex has nice integration with clerk
 4. Backend Host
-	- Vercel : love fluid compute
-	- Or Fly.io
-	- Or Railwiy
+   - Vercel : love fluid compute
+   - Or Fly.io
+   - Or Railwiy
 5. DB Host
-	- Self Host convex
-	- Use convex cloud
+   - Self Host convex
+   - Use convex cloud
 6. Analytics (if)
-	- PostHog : OSS
+   - PostHog : OSS
 7. Captcha / Ratelimiting (if)
-	- Vercel Bot ID
+   - Vercel Bot ID
 8. FrontEnd
-	- ReactJS + Vite
+   - ReactJS + Vite
 9. Deployment (Will handle in the end)
-	- Docker compose
+   - Docker compose
 
 ---
 
 > Keeping scope limited to 1:1 conversations (no groups) and text only messages (no file uploads) although the design allows easy implementation
 
 ## Schema
+
 4 entities : User, Messages, Conversation and MessageEmbeddings
+
 ```typescript
 export default defineSchema({
   ...authTables,
@@ -79,22 +84,20 @@ export default defineSchema({
     senderId: v.id("users"),
     conversationId: v.id("conversations"),
     body: v.string(),
-  })
-    .index("by_conversation_time", ["conversationId"]),
+  }).index("by_conversation_time", ["conversationId"]),
 
   messageEmbeddings: defineTable({
     messageId: v.id("messages"),
     conversationId: v.id("conversations"), // used for filtering by conversation access before vector search
     embedding: v.array(v.float64()),
     senderId: v.id("users"),
-  })
-    .vectorIndex("by_embedding", {
+  }).vectorIndex("by_embedding", {
     vectorField: "embedding",
     dimensions: 1536,
     filterFields: ["conversationId"],
     staged: false,
   }),
-});
+})
 ```
 
 Both embedding generation (staged) and vector searches are implemented as Convex actions (asynchronous)
@@ -112,6 +115,7 @@ Both embedding generation (staged) and vector searches are implemented as Convex
 ---
 
 ## Vector
+
 - Chose convex vector storage, since everything is convex, this also convex, it currently efficiently supports vectors in the order of millions, more than enough for school chats + we are never vector searching through the whole vector db.
 - Used cohere API and its typescript SDK for generating embeddings at time of storing messages and vector ann (cosine similarity) search.
 - Vector search and storage pretty much follow the convex docs.
@@ -120,6 +124,7 @@ Both embedding generation (staged) and vector searches are implemented as Convex
 ---
 
 ## Auth Setup
+
 - Convex password auth setup, only email & password (has many more options like oauth, magic links etc... can be easily integrated)
 - Convex Auth issues JWT access tokens and refresh tokens (one refresh token used once. On reissue of JWT, another pair of JWT and refresh is sent). The access token is sent over the WebSocket connection to the backend for authentication. Are stored in localStorage for persistence.
 - Wrapped main.tsx (frontend) in ConvexAuthProvider
@@ -129,28 +134,31 @@ Both embedding generation (staged) and vector searches are implemented as Convex
 ---
 
 ## All functions
-<img width="653" height="1500" alt="image" src="https://github.com/user-attachments/assets/b6d96c5e-7ff5-4968-8fa8-001909e46b03" />
 
+<img width="653" height="1500" alt="image" src="https://github.com/user-attachments/assets/b6d96c5e-7ff5-4968-8fa8-001909e46b03" />
 
 ---
 
 ## Analysis
+
 This architecture, although is very abstracted away, is similar to a backend connected to postgres. The abstraction has very minimal performance overhead compared to if we built an express backend. But this comes with a bunch of QOL improvements, esp for an app like this which requires real time features.
 
 ### Break point estimation
 
 The most critical part of the app : Database Connection & Query Performance.
+
 #### Primary Limiting Factor: CPU
 
 process data, auth check, DB queries, websocket push etc a lot of work
 
 - Let's assume x ms of CPU time per message consumed
-- Since 2vCPU => 2 * 1000 = 2000 cpu time (ms) / second we have
+- Since 2vCPU => 2 \* 1000 = 2000 cpu time (ms) / second we have
 - That means our server can serve 2000/x messages a second
 - A decent assumption might be the CPU takes `5ms per message` => `400 messages a second`
 - Assuming 1 person sends 2 messages a sec. => `200 concurrent users`
 
 #### Other parts
+
 1. Network : Datacenters have fast internet, even if it is a very conservative 100Mbps, and assuming one message with all protocol overhead is about 1KB, thats a lot of network bandwidth, other parts will bottleneck early.
 2. Disk : Assume 3000 IOPS and 2 IOPS/message: 3000 ÷ 2 = 1500 msg/sec
 3. Sockets : depends on system how many open files it allows : ❯ ulimit -n = 1024
@@ -164,11 +172,14 @@ Application profiling tools also might help reveal bottleneck functions (more cp
 Considering for our app CPU is probably the best guess for bottlneck
 
 Monitor
+
 1. cpu_usage_percent for all cores
 2. load_average_1m/5m/15m
 3. iowait
-/proc/stat exposes these 3
+   /proc/stat exposes these 3
+
 #### Scaling
+
 Horizontal scaling is the straight and easy solution.
 
 Could go either serverless(might not be good for long lived websockets) or servers with load balancers (Cool paper : https://www.usenix.org/conference/nsdi24/presentation/wydrowski)
@@ -176,6 +187,8 @@ Could go either serverless(might not be good for long lived websockets) or serve
 On application logic layer, heavy loads are already async.
 
 A side note about vector searches : They are the main bottleneck right now. After each message, embedding is generated, however this is not ideal
+
 1. It's impractical for any user to search for a message immediately after sending the message
 2. Batch embedding requests are cheaper
-Therefore, do not send embedding requests immedietly.
+   Therefore, do not send embedding requests immedietly.
+
