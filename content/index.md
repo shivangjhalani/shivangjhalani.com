@@ -26,17 +26,14 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I geeek out on tech and elegant systems, and and wish to make a positive societal impact.
-I am learning and I document parts of that journey here...
+I geek out on simple, elegant systems and enjoy using tech to make a positive societal impact.
+I’m learning constantly and document parts of that journey here.
 
 Always open to collaborating, learning, or just nerding out over good tech.
 
 ![[reinvent.png| 300]]
 
 ---
-
-> [!INFO]
-> This website is like my public digital garden, to express myself, showcase my technical knowledge, write about things that interest me. An ever-growing and evergreen knowledge base.
 
 ## Explore my digital garden
 
