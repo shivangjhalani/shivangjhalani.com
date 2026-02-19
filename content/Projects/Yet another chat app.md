@@ -4,7 +4,7 @@ subtitle:
 date: 2025-10-08
 tags:
 comments: true
-draft: true
+draft: false
 enableToc: true
 ---
 
@@ -191,4 +191,3 @@ A side note about vector searches : They are the main bottleneck right now. Afte
 1. It's impractical for any user to search for a message immediately after sending the message
 2. Batch embedding requests are cheaper
    Therefore, do not send embedding requests immedietly.
-
