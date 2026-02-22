@@ -1,5 +1,5 @@
 ---
-title: How google handled BIG data
+title: The 2 GOATs of google & GFS & MapReduce
 subtitle: Sanjay Ghemawat & Jeff Dean 🙏
 date: 2025-10-07
 tags:
@@ -27,4 +27,3 @@ Two legendary engineers, [Sanjay Ghemawat](https://en.wikipedia.org/wiki/Sanjay_
 # MAP REDUCE
 
 ![[mr.pdf]]
-
