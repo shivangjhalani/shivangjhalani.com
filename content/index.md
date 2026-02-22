@@ -26,10 +26,11 @@ showReadingTime: false
     <img class="profile-img" src="../attachments/avatar.jpg">
 </html>
 
-I geek out on simple, elegant systems and enjoy using tech to make a positive societal impact.
-I’m learning constantly and document parts of that journey here.
+~Chasing competence
 
-Always open to collaborating, learning, or just nerding out over good tech.
+I love engineering; it is a craft that keeps me up at night. I love working on various levels of abstraction. Having chosen one, I enjoy using my knowledge, systems thinking, extensive research, and learning to solve problems that bring about pragmatic, simple, ethical, and positive results.
+
+Always open to collaborating, learning, or just nerding out over good tech!
 
 ![[reinvent.png| 300]]
 
