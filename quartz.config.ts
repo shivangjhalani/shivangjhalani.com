@@ -12,7 +12,7 @@ const config: QuartzConfig = {
     pageTitleSuffix: " | Shivang Jhalani",
     enableSPA: true,
     enablePopovers: true,
-    analytics: { 
+    analytics: {
       provider: 'google',
       tagId: 'G-164NZVY7YE'
       // provider: 'goatcounter',

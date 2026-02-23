@@ -1,7 +1,7 @@
 ---
 title: The 2 GOATs of google & GFS & MapReduce
 subtitle: Sanjay Ghemawat & Jeff Dean 🙏
-date: 2025-10-07
+date: 2025-12-07
 tags:
   - big-data
   - systems

@@ -28,7 +28,7 @@ showReadingTime: false
 
 ~Chasing competence
 
-I love engineering; it is a craft that keeps me up at night. I love working on various levels of abstraction. Having chosen one, I enjoy using my knowledge, systems thinking, extensive research, and learning to solve problems that bring about pragmatic, simple, ethical, and positive results.
+I love engineering; it is a craft that keeps me up at night. I love working on various levels of abstraction and enjoy using my knowledge, systems thinking, extensive research, and learning to solve problems that bring about pragmatic, simple, ethical, and positive results.
 
 Always open to collaborating, learning, or just nerding out over good tech!
 

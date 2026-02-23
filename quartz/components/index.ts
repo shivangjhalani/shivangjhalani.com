@@ -24,6 +24,7 @@ import Flex from "./Flex"
 import ScrollToTop from "./_ScrollToTop"
 import RandomPageButton from "./_RandomPageButton"
 import FloatingButtons from "./_FloatingButtons"
+import SocialLinks from "./SocialLinks"
 
 
 export {
@@ -53,4 +54,5 @@ export {
   ScrollToTop,
   RandomPageButton,
   FloatingButtons,
+  SocialLinks,
 }

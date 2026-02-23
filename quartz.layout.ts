@@ -10,17 +10,12 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [],
-  footer: Component.Footer({
-    links: {
-      GitHub: "https://github.com/shivangjhalani",
-      "Linkedin": "https://www.linkedin.com/in/shivang-jhalani/",
-    },
-  }),
+  footer: Component.Footer(),
 }
 
-const recentNotesConfig = { 
+const recentNotesConfig = {
   limit: 4,
-  title: "Recent", 
+  title: "Recent",
   showDate: true,
   showTags: true,
   // linkToMore: "meta/" + modifiedListTitle as SimpleSlug,
@@ -37,10 +32,39 @@ const explorerConfig = {
   mapFn: (node: FileTrieNode) => {
     // dont change name of root node
     if (!node.isFolder) {
-      // set emoji for file/folder      
+      // set emoji for file/folder
         node.displayName = "⊹ " + node.displayName
     }
   },
+}
+
+const socialLinksConfig = {
+  variant: "icon-only" as const,
+  size: "md" as const,
+  direction: "row" as const,
+  wrap: true,
+  tightY: true,
+  gap: "0.55rem",
+  links: [
+    {
+      platform: "linkedin" as const,
+      href: "https://www.linkedin.com/in/shivang-jhalani/",
+    },
+    {
+      platform: "twitter" as const,
+      href: "https://x.com/jhalani_shivang",
+      label: "X (Twitter)",
+    },
+    {
+      platform: "github" as const,
+      href: "https://github.com/shivangjhalani",
+    },
+    {
+      platform: "resume" as const,
+      href: "/static/resume.pdf",
+      newTab: false,
+    },
+  ],
 }
 
 // components for pages that display a single page (e.g. a single note)
@@ -53,6 +77,7 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   left: [
     Component.PageTitle(),
+    Component.SocialLinks(socialLinksConfig),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -110,6 +135,7 @@ export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
     Component.PageTitle(),
+    Component.SocialLinks(socialLinksConfig),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
