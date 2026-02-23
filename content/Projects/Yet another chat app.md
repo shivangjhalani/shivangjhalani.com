@@ -22,7 +22,7 @@ enableToc: true
    - Convex (Postgres) : OSS (both selfhostable and DBaaS (offers much more than just DB)) and Built on top of planetscale postgres
    - Vector DB : Convex
 2. Backend
-   - Convex : Convex is a reactive backend/database where server logic, data schema and API surface live together as TypeScript functions. So no need for a backend yet, will need if workload becomes waayy too much (billions of vectors), not needed rn ig...
+   - Convex : Convex is a reactive backend/database where server logic, data schema and API surface live together as TypeScript functions. So no need for a backend yet.
    - I will also not have to deal with websockets since convex provides real time sync using either websockets or optimized HTTP polling.
    - Expose the required API endpoints via Convex HTTP actions
    - tRPC if needed
