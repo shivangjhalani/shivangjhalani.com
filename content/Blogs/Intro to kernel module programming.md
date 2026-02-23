@@ -7,7 +7,7 @@ tags:
   - low-level
   - kernel
 comments: true
-draft: false
+draft: true
 enableToc: true
 ---
 # Intro
@@ -29,19 +29,19 @@ If not for modules the prevailing approach leans toward monolithic kernels, requ
    ![[Pasted image 20250313093138.png]]
 
  **To note**
-1. Modversioning : Module compiled for one kernel will not load for another kernel.  
+1. Modversioning : Module compiled for one kernel will not load for another kernel.
    This is if `CONFIG_MODVERSIONS` is enabled in kernel. It does strict compatibility checks.
 2. Use console and not X / wayland window systems. Modules cannot directly print to the screen like printf() can, but they can log information and warnings. For instant access to this information, it is advisable to perform all tasks from the console.
 3. Secure boot : security standard ensuring booting exclusively through trusted software endorsed by the original equipment manufacturer.
    Simplest solution : disabling UEFI SecureBoot from the boot menu of your PC or laptop.
    Intricate solution : generating keys, system key installation, and module signing.
-4. Running self-coded, non-tested modules on your daily driver (if you daily drive linux) can potentially disrupt your system, recommended to load kernel modules in a virtual machine so that's what we gonna do now.  
-   Recompiling your own kernel is another option, you can enable a number of useful debugging features, such as forced module unloading (`MODULE_FORCE_UNLOAD`): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a `sudo rmmod -f module` command.  
+4. Running self-coded, non-tested modules on your daily driver (if you daily drive linux) can potentially disrupt your system, recommended to load kernel modules in a virtual machine so that's what we gonna do now.
+   Recompiling your own kernel is another option, you can enable a number of useful debugging features, such as forced module unloading (`MODULE_FORCE_UNLOAD`): when this option is enabled, you can force the kernel to unload a module even when it believes it is unsafe, via a `sudo rmmod -f module` command.
    This can save you a lot of time and a number of reboots during development of a module.
 
 ---
 ## Headers
-Install header files for the kernel : 
+Install header files for the kernel :
 ```
 sudo apt-get update
 apt-cache search linux-headers-`uname -r`
@@ -103,7 +103,7 @@ clean:
 > Text is just warning, it works for now ig :)
 
 > If there is no PWD := $(CURDIR) statement in Makefile, then it may not compile correctly with sudo make. Because some environment variables arespecified by the security policy, they can’t be inherited. The default securitypolicy is sudoers. In the sudoers security policy, env_reset is enabled bydefault, which restricts environment variables. Specifically, path variables arenot retained from the user environment, they are set to default values.
-> 
+>
 > 3 ways to solve
 > 1. You can use the -E flag to temporarily preserve them.
 > 2. You can set the env_reset disabled by editing the /etc/sudoers with root and visudo.
@@ -130,7 +130,7 @@ returns nothing
 sudo insmod hello-1.ko
 ```
 
-> Good to know:  Here if we had `return -1;` in the code, we would get an error `insmod: ERROR: could not insert module hello-1.ko: Operation not permitted`  
+> Good to know:  Here if we had `return -1;` in the code, we would get an error `insmod: ERROR: could not insert module hello-1.ko: Operation not permitted`
 
 Now
 ![[Pasted image 20250313104353.png]]
@@ -160,17 +160,17 @@ Mar 14 22:58:41 ubuntu kernel: Goodbye world 1.
 	- end `cleanup_module()` : called just before it is removed from the kernel.
 		> Starting with kernel 2.3.13, you can now use whatever name you like for the start and end functions of a module, and we will learn that in the [[#Building up on our simple module]].
 		> In fact, the new method is the preferred method.
-- `init_module()` registers a new handler for something in the kernel OR replaces some existing kernel function.  
+- `init_module()` registers a new handler for something in the kernel OR replaces some existing kernel function.
   `cleanup_module()` undoes whatever `init_module()` did so that module can be unloaded safely.
 - Print macros : Included using `<linux/printk.h>`. Exist in [printk.h](https://github.com/torvalds/linux/blob/master/include/linux/printk.h). `pr_info` and `pr_debug` etc. are various priorities of `printk`.
-- Compiling kernel modules require a lot of settings managed primarily in Makefiles. It is much easier to achieve using `kbuild`, the build process for external loadable modules is fully integrated into standard kernel build mechanism.  
+- Compiling kernel modules require a lot of settings managed primarily in Makefiles. It is much easier to achieve using `kbuild`, the build process for external loadable modules is fully integrated into standard kernel build mechanism.
   See [kbuild, how do build externel modules documentation](https://www.kernel.org/doc/Documentation/kbuild/modules.rst) and [makefiles for modules documentation](https://www.kernel.org/doc/Documentation/kbuild/makefiles.rst)
 
 ## Building up on our simple module
 
 ### The `module_init` and `module_exit` Macros
 In early kernel versions you had to use the init_module and cleanup_module
-functions.  
+functions.
 Now you can name those anything you want by using the `module_init` and `module_exit` macros defined in [module.h](https://github.com/torvalds/linux/blob/master/include/linux/module.h).
 
 ```
@@ -300,21 +300,21 @@ MODULE_LICENSE("GPL");
     - Run this function during system boot
     - Discard the function's code from memory after it executes (doesn't unload the module)
     - Free up the memory occupied by this function
-2. **For loadable modules:** When used with loadable modules, the `__init` macro doesn't cause the function to be discarded from memory. This is because loadable modules can be loaded and unloaded multiple times during system operation.  
+2. **For loadable modules:** When used with loadable modules, the `__init` macro doesn't cause the function to be discarded from memory. This is because loadable modules can be loaded and unloaded multiple times during system operation.
 3. There is also an `__initdata` which works similarly to `__init` but for init variables rather than functions.
 
 **`__exit` macro**
-1. **For built-in drivers/modules:** When a function is marked with `__exit` and the module is built into the kernel, this function is completely omitted from the final binary. This is because built-in modules are never unloaded, so their cleanup functions will never be called.  
+1. **For built-in drivers/modules:** When a function is marked with `__exit` and the module is built into the kernel, this function is completely omitted from the final binary. This is because built-in modules are never unloaded, so their cleanup functions will never be called.
    When you boot your kernel and see something like Freeing unused kernel memory: 236k freed, this is precisely what the kernel is freeing.
 2. **For loadable modules:** The `__exit` macro has no special effect - the function remains in memory and will be called when the module is unloaded. Built-in drivers do not need a cleanup function, while loadable modules do.
 
 ### Passing command line arguments to a module
-Modules don't take arguments using `(int argc, char *argv[])`.  
+Modules don't take arguments using `(int argc, char *argv[])`.
 To take arguments
 1. Declare variables that will take values of command line arguments as global.
-2. Use `module_param()` macro.  
+2. Use `module_param()` macro.
 
-At runtime, `insmod` will fill the variables with any arguments given.  
+At runtime, `insmod` will fill the variables with any arguments given.
 Eg: `insmod mymodule.ko myvariable=5`
 
 `module_param()` macro takes 3 arguments
@@ -327,9 +327,9 @@ int myint = 3;
 module_param(myint, int, 0);
 ```
 
-> Sysfs is a virtual filesystem in Linux that exports kernel data structures, attributes, and device information to userspace. Mounted at `/sys`, it provides a standardized interface for viewing and modifying kernel parameters without requiring specialized tools.  
-> When you use `module_param()`, the kernel automatically creates corresponding files in `/sys/module/[module_name]/parameters/` with the permissions specified in the macro's third argument.  
-> 
+> Sysfs is a virtual filesystem in Linux that exports kernel data structures, attributes, and device information to userspace. Mounted at `/sys`, it provides a standardized interface for viewing and modifying kernel parameters without requiring specialized tools.
+> When you use `module_param()`, the kernel automatically creates corresponding files in `/sys/module/[module_name]/parameters/` with the permissions specified in the macro's third argument.
+>
 > Permission argument follows default linux permission format for owner, group, and others.
 
 We can also use arrays of integers or strings, see `module_param_array()` and `module_param_string()`.
@@ -517,20 +517,20 @@ MODULE_LICENSE("GPL");
 ```
 
 ```makefile title="Finally, the Makefile" {6,7}
-obj-m += hello-1.o 
-obj-m += hello-2.o 
-obj-m += hello-3.o 
-# obj-m += hello-4.o 
+obj-m += hello-1.o
+obj-m += hello-2.o
+obj-m += hello-3.o
+# obj-m += hello-4.o
 obj-m += hello-5.o
-obj-m += startstop.o 
-startstop-objs := start.o stop.o 
- 
-PWD := $(CURDIR) 
- 
-all: 
-    $(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules 
- 
-clean: 
+obj-m += startstop.o
+startstop-objs := start.o stop.o
+
+PWD := $(CURDIR)
+
+all:
+    $(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+clean:
     $(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 ```
 
