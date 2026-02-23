@@ -16,6 +16,7 @@ export interface Options {
   folderDefaultState: "collapsed" | "open"
   folderClickBehavior: "collapse" | "link"
   useSavedState: boolean
+  mobileDrawerTop?: QuartzComponent
   sortFn: (a: FileTrieNode, b: FileTrieNode) => number
   filterFn: (node: FileTrieNode) => boolean
   mapFn: (node: FileTrieNode) => void
@@ -59,7 +60,8 @@ export default ((userOpts?: Partial<Options>) => {
   const opts: Options = { ...defaultOptions, ...userOpts }
   const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
 
-  const Explorer: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
+  const Explorer: QuartzComponent = (props: QuartzComponentProps) => {
+    const { cfg, displayClass } = props
     return (
       <div
         class={classNames(displayClass, "explorer")}
@@ -95,7 +97,7 @@ export default ((userOpts?: Partial<Options>) => {
             {/* <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/> */}
             {/* <path d="M12 10v6"/>
             <path d="m15 13-3 3-3-3"/> */}
-            
+
             <line x1="4" x2="20" y1="12" y2="12" />
             <line x1="4" x2="20" y1="6" y2="6" />
             <line x1="4" x2="20" y1="18" y2="18" />
@@ -124,6 +126,11 @@ export default ((userOpts?: Partial<Options>) => {
           </svg>
         </button>
         <div class="explorer-content" aria-expanded={false}>
+          {opts.mobileDrawerTop && (
+            <div class="explorer-mobile-top">
+              <opts.mobileDrawerTop {...props} />
+            </div>
+          )}
           <OverflowList class="explorer-ul" />
         </div>
         <template id="template-file">

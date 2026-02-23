@@ -27,18 +27,7 @@ const recentNotesConfig = {
   }
 }
 
-const explorerConfig = {
-  filterFn: (node: FileTrieNode) => !(node.data?.tags.includes("explorer-exclude") === true),
-  mapFn: (node: FileTrieNode) => {
-    // dont change name of root node
-    if (!node.isFolder) {
-      // set emoji for file/folder
-        node.displayName = "⊹ " + node.displayName
-    }
-  },
-}
-
-const socialLinksConfig = {
+const desktopSocialLinksConfig = {
   variant: "icon-only" as const,
   size: "md" as const,
   direction: "row" as const,
@@ -67,6 +56,25 @@ const socialLinksConfig = {
   ],
 }
 
+const mobileDrawerSocialLinksConfig = {
+  ...desktopSocialLinksConfig,
+  size: "sm" as const,
+  tightY: false,
+  gap: "0.7rem",
+}
+
+const explorerConfig = {
+  filterFn: (node: FileTrieNode) => !(node.data?.tags.includes("explorer-exclude") === true),
+  mapFn: (node: FileTrieNode) => {
+    // dont change name of root node
+    if (!node.isFolder) {
+      // set emoji for file/folder
+        node.displayName = "⊹ " + node.displayName
+    }
+  },
+  mobileDrawerTop: Component.SocialLinks(mobileDrawerSocialLinksConfig),
+}
+
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
@@ -77,7 +85,7 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   left: [
     Component.PageTitle(),
-    Component.SocialLinks(socialLinksConfig),
+    Component.DesktopOnly(Component.SocialLinks(desktopSocialLinksConfig)),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -135,7 +143,7 @@ export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
     Component.PageTitle(),
-    Component.SocialLinks(socialLinksConfig),
+    Component.DesktopOnly(Component.SocialLinks(desktopSocialLinksConfig)),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [

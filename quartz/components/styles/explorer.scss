@@ -107,10 +107,22 @@ button.desktop-explorer {
 }
 
 .explorer-content {
+  display: flex;
+  flex-direction: column;
   list-style: none;
   overflow: hidden;
   overflow-y: auto;
   margin-top: 0.5rem;
+
+  .explorer-mobile-top {
+    display: none;
+    order: 0;
+  }
+
+  .explorer-ul {
+    order: 1;
+    min-height: 0;
+  }
 
   & ul {
     list-style: none;
@@ -245,6 +257,13 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
       height: 100dvh;
       max-height: 100dvh;
       visibility: hidden;
+
+      .explorer-mobile-top {
+        display: block;
+        padding: 0 1rem 0.85rem 1rem;
+        margin-bottom: 0.25rem;
+        border-bottom: 1px solid var(--lightgray);
+      }
     }
 
     .mobile-explorer {
