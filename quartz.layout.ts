@@ -56,13 +56,6 @@ const desktopSocialLinksConfig = {
   ],
 }
 
-const mobileDrawerSocialLinksConfig = {
-  ...desktopSocialLinksConfig,
-  size: "sm" as const,
-  tightY: false,
-  gap: "0.7rem",
-}
-
 const explorerConfig = {
   filterFn: (node: FileTrieNode) => !(node.data?.tags.includes("explorer-exclude") === true),
   mapFn: (node: FileTrieNode) => {
@@ -72,7 +65,6 @@ const explorerConfig = {
         node.displayName = "⊹ " + node.displayName
     }
   },
-  mobileDrawerTop: Component.SocialLinks(mobileDrawerSocialLinksConfig),
 }
 
 // components for pages that display a single page (e.g. a single note)
@@ -104,15 +96,17 @@ export const defaultContentPageLayout: PageLayout = {
       localGraph: {
         drag: true, // whether to allow panning the view around
         zoom: true, // whether to allow zooming in and out
-        depth: 1, // how many hops of notes to display
+        depth: -1, // how many hops of notes to display
         scale: 1.1, // default view scale
-        repelForce: 0.5, // how much nodes should repel each other
-        centerForce: 0.3, // how much force to use when trying to center the nodes
+        repelForce: 0.1, // how much nodes should repel each other
+        centerForce: 0.7, // how much force to use when trying to center the nodes
         linkDistance: 30, // how long should the links be by default?
         fontSize: 0.6, // what size should the node labels be?
         opacityScale: 1, // how quickly do we fade out the labels when zooming out?
         removeTags: [], // what tags to remove from the graph
         showTags: true, // whether to show tags in the graph
+        showFolders: true, // whether to show synthetic folder nodes in the graph
+        removeFolders: [], // what folders to remove from the graph (supports nested paths)
         enableRadial: false, // whether to constrain the graph, similar to Obsidian
       },
       globalGraph: {
@@ -120,14 +114,16 @@ export const defaultContentPageLayout: PageLayout = {
         zoom: true,
         depth: -1,
         scale: 0.9,
-        repelForce: 0.3,
-        centerForce: 0.9,
+        repelForce: 0.1,
+        centerForce: 0.7,
         linkDistance: 30,
         fontSize: 0.8,
         opacityScale: 1,
         removeTags: [], // what tags to remove from the graph
         showTags: true, // whether to show tags in the graph
-        enableRadial: true, // whether to constrain the graph, similar to Obsidian
+        showFolders: true, // whether to show synthetic folder nodes in the graph
+        removeFolders: [], // what folders to remove from the graph (supports nested paths)
+        enableRadial: false, // whether to constrain the graph, similar to Obsidian
       },
     }),
     Component.DesktopOnly(Component.TableOfContents()),

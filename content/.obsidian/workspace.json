@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Blogs/Scaling to 1M requests per second.md",
+                "file": "Blogs/Handing big data.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Scaling to 1M requests per second"
+              "title": "Handing big data"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Blogs/Scaling to 1M requests per second.md",
+                "file": "Blogs/Handing big data.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Scaling to 1M requests per second"
+              "title": "Outline of Handing big data"
             }
           }
         ],
@@ -161,6 +161,8 @@
   },
   "active": "8aa183b636d0d033",
   "lastOpenFiles": [
+    "index.md",
+    "Blogs/Binary.md",
     "Blogs/Scaling to 1M requests per second.md",
     "Yap/What journaling can do to you.md",
     "Yap/index.md",
@@ -175,7 +177,6 @@
     "Projects/attachments/Pasted image 20251008002005.png",
     "Blogs/Intro to FPGA Programming.md",
     "Projects/IoT system and simulation for V2V communication.md",
-    "index.md",
     "Blogs/attachments/bd/hdfs.pdf",
     "Blogs/attachments/bd/gfs.pdf",
     "Blogs/attachments/bd/yarn.pdf",
@@ -207,7 +208,6 @@
     "Projects/attachments/Pasted image 20250407090956.png",
     "Projects/Low-Level/attachments/SAP-1 Overview.canvas",
     "test.md",
-    "Orphaned Images Report.md",
     "Projects/car.canvas"
   ]
 }

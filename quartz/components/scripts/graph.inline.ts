@@ -53,6 +53,24 @@ type NodeRenderData = GraphicsInfo & {
 }
 
 const localStorageKey = "graph-visited"
+const FOLDER_NODE_PREFIX = "__folder__/"
+
+function isTagNode(nodeId: string): boolean {
+  return nodeId.startsWith("tags/")
+}
+
+function isFolderNode(nodeId: string): boolean {
+  return nodeId.startsWith(FOLDER_NODE_PREFIX)
+}
+
+function toFolderNodeId(folderPath: string): SimpleSlug {
+  return `${FOLDER_NODE_PREFIX}${folderPath}` as SimpleSlug
+}
+
+function folderNodePath(nodeId: string): SimpleSlug {
+  return nodeId.replace(FOLDER_NODE_PREFIX, "") as SimpleSlug
+}
+
 function getVisited(): Set<SimpleSlug> {
   return new Set(JSON.parse(localStorage.getItem(localStorageKey) ?? "[]"))
 }
@@ -85,6 +103,8 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     opacityScale,
     removeTags,
     showTags,
+    showFolders,
+    removeFolders,
     focusOnHover,
     enableRadial,
   } = JSON.parse(graph.dataset["cfg"]!) as D3Config
@@ -97,7 +117,21 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   )
   const links: SimpleLinkData[] = []
   const tags: SimpleSlug[] = []
+  const folders = new Set<SimpleSlug>()
   const validLinks = new Set(data.keys())
+  const folderEdgeKeys = new Set<string>()
+
+  const isRemovedFolder = (folderPath: string): boolean => {
+    return removeFolders.some((folder) => folderPath === folder || folderPath.startsWith(`${folder}/`))
+  }
+
+  const addFolderEdge = (source: SimpleSlug, target: SimpleSlug) => {
+    const key = `${source}->${target}`
+    if (!folderEdgeKeys.has(key)) {
+      folderEdgeKeys.add(key)
+      links.push({ source, target })
+    }
+  }
 
   const tweens = new Map<string, TweenNode>()
   for (const [source, details] of data.entries()) {
@@ -118,6 +152,34 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
 
       for (const tag of localTags) {
         links.push({ source: source, target: tag })
+      }
+    }
+
+    if (showFolders) {
+      const sourceSegments = source.split("/").filter((segment) => segment.length > 0)
+      const folderSegments = sourceSegments.slice(0, -1)
+      let parentFolderPath = ""
+
+      for (let idx = 0; idx < folderSegments.length; idx++) {
+        const folderPath = folderSegments.slice(0, idx + 1).join("/")
+        if (isRemovedFolder(folderPath)) {
+          continue
+        }
+
+        const folderNodeId = toFolderNodeId(folderPath)
+        folders.add(folderNodeId)
+
+        // connect note to its immediate parent folder
+        if (idx === folderSegments.length - 1) {
+          addFolderEdge(source, folderNodeId)
+        }
+
+        // connect nested folders to their parent folders
+        if (parentFolderPath.length > 0) {
+          addFolderEdge(folderNodeId, toFolderNodeId(parentFolderPath))
+        }
+
+        parentFolderPath = folderPath
       }
     }
   }
@@ -141,10 +203,16 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   } else {
     validLinks.forEach((id) => neighbourhood.add(id))
     if (showTags) tags.forEach((tag) => neighbourhood.add(tag))
+    if (showFolders) folders.forEach((folder) => neighbourhood.add(folder))
   }
 
   const nodes = [...neighbourhood].map((url) => {
-    const text = url.startsWith("tags/") ? "#" + url.substring(5) : (data.get(url)?.title ?? url)
+    let text = data.get(url)?.title ?? url
+    if (isTagNode(url)) {
+      text = "#" + url.substring(5)
+    } else if (isFolderNode(url)) {
+      text = folderNodePath(url)
+    }
     return {
       id: url,
       text,
@@ -198,7 +266,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     const isCurrent = d.id === slug
     if (isCurrent) {
       return computedStyleMap["--secondary"]
-    } else if (visited.has(d.id) || d.id.startsWith("tags/")) {
+    } else if (visited.has(d.id) || isTagNode(d.id) || isFolderNode(d.id)) {
       return computedStyleMap["--tertiary"]
     } else {
       return computedStyleMap["--gray"]
@@ -390,7 +458,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     label.scale.set(1 / scale)
 
     let oldLabelOpacity = 0
-    const isTagNode = nodeId.startsWith("tags/")
+    const isSpecialNode = isTagNode(nodeId) || isFolderNode(nodeId)
     const gfx = new Graphics({
       interactive: true,
       label: nodeId,
@@ -399,8 +467,8 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
       cursor: "pointer",
     })
       .circle(0, 0, nodeRadius(n))
-      .fill({ color: isTagNode ? computedStyleMap["--light"] : color(n) })
-      .stroke({ width: isTagNode ? 2 : 0, color: color(n) })
+      .fill({ color: isSpecialNode ? computedStyleMap["--light"] : color(n) })
+      .stroke({ width: isSpecialNode ? 2 : 0, color: color(n) })
       .on("pointerover", (e) => {
         updateHoverInfo(e.target.label)
         oldLabelOpacity = label.alpha
@@ -479,7 +547,8 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
           // if the time between mousedown and mouseup is short, we consider it a click
           if (Date.now() - dragStartTime < 500) {
             const node = graphData.nodes.find((n) => n.id === event.subject.id) as NodeData
-            const targ = resolveRelative(fullSlug, node.id)
+            const targetNode = isFolderNode(node.id) ? folderNodePath(node.id) : node.id
+            const targ = resolveRelative(fullSlug, targetNode)
             window.spaNavigate(new URL(targ, window.location.toString()))
           }
         }),
@@ -487,7 +556,10 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   } else {
     for (const node of nodeRenderData) {
       node.gfx.on("click", () => {
-        const targ = resolveRelative(fullSlug, node.simulationData.id)
+        const targetNode = isFolderNode(node.simulationData.id)
+          ? folderNodePath(node.simulationData.id)
+          : node.simulationData.id
+        const targ = resolveRelative(fullSlug, targetNode)
         window.spaNavigate(new URL(targ, window.location.toString()))
       })
     }
