@@ -70,7 +70,7 @@ showReadingTime: false
 
 ~Chasing competence
 
-I love engineering; it is a craft that keeps me up at night. I enjoy challenges and enjoy using my knowledge, extensive research, and learning to solve problems that bring about pragmatic, simple, ethical, and positive results.
+I love engineering; it is a craft that keeps me up at night. I enjoy challenges using my knowledge, extensive research, and learning to solve problems that bring about pragmatic, simple, ethical, and positive results.
 
 Always open to collaborating, learning, or just nerding out over good tech!
 
