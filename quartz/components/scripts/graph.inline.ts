@@ -118,6 +118,7 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
   const links: SimpleLinkData[] = []
   const tags: SimpleSlug[] = []
   const folders = new Set<SimpleSlug>()
+  const folderIndexPages = new Set<SimpleSlug>()
   const validLinks = new Set(data.keys())
   const folderEdgeKeys = new Set<string>()
 
@@ -166,8 +167,16 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
           continue
         }
 
-        const folderNodeId = toFolderNodeId(folderPath)
-        folders.add(folderNodeId)
+        // If the folder has an index page, reuse that page node instead of a synthetic folder node
+        const folderIndexSlug = (folderPath + "/") as SimpleSlug
+        const hasIndexPage = validLinks.has(folderIndexSlug)
+        const folderNodeId = hasIndexPage ? folderIndexSlug : toFolderNodeId(folderPath)
+
+        if (hasIndexPage) {
+          folderIndexPages.add(folderIndexSlug)
+        } else {
+          folders.add(folderNodeId)
+        }
 
         // connect note to its immediate parent folder
         if (idx === folderSegments.length - 1) {
@@ -176,7 +185,10 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
 
         // connect nested folders to their parent folders
         if (parentFolderPath.length > 0) {
-          addFolderEdge(folderNodeId, toFolderNodeId(parentFolderPath))
+          const parentIndexSlug = (parentFolderPath + "/") as SimpleSlug
+          const parentHasIndex = validLinks.has(parentIndexSlug)
+          const parentNodeId = parentHasIndex ? parentIndexSlug : toFolderNodeId(parentFolderPath)
+          addFolderEdge(folderNodeId, parentNodeId)
         }
 
         parentFolderPath = folderPath
@@ -261,23 +273,41 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     {} as Record<(typeof cssVars)[number], string>,
   )
 
+  // node type classification for visual hierarchy
+  type NodeType = "root" | "folder" | "tag" | "page"
+  function getNodeType(nodeId: string): NodeType {
+    if (nodeId === "/") return "root"
+    if (isFolderNode(nodeId) || folderIndexPages.has(nodeId as SimpleSlug)) return "folder"
+    if (isTagNode(nodeId)) return "tag"
+    return "page"
+  }
+
   // calculate color
   const color = (d: NodeData) => {
     const isCurrent = d.id === slug
+    const type = getNodeType(d.id)
     if (isCurrent) {
       return computedStyleMap["--secondary"]
-    } else if (visited.has(d.id) || isTagNode(d.id) || isFolderNode(d.id)) {
+    } else if (type === "root" || type === "folder" || type === "tag" || visited.has(d.id)) {
       return computedStyleMap["--tertiary"]
     } else {
       return computedStyleMap["--gray"]
     }
   }
 
+  // node radius hierarchy: root > folder > page > tag
   function nodeRadius(d: NodeData) {
-    const numLinks = graphData.links.filter(
-      (l) => l.source.id === d.id || l.target.id === d.id,
-    ).length
-    return 2 + Math.sqrt(numLinks)
+    const type = getNodeType(d.id)
+    switch (type) {
+      case "root":
+        return 5
+      case "folder":
+        return 4
+      case "page":
+        return 3
+      case "tag":
+        return 2
+    }
   }
 
   let hoveredNodeId: string | null = null
@@ -458,7 +488,11 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     label.scale.set(1 / scale)
 
     let oldLabelOpacity = 0
-    const isSpecialNode = isTagNode(nodeId) || isFolderNode(nodeId)
+    const nodeType = getNodeType(nodeId)
+    // Hollow nodes (folders & tags) get light fill + colored border
+    // Root gets solid fill + border for emphasis
+    // Pages get solid fill only
+    const isHollow = nodeType === "folder" || nodeType === "tag"
     const gfx = new Graphics({
       interactive: true,
       label: nodeId,
@@ -467,8 +501,8 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
       cursor: "pointer",
     })
       .circle(0, 0, nodeRadius(n))
-      .fill({ color: isSpecialNode ? computedStyleMap["--light"] : color(n) })
-      .stroke({ width: isSpecialNode ? 2 : 0, color: color(n) })
+      .fill({ color: isHollow ? computedStyleMap["--light"] : color(n) })
+      .stroke({ width: isHollow ? 2 : (nodeType === "root" ? 2 : 0), color: color(n) })
       .on("pointerover", (e) => {
         updateHoverInfo(e.target.label)
         oldLabelOpacity = label.alpha
