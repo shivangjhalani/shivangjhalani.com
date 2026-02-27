@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Blogs/Handing big data.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Handing big data"
+              "title": "index"
             }
           }
         ]
@@ -132,13 +132,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Blogs/Handing big data.md",
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Handing big data"
+              "title": "Outline of index"
             }
           }
         ],
@@ -161,6 +161,11 @@
   },
   "active": "8aa183b636d0d033",
   "lastOpenFiles": [
+    "Blogs/Kubernetes/1-Introduction.md",
+    "OS-Orange.md",
+    "Resume.md",
+    "Blogs/Handing big data.md",
+    "Blogs/Kubernetes",
     "index.md",
     "Blogs/Binary.md",
     "Blogs/Scaling to 1M requests per second.md",
@@ -168,7 +173,6 @@
     "Yap/index.md",
     "Projects/Pawfect.md",
     "Projects/NixOS configuration.md",
-    "Blogs/Handing big data.md",
     "Projects/index.md",
     "Blogs/attachments/bd/mr.pdf",
     "Blogs/How google handled BIG data.md",
@@ -193,21 +197,17 @@
     "Notes/college/sem4/mpca.md",
     "Notes/index.md",
     "Projects/Building my own assembly language and CPU.md",
-    "PES1UG23CS548_Shivang_Jhalani_OS_ASSIGNMENT_3.md",
     "attachments/Pasted image 20250415105451.png",
     "attachments/Pasted image 20250415105345.png",
     "Notes/college",
     "Notes/college/sem4/attachments/unit3.pdf",
     "Notes/college/sem4/attachments/unit1.pdf",
-    "Notes/college/sem4/attachments",
-    "Notes/ai/Supervised ML.md",
     "Projects/attachments/Pasted image 20250318193617.png",
     "Projects/attachments/Pasted image 20250407130737.png",
     "Projects/attachments/Pasted image 20250407152432.png",
     "Projects/attachments/Pasted image 20250407091355.png",
     "Projects/attachments/Pasted image 20250407090956.png",
     "Projects/Low-Level/attachments/SAP-1 Overview.canvas",
-    "test.md",
     "Projects/car.canvas"
   ]
 }

@@ -76,14 +76,11 @@ Always open to collaborating, learning, or just nerding out over good tech!
 
 ![[reinvent.png| 300]]
 
-<!-- ---
-
+---
 ## Explore my digital garden
-
-### Main sections
 
 | Main sections                |
 | ---------------------------- |
 | [[Blogs/index\|Blogs]]       |
 | [[Projects/index\|Projects]] |
-| [[Yap/index\|Yapping]]       | -->
+| [[Yap/index\|Yapping]]       |
