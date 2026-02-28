@@ -56,7 +56,7 @@ async function fetchTtf(fontName: string, weight: FontWeight): Promise<ArrayBuff
 
     return fontData
   } catch (error) {
-    throw new Error(`Error fetching font: ${error}`)
+    throw new Error(`Error fetching font "${fontName}" (weight ${weight})`, { cause: error })
   }
 }
 

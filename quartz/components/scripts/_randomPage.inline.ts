@@ -10,11 +10,13 @@ export async function navigateToRandomPage() {
     const data = await fetchData
     const allPosts = Object.keys(data).map((slug) => simplifySlug(slug as FullSlug))
 
+    if (allPosts.length === 0) return
     let newSlug = allPosts[getRandomInt(allPosts.length)];
 
-    // Ensure newSlug is not the current page
-    while (newSlug === currentSlug) {
-        newSlug = allPosts[getRandomInt(allPosts.length)];
+    if (allPosts.length > 1) {
+        while (newSlug === currentSlug) {
+            newSlug = allPosts[getRandomInt(allPosts.length)];
+        }
     }
 
     let newPageUrl;

@@ -23,7 +23,7 @@ const recentNotesConfig = {
   excludeTags: [""],
   filter: (f: QuartzPluginData) => {
     // Combine both filters: exclude tags pages and index pages
-    return !f.slug!.startsWith("tags/") && !f.slug?.endsWith("/index") && f.slug !== "index";
+    return !!f.slug && !f.slug.startsWith("tags/") && !f.slug.endsWith("/index") && f.slug !== "index";
   }
 }
 
