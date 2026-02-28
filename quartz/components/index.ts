@@ -21,8 +21,6 @@ import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import Flex from "./Flex"
-import ScrollToTop from "./_ScrollToTop"
-import RandomPageButton from "./_RandomPageButton"
 import FloatingButtons from "./_FloatingButtons"
 import SocialLinks from "./SocialLinks"
 
@@ -51,8 +49,6 @@ export {
   Breadcrumbs,
   Comments,
   Flex,
-  ScrollToTop,
-  RandomPageButton,
   FloatingButtons,
   SocialLinks,
 }

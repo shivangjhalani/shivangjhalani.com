@@ -1,5 +1,4 @@
 import sourceMapSupport from "source-map-support"
-sourceMapSupport.install(options)
 import path from "path"
 import { PerfTimer } from "./util/perf"
 import { rimraf } from "rimraf"
@@ -20,6 +19,8 @@ import { Mutex } from "async-mutex"
 import DepGraph from "./depgraph"
 import { getStaticResourcesFromPlugins } from "./plugins"
 import { randomIdNonSecure } from "./util/random"
+
+sourceMapSupport.install(options)
 
 type Dependencies = Record<string, DepGraph<FilePath> | null>
 

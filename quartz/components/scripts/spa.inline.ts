@@ -14,7 +14,9 @@ const isLocalUrl = (href: string) => {
     if (window.location.origin === url.origin) {
       return true
     }
-  } catch (e) {}
+  } catch {
+    // invalid URLs are not local
+  }
   return false
 }
 

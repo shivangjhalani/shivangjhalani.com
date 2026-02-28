@@ -6,7 +6,7 @@ import script from "./scripts/_randomPage.inline"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
 
-const ScrollToTop: QuartzComponent = ({ displayClass, fileData }: QuartzComponentProps) => {
+const ScrollToTop: QuartzComponent = ({ displayClass }: QuartzComponentProps) => {
 return (
   <div class={classNames(displayClass, "scroll-to-top")}>
     <h3>Utilities</h3>
