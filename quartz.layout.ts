@@ -2,6 +2,7 @@ import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 import { FileTrieNode } from './quartz/util/fileTrie';
 import { QuartzPluginData } from "./quartz/plugins/vfile"
+import { SimpleSlug } from "./quartz/util/path"
 
 
 
@@ -19,7 +20,7 @@ const recentNotesConfig = {
   showDate: true,
   showTags: true,
   // linkToMore: "meta/" + modifiedListTitle as SimpleSlug,
-  linkToMore: "tags",
+  linkToMore: "tags" as SimpleSlug,
   excludeTags: [""],
   filter: (f: QuartzPluginData) => {
     // Combine both filters: exclude tags pages and index pages
@@ -156,4 +157,5 @@ export const defaultListPageLayout: PageLayout = {
   right: [
     Component.DesktopOnly(Component.RecentNotes(recentNotesConfig)),
   ],
+  afterBody: [],
 }
