@@ -70,13 +70,13 @@ showReadingTime: false
 
 ~Chasing competence
 
-I love engineering; it is a craft that keeps me up at night. I enjoy challenges using my knowledge, extensive research, and learning to solve problems that bring about pragmatic, simple, ethical, and positive results.
-
-Always open to collaborating, learning, or just nerding out over good tech!
+Hi, Im a pre-final-year student who loves engineering.
+Always open to chatting, learning, or just nerding out over good tech!
 
 ![[reinvent.png| 300]]
 
 ---
+
 ## Explore my digital garden
 
 | Main sections                |
